@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WanAndroid</string>
+
+
+    <string name="home">首页</string>
+    <string name="weChat">公众号</string>
+    <string name="type">分类</string>
+    <string name="me">我的</string>
+</resources>
