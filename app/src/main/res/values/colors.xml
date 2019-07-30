@@ -5,10 +5,19 @@
     <color name="colorAccent">#D81B60</color>
 
 
-    <color name="common_page_gray">#DDDDDD</color>
+    <!-- 基础页面灰 -->
+    <color name="common_page_gray">#FAFAFA</color>
+    <!-- 主页tab背景灰 -->
     <color name="common_page_tab_gray">#AADDDDFF</color>
+    <!-- 主页tab选中蓝 -->
     <color name="common_page_selected">#1296DB</color>
 
+    <!-- home页item分类绿 -->
+    <color name="home_top_green">#22AD79</color>
+    <!-- home页item作者灰 -->
+    <color name="home_author_gray">#3C3F41</color>
+
+    <color name="divide_gray">#FFFFFA</color>
 
     <color name="red">#FF0000</color>
     <color name="blue">#0000FF</color>

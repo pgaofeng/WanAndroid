@@ -9,10 +9,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.wanandroid.R;
-import com.example.wanandroid.mvp.home.HomeFragment;
+import com.example.wanandroid.mvp.home.view.HomeFragment;
 import com.example.wanandroid.mvp.main.contract.MainActivityContract;
 import com.example.wanandroid.mvp.me.MeFragment;
 import com.example.wanandroid.mvp.type.TypeFragment;

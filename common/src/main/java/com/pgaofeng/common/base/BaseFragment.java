@@ -29,10 +29,10 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment impleme
     @Override
     public android.view.View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         android.view.View view = inflater.inflate(getContentView(), container, false);
-        initView(view);
         mPresenter = createPresenter();
         mContext = getContext();
         mDialog = DialogUtils.getDefaultDialog(mContext);
+        initView(view);
         return view;
     }
 

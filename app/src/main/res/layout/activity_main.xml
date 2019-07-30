@@ -19,7 +19,6 @@
         android:paddingTop="1dp"
         android:paddingBottom="1dp">
 
-
         <LinearLayout
             android:id="@+id/main_home"
             android:layout_width="0dp"
