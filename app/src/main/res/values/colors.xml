@@ -8,7 +8,7 @@
     <!-- 基础页面灰 -->
     <color name="common_page_gray">#FAFAFA</color>
     <!-- 主页tab背景灰 -->
-    <color name="common_page_tab_gray">#AADDDDFF</color>
+    <color name="common_page_tab_gray">#F1FAFAF1</color>
     <!-- 主页tab选中蓝 -->
     <color name="common_page_selected">#1296DB</color>
 
