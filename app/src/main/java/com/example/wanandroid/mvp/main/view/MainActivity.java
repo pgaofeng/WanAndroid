@@ -14,7 +14,7 @@ import com.example.wanandroid.R;
 import com.example.wanandroid.mvp.home.view.HomeFragment;
 import com.example.wanandroid.mvp.main.contract.MainActivityContract;
 import com.example.wanandroid.mvp.me.MeFragment;
-import com.example.wanandroid.mvp.type.TypeFragment;
+import com.example.wanandroid.mvp.type.view.TypeFragment;
 import com.example.wanandroid.mvp.wechat.WeChatFragment;
 import com.pgaofeng.common.base.BaseActivity;
 import com.pgaofeng.common.mvp.Presenter;
@@ -208,7 +208,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
             case 3:
                 mMe = manager.findFragmentByTag(MeFragment.class.getName());
                 if (mMe == null) {
-                    mMe = new HomeFragment();
+                    mMe = new MeFragment();
                     transaction.add(R.id.main_frame, mMe, MeFragment.class.getName());
                 }
                 if (mPreFragment == mMe) {

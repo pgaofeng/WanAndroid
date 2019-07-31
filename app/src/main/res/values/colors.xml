@@ -17,7 +17,11 @@
     <!-- home页item作者灰 -->
     <color name="home_author_gray">#3C3F41</color>
 
+    <!-- 分割线灰 -->
     <color name="divide_gray">#FFFFFA</color>
+
+    <!-- FlexBox灰 -->
+    <color name="flex_item_gray">#EEEEEE</color>
 
     <color name="red">#FF0000</color>
     <color name="blue">#0000FF</color>

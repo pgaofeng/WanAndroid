@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.jakewharton.butterknife'// 添加ButterKnife
 
 android {
     compileSdkVersion 28
@@ -39,4 +38,6 @@ dependencies {
     implementation project(path: ':common')
     // 拦截器
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    // FlexBoxLayout
+    implementation 'com.google.android:flexbox:1.0.0'
 }

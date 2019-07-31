@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/common_page_gray"> <!--波纹颜色-->
+    android:color="@color/home_author_gray"> <!--波纹颜色-->
     <!--水波纹点击效果背景-->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/white" />
+            <corners android:radius="999dp" />
+            <solid android:color="@color/flex_item_gray" />
+
         </shape>
     </item>
 </ripple>

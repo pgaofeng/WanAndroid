@@ -1,5 +1,8 @@
 package com.example.wanandroid.network;
 
+import com.example.wanandroid.App;
+import com.example.wanandroid.network.cookie.MyCookieJar;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -23,6 +26,7 @@ public class RetrofitClient {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         mOkHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
+                .cookieJar(new MyCookieJar(App.getContext()))
                 .build();
 
 

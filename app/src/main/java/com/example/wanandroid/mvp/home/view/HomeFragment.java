@@ -12,8 +12,6 @@ import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.presenter.HomePresenter;
 import com.pgaofeng.common.base.BaseFragment;
 
-import butterknife.BindView;
-
 /**
  * @author HomeFragment
  * @date 2019/7/28
@@ -21,7 +19,6 @@ import butterknife.BindView;
  */
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
 
-    @BindView(R.id.home_recycler)
     RecyclerView mHomeRecycler;
 
     private ArticleAdapter mAdapter;
