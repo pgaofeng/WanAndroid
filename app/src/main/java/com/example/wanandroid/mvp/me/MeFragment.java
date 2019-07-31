@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,12 @@ import com.example.wanandroid.R;
  * @date 2019/7/28
  * 我的
  */
-public class MeFragment  extends Fragment {
+public class MeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
-        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_me,null,false);
+        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_me, null);
     }
 }

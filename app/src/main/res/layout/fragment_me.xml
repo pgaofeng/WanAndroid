@@ -57,14 +57,18 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
             android:src="@mipmap/ic_type_selected" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/me_item_history"
-            android:text="历史" />
+            android:text="历史阅读"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -73,6 +77,238 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_enter" />
 
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divide_gray" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/me_item_history9"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/ic_type_selected" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/me_item_history9"
+            android:text="我的关注"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_enter" />
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divide_gray" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/me_item_history1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/ic_type_selected" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/me_item_history1"
+            android:text="关于我"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_enter" />
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divide_gray" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/me_item_history2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/ic_type_selected" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/me_item_history2"
+            android:text="TODO"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_enter" />
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divide_gray" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/me_item_history3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/ic_type_selected" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/me_item_history3"
+            android:text="常用网站"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_enter" />
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divide_gray" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/me_item_history4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/ic_type_selected" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/me_item_history4"
+            android:text="版本"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_enter" />
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divide_gray" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/me_item_history5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/ic_type_selected" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/me_item_history5"
+            android:text="设置"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_enter" />
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divide_gray" />
 
     </RelativeLayout>
 </LinearLayout>
