@@ -105,7 +105,7 @@ public class ArticleBean {
          * "superChapterName":"公众号",
          * "tags":[],
          * "title":"Android指纹识别，提升APP用户体验，从这里开始",
-         * "type":0,
+         * "type":0,   0正常文章，1置顶文章
          * "userId":-1,
          * "visible":1,
          * "zan":0

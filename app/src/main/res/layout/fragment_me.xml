@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_page_gray"
     android:orientation="vertical">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/divide_gray">
+        android:background="@drawable/bg_temp_me"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/me_icon"
@@ -17,13 +18,14 @@
             android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:src="@mipmap/ic_home_selected" />
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_default_avatar" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="52dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:layout_toEndOf="@id/me_icon"
             android:orientation="vertical">
 
@@ -42,15 +44,16 @@
                 android:layout_weight="1"
                 android:gravity="bottom"
                 android:text="id:19216"
-
                 android:textSize="12sp" />
         </LinearLayout>
     </RelativeLayout>
 
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/me_item_history"
@@ -61,6 +64,7 @@
             android:src="@mipmap/ic_type_selected" />
 
         <TextView
+            android:id="@+id/me_item_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -68,26 +72,31 @@
             android:layout_toEndOf="@id/me_item_history"
             android:text="历史阅读"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
             android:src="@mipmap/ic_enter" />
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_alignStart="@id/me_item_text"
             android:layout_alignParentBottom="true"
-            android:background="@color/divide_gray" />
+            android:background="@color/home_divide_gray" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/me_item_history9"
@@ -98,6 +107,7 @@
             android:src="@mipmap/ic_type_selected" />
 
         <TextView
+            android:id="@+id/me_item_text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -105,27 +115,32 @@
             android:layout_toEndOf="@id/me_item_history9"
             android:text="我的关注"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
             android:src="@mipmap/ic_enter" />
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_alignStart="@id/me_item_text1"
             android:layout_alignParentBottom="true"
-            android:background="@color/divide_gray" />
+            android:background="@color/home_divide_gray" />
 
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/me_item_history1"
@@ -136,6 +151,7 @@
             android:src="@mipmap/ic_type_selected" />
 
         <TextView
+            android:id="@+id/me_item_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -143,27 +159,32 @@
             android:layout_toEndOf="@id/me_item_history1"
             android:text="关于我"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
             android:src="@mipmap/ic_enter" />
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_alignStart="@id/me_item_text2"
             android:layout_alignParentBottom="true"
-            android:background="@color/divide_gray" />
+            android:background="@color/home_divide_gray" />
 
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/me_item_history2"
@@ -174,6 +195,7 @@
             android:src="@mipmap/ic_type_selected" />
 
         <TextView
+            android:id="@+id/me_item_text3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -181,27 +203,32 @@
             android:layout_toEndOf="@id/me_item_history2"
             android:text="TODO"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
             android:src="@mipmap/ic_enter" />
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_alignStart="@id/me_item_text3"
             android:layout_alignParentBottom="true"
-            android:background="@color/divide_gray" />
+            android:background="@color/home_divide_gray" />
 
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/me_item_history3"
@@ -212,6 +239,7 @@
             android:src="@mipmap/ic_type_selected" />
 
         <TextView
+            android:id="@+id/me_item_text4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -219,27 +247,32 @@
             android:layout_toEndOf="@id/me_item_history3"
             android:text="常用网站"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
             android:src="@mipmap/ic_enter" />
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_alignStart="@id/me_item_text4"
             android:layout_alignParentBottom="true"
-            android:background="@color/divide_gray" />
+            android:background="@color/home_divide_gray" />
 
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/me_item_history4"
@@ -250,6 +283,7 @@
             android:src="@mipmap/ic_type_selected" />
 
         <TextView
+            android:id="@+id/me_item_text5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -257,27 +291,32 @@
             android:layout_toEndOf="@id/me_item_history4"
             android:text="版本"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
             android:src="@mipmap/ic_enter" />
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_alignStart="@id/me_item_text5"
             android:layout_alignParentBottom="true"
-            android:background="@color/divide_gray" />
+            android:background="@color/home_divide_gray" />
 
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/me_item_history5"
@@ -288,6 +327,7 @@
             android:src="@mipmap/ic_type_selected" />
 
         <TextView
+            android:id="@+id/me_item_text6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -295,20 +335,24 @@
             android:layout_toEndOf="@id/me_item_history5"
             android:text="设置"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
             android:src="@mipmap/ic_enter" />
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_alignStart="@id/me_item_text6"
             android:layout_alignParentBottom="true"
-            android:background="@color/divide_gray" />
+            android:background="@color/home_divide_gray"
+            android:visibility="visible" />
 
     </RelativeLayout>
+
 </LinearLayout>

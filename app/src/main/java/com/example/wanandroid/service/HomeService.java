@@ -3,6 +3,8 @@ package com.example.wanandroid.service;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -22,4 +24,7 @@ public interface HomeService {
      */
     @GET("article/list/{page}/json")
     Observable<BaseResponse<ArticleBean>> articleList(@Path("page") int page);
+
+    @GET("article/top/json")
+    Observable<BaseResponse<List<ArticleBean.DatasBean>>> topArticleList();
 }

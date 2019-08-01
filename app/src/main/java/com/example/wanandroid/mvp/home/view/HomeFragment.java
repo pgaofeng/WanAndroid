@@ -12,6 +12,8 @@ import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.presenter.HomePresenter;
 import com.pgaofeng.common.base.BaseFragment;
 
+import java.util.List;
+
 /**
  * @author HomeFragment
  * @date 2019/7/28
@@ -35,6 +37,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mHomeRecycler.setLayoutManager(new LinearLayoutManager(mContext));
         mHomeRecycler.setAdapter(mAdapter);
         mPresenter.getArticleList(0);
+        mPresenter.getTopArticleList();
     }
 
     @Override
@@ -49,6 +52,18 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void getArticleFail(String message) {
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getTopArticleListSuccess(List<ArticleBean.DatasBean> bean) {
+        List<ArticleBean.DatasBean> datasBeans = mAdapter.getDatas();
+        datasBeans.addAll(1, bean);
+        mAdapter.setNewDatas(datasBeans);
+    }
+
+    @Override
+    public void getTopArticleListFail(String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 }

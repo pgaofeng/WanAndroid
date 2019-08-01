@@ -8,6 +8,8 @@ import com.example.wanandroid.mvp.home.view.HomeFragment;
 import com.example.wanandroid.network.ModelCallback;
 import com.pgaofeng.common.base.BasePresenter;
 
+import java.util.List;
+
 /**
  * @author gaofengpeng
  * @date 2019/7/30
@@ -30,6 +32,21 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
             @Override
             public void fail(Throwable throwable) {
                 mView.getArticleFail(throwable.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getTopArticleList() {
+        mModel.getTopArticleList(new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.getTopArticleListSuccess((List<ArticleBean.DatasBean>) baseData.getData());
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.getTopArticleListFail(throwable.getMessage());
             }
         });
     }

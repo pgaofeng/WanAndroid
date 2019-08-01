@@ -37,10 +37,22 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         datas = new ArrayList<>();
     }
 
+    /**
+     * 设置数据
+     * @param datas 数据
+     */
     public void setNewDatas(List<ArticleBean.DatasBean> datas) {
         this.datas.clear();
         this.datas.addAll(datas);
         notifyDataSetChanged();
+    }
+
+    /**
+     * 获取adapter数据集
+     * @return 数据
+     */
+    public List<ArticleBean.DatasBean> getDatas(){
+        return this.datas;
     }
 
     @NonNull
@@ -86,6 +98,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         }
         // 标题
         viewHolder.mHomeItemTitle.setText(Html.fromHtml(datas.get(i).getTitle()));
+
+        // 设置置顶文章
+        if (datas.get(i).getType()==1){
+            viewHolder.mHomeItemTop.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
