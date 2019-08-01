@@ -39,6 +39,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     /**
      * 设置数据
+     *
      * @param datas 数据
      */
     public void setNewDatas(List<ArticleBean.DatasBean> datas) {
@@ -47,11 +48,22 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public void addTopDatas(List<ArticleBean.DatasBean> datas) {
+        this.datas.addAll(0, datas);
+        notifyDataSetChanged();
+    }
+
+    public void addDatas(List<ArticleBean.DatasBean> datas) {
+        this.datas.addAll(datas);
+        notifyDataSetChanged();
+    }
+
     /**
      * 获取adapter数据集
+     *
      * @return 数据
      */
-    public List<ArticleBean.DatasBean> getDatas(){
+    public List<ArticleBean.DatasBean> getDatas() {
         return this.datas;
     }
 
@@ -83,7 +95,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             viewHolder.mHomeItemImage.setImageResource(R.mipmap.ic_launcher);
         }
         // 最新
-        if (!datas.get(i).isFresh()) {
+        if (datas.get(i).isFresh()) {
+            viewHolder.mHomeItemNew.setVisibility(View.VISIBLE);
+        } else {
             viewHolder.mHomeItemNew.setVisibility(View.GONE);
         }
         // 日期
@@ -100,17 +114,21 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         viewHolder.mHomeItemTitle.setText(Html.fromHtml(datas.get(i).getTitle()));
 
         // 设置置顶文章
-        if (datas.get(i).getType()==1){
+        if (datas.get(i).getType() == 1) {
             viewHolder.mHomeItemTop.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.mHomeItemTop.setVisibility(View.GONE);
         }
+        System.out.println(datas.get(i).getAuthor() + "  type:" + datas.get(i).getType());
     }
 
     /**
      * 解析html字符
+     *
      * @param html 字符串
      * @return
      */
-    private Spanned fromHtml(String html){
+    private Spanned fromHtml(String html) {
         return Html.fromHtml(html);
     }
 

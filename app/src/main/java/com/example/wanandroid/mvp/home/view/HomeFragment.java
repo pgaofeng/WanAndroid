@@ -12,6 +12,7 @@ import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.presenter.HomePresenter;
 import com.pgaofeng.common.base.BaseFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,8 +37,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mAdapter = new ArticleAdapter(mContext);
         mHomeRecycler.setLayoutManager(new LinearLayoutManager(mContext));
         mHomeRecycler.setAdapter(mAdapter);
-        mPresenter.getArticleList(0);
-        mPresenter.getTopArticleList();
+
+        mPresenter.getTopArticleList();mPresenter.getArticleList(0);
     }
 
     @Override
@@ -47,7 +48,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void getArticleSuccess(ArticleBean bean) {
-        mAdapter.setNewDatas(bean.getDatas());
+        //mAdapter.setNewDatas(bean.getDatas());
+        mAdapter.addDatas(bean.getDatas());
     }
 
     @Override
@@ -57,9 +59,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void getTopArticleListSuccess(List<ArticleBean.DatasBean> bean) {
-        List<ArticleBean.DatasBean> datasBeans = mAdapter.getDatas();
-        datasBeans.addAll(1, bean);
-        mAdapter.setNewDatas(datasBeans);
+//        List<ArticleBean.DatasBean> list = new ArrayList<>();
+//        list.addAll(bean);
+//        list.addAll(mAdapter.getDatas());
+//        mAdapter.setNewDatas(list);
+//        List<ArticleBean.DatasBean> datasBeans = mAdapter.getDatas();
+//        System.out.println(bean.size());
+//        datasBeans.addAll(bean);
+//        mAdapter.setNewDatas(datasBeans);
+        mAdapter.addTopDatas(bean);
     }
 
     @Override
