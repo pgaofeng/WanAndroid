@@ -15,7 +15,7 @@ import com.example.wanandroid.mvp.home.view.HomeFragment;
 import com.example.wanandroid.mvp.main.contract.MainActivityContract;
 import com.example.wanandroid.mvp.me.MeFragment;
 import com.example.wanandroid.mvp.type.view.TypeFragment;
-import com.example.wanandroid.mvp.wechat.WeChatFragment;
+import com.example.wanandroid.mvp.wechat.view.WeChatFragment;
 import com.pgaofeng.common.base.BaseActivity;
 import com.pgaofeng.common.mvp.Presenter;
 

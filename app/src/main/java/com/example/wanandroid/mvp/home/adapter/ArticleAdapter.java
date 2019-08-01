@@ -119,7 +119,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         } else {
             viewHolder.mHomeItemTop.setVisibility(View.GONE);
         }
-        System.out.println(datas.get(i).getAuthor() + "  type:" + datas.get(i).getType());
     }
 
     /**
