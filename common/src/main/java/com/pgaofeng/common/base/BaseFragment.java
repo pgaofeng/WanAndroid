@@ -38,7 +38,9 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment impleme
 
     @Override
     public void onDestroyView() {
-        mPresenter.detach();
+        if (mPresenter!=null) {
+            mPresenter.detach();
+        }
         super.onDestroyView();
     }
 
