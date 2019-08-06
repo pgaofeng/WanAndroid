@@ -13,6 +13,7 @@
         android:background="@color/colorPrimary"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/home_author_gray"
+        android:textAllCaps= "false"
         app:tabIndicator="@null"
         app:tabMode="scrollable" />
 

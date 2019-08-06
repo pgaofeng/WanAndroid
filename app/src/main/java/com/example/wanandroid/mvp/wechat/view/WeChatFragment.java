@@ -1,6 +1,8 @@
 package com.example.wanandroid.mvp.wechat.view;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Toast;
@@ -8,6 +10,7 @@ import android.widget.Toast;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.WeChatBean;
+import com.example.wanandroid.mvp.wechat.adapter.PagerAdapter;
 import com.example.wanandroid.mvp.wechat.contract.WeChatContract;
 import com.example.wanandroid.mvp.wechat.presenter.WeChatPresenter;
 import com.pgaofeng.common.base.BaseFragment;
@@ -23,6 +26,7 @@ public class WeChatFragment extends BaseFragment<WeChatPresenter> implements WeC
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private PagerAdapter mAdapter;
 
 
     @Override
@@ -32,10 +36,12 @@ public class WeChatFragment extends BaseFragment<WeChatPresenter> implements WeC
 
     @Override
     protected void initView(View view) {
+        mAdapter = new PagerAdapter(getChildFragmentManager());
         viewPager = view.findViewById(R.id.weChat_pager);
         tabLayout = view.findViewById(R.id.weChat_tab);
-       // tabLayout.setupWithViewPager(viewPager);
-
+        viewPager.setAdapter(mAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabsFromPagerAdapter(mAdapter);
         mPresenter.getWxList();
     }
 
@@ -50,7 +56,13 @@ public class WeChatFragment extends BaseFragment<WeChatPresenter> implements WeC
             TabLayout.Tab tab = tabLayout.newTab();
             tab.setText(bean.getName());
             tabLayout.addTab(tab);
+            Fragment fragment = new WeCharArticleFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", bean.getId());
+            fragment.setArguments(bundle);
+            mAdapter.addFragment(fragment);
         }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

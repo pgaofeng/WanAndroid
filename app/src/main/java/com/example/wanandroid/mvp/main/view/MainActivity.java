@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.wanandroid.R;
 import com.example.wanandroid.mvp.home.view.HomeFragment;
 import com.example.wanandroid.mvp.main.contract.MainActivityContract;
-import com.example.wanandroid.mvp.me.MeFragment;
+import com.example.wanandroid.mvp.me.view.MeFragment;
 import com.example.wanandroid.mvp.type.view.TypeFragment;
 import com.example.wanandroid.mvp.wechat.view.WeChatFragment;
 import com.pgaofeng.common.base.BaseActivity;
@@ -22,7 +22,11 @@ import com.pgaofeng.common.mvp.Presenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/**
+* @author gaofengpeng
+* @date 2019/8/6
+* @description :主页Activity，分主tab
+*/
 public class MainActivity extends BaseActivity implements MainActivityContract.View {
 
     @BindView(R.id.main_frame)
@@ -88,6 +92,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
         mHome = new HomeFragment();
         manager.beginTransaction().add(R.id.main_frame, mHome, HomeFragment.class.getName()).show(mHome).commitAllowingStateLoss();
         mPreFragment = mHome;
+        View view;
     }
 
     @Override

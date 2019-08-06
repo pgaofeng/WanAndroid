@@ -38,7 +38,7 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment impleme
 
     @Override
     public void onDestroyView() {
-        if (mPresenter!=null) {
+        if (mPresenter != null) {
             mPresenter.detach();
         }
         super.onDestroyView();
@@ -63,7 +63,8 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment impleme
      *
      * @return 布局id
      */
-    protected abstract @LayoutRes int getContentView();
+    protected abstract @LayoutRes
+    int getContentView();
 
     /**
      * 初始化View

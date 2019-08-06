@@ -5,6 +5,11 @@
     <color name="colorAccent">#D81B60</color>
 
 
+    <!-- 搜索框背景绿 -->
+    <color name="search_green">#00786B</color>
+    <!-- 搜索关键字灰 -->
+    <color name="search_hint_gray">#CFCFCF</color>
+
     <!-- 基础页面灰 -->
     <color name="common_page_gray">#FAFAFA</color>
     <!-- 主页tab背景灰 -->

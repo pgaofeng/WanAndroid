@@ -30,41 +30,50 @@ import butterknife.ButterKnife;
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<ArticleBean.DatasBean> datas;
+    /**
+     * 基本文章列表
+     */
+    private List<ArticleBean.DatasBean> basicList;
+    /**
+     * 置顶文章列表
+     */
+    private List<ArticleBean.DatasBean> topList;
 
     public ArticleAdapter(Context context) {
         mContext = context;
-        datas = new ArrayList<>();
+        basicList = new ArrayList<>();
+        topList = new ArrayList<>();
     }
 
     /**
-     * 设置数据
+     * 设置数据集
      *
-     * @param datas 数据
+     * @param basicList 基本文章数据
+     * @param topList   置顶文章数据
      */
-    public void setNewDatas(List<ArticleBean.DatasBean> datas) {
-        this.datas.clear();
-        this.datas.addAll(datas);
-        notifyDataSetChanged();
-    }
-
-    public void addTopDatas(List<ArticleBean.DatasBean> datas) {
-        this.datas.addAll(0, datas);
-        notifyDataSetChanged();
-    }
-
-    public void addDatas(List<ArticleBean.DatasBean> datas) {
-        this.datas.addAll(datas);
-        notifyDataSetChanged();
+    public void setDatas(List<ArticleBean.DatasBean> basicList, List<ArticleBean.DatasBean> topList) {
+        if (basicList != null) {
+            this.basicList.clear();
+            this.basicList.addAll(basicList);
+            notifyItemRangeChanged(this.topList.size(), basicList.size());
+        }
+        if (topList != null) {
+            this.topList.clear();
+            this.topList.addAll(topList);
+            notifyItemRangeChanged(0, topList.size());
+        }
     }
 
     /**
-     * 获取adapter数据集
+     * 添加文章数据
      *
-     * @return 数据
+     * @param basicList 基础文章数据
      */
-    public List<ArticleBean.DatasBean> getDatas() {
-        return this.datas;
+    public void addDatas(List<ArticleBean.DatasBean> basicList) {
+        if (basicList != null) {
+            this.basicList.addAll(basicList);
+            notifyItemRangeChanged(this.topList.size(), basicList.size());
+        }
     }
 
     @NonNull
@@ -76,45 +85,56 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        ArticleBean.DatasBean bean;
+        if (topList.size() == 0) {
+            bean = basicList.get(i);
+        } else if (i < topList.size()) {
+            bean = topList.get(i);
+        } else {
+            bean = basicList.get(i - topList.size());
+        }
         // 作者
-        viewHolder.mHomeItemAuthor.setText(fromHtml(datas.get(i).getAuthor()));
+        viewHolder.mHomeItemAuthor.setText(fromHtml(bean.getAuthor()));
         // 章节名称
-        viewHolder.mHomeItemCharacter.setText(fromHtml(datas.get(i).getChapterName()));
+        viewHolder.mHomeItemCharacter.setText(fromHtml(bean.getChapterName()));
         // 收藏
-        viewHolder.mHomeItemCollect.setImageResource(datas.get(i).isCollect() ? R.mipmap.ic_collect : R.mipmap.ic_collect);
+        viewHolder.mHomeItemCollect.setImageResource(bean.isCollect() ? R.mipmap.ic_collect : R.mipmap.ic_collect);
         // 描述
-        if (TextUtils.isEmpty(datas.get(i).getDesc())) {
+        if (TextUtils.isEmpty(bean.getDesc())) {
             viewHolder.mHomeItemDesc.setVisibility(View.GONE);
         } else {
-            viewHolder.mHomeItemDesc.setText(Html.fromHtml(datas.get(i).getDesc()));
+            viewHolder.mHomeItemDesc.setVisibility(View.VISIBLE);
+            viewHolder.mHomeItemDesc.setText(Html.fromHtml(bean.getDesc()));
         }
         // 图片
-        if (TextUtils.isEmpty(datas.get(i).getEnvelopePic())) {
+        if (TextUtils.isEmpty(bean.getEnvelopePic())) {
             viewHolder.mHomeItemImage.setVisibility(View.GONE);
         } else {
+            viewHolder.mHomeItemImage.setVisibility(View.VISIBLE);
             viewHolder.mHomeItemImage.setImageResource(R.mipmap.ic_launcher);
         }
         // 最新
-        if (datas.get(i).isFresh()) {
+        if (bean.isFresh()) {
             viewHolder.mHomeItemNew.setVisibility(View.VISIBLE);
         } else {
             viewHolder.mHomeItemNew.setVisibility(View.GONE);
         }
         // 日期
-        viewHolder.mHomeItemTime.setText(datas.get(i).getNiceDate());
+        viewHolder.mHomeItemTime.setText(bean.getNiceDate());
         // 父章节
-        viewHolder.mHomeItemSuperCharacter.setText(datas.get(i).getSuperChapterName());
+        viewHolder.mHomeItemSuperCharacter.setText(bean.getSuperChapterName());
         // 分类
-        if (datas.get(i).getTags() == null || datas.get(i).getTags().size() == 0) {
+        if (bean.getTags() == null || bean.getTags().size() == 0) {
             viewHolder.mHomeItemType.setVisibility(View.GONE);
         } else {
-            viewHolder.mHomeItemType.setText(datas.get(i).getTags().get(0).getName());
+            viewHolder.mHomeItemType.setVisibility(View.VISIBLE);
+            viewHolder.mHomeItemType.setText(bean.getTags().get(0).getName());
         }
         // 标题
-        viewHolder.mHomeItemTitle.setText(Html.fromHtml(datas.get(i).getTitle()));
+        viewHolder.mHomeItemTitle.setText(fromHtml(bean.getTitle()));
 
         // 设置置顶文章
-        if (datas.get(i).getType() == 1) {
+        if (bean.getType() == 1) {
             viewHolder.mHomeItemTop.setVisibility(View.VISIBLE);
         } else {
             viewHolder.mHomeItemTop.setVisibility(View.GONE);
@@ -133,7 +153,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return datas.size();
+        return basicList.size() + topList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
