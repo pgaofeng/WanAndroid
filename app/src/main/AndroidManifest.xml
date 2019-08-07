@@ -14,14 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".mvp.me.view.CollectWebsiteActivity"></activity>
         <activity android:name=".mvp.me.view.CollectActivity" />
         <activity android:name=".mvp.home.view.SearchActivity" />
-        <activity android:name=".mvp.main.view.MainActivity">
-
-        </activity>
+        <activity android:name=".mvp.main.view.MainActivity"></activity>
         <activity android:name=".mvp.login.view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -22,6 +22,11 @@ import com.pgaofeng.common.base.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @author gaofengpeng
+ * @date 2019/8/7
+ * @description : 登录界面
+ */
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
 
 
@@ -51,13 +56,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initView() {
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-//            //半透明头部状态栏，底部导航栏   布局在状态栏，导航栏下方
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         hideStatusBar();
-//        }
     }
+
     private void hideStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -66,9 +67,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
             return;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
 
@@ -80,7 +78,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
         init();
     }

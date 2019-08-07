@@ -142,13 +142,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     }
 
     /**
-     * 解析html字符
+     * 解析html字符，并且替换em标签，将其标记为红色
      *
      * @param html 字符串
      * @return
      */
     private Spanned fromHtml(String html) {
-        return Html.fromHtml(html);
+        String result = html
+                .replace("<em", "<font color=red")
+                .replace("</em>", "</font>");
+        return Html.fromHtml(result);
     }
 
     @Override

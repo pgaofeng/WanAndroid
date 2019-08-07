@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/common_page_gray"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,35 +13,57 @@
         android:background="@color/colorPrimary"
         android:gravity="center">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@mipmap/ic_back" />
+        <FrameLayout
+            android:id="@+id/home_search_back"
+            android:layout_width="40dp"
+            android:layout_height="44dp">
 
-        <EditText
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_back" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="7dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_search"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:hint="@string/search_hint"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textColor="@color/search_hint_gray"
-            android:textColorHint="@color/search_hint_gray"
-            android:textSize="13sp" />
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/home_search_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_search"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:hint="@string/search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingEnd="30dp"
+                android:textColor="@color/search_hint_gray"
+                android:textColorHint="@color/search_hint_gray"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/home_search_content_clear"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/ic_clear"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </FrameLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:id="@+id/home_search_search"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
             android:text="@string/search"
             android:textColor="@color/white"
             android:textSize="15sp" />
@@ -50,82 +72,100 @@
 
 
     <LinearLayout
-        android:id="@+id/home_search_search"
+        android:id="@+id/home_search_search_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="搜索界面"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:visibility="gone">
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:id="@+id/home_search_hotKey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
-                android:layout_marginStart="10dp"
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="大家都在搜" />
+                android:layout_marginStart="10dp"
+                android:text="@string/hotKey_hint"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <com.google.android.flexbox.FlexboxLayout
-                android:layout_marginTop="5dp"
                 android:id="@+id/home_search_hotKey_flex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 app:alignContent="stretch"
                 app:flexDirection="row"
                 app:flexWrap="wrap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                app:justifyContent="flex_start" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/home_search_history"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
 
                 <TextView
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:text="搜索历史" />
+                    android:text="@string/search_history"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
                 <TextView
-                    android:textColor="@color/blue"
                     android:id="@+id/home_search_clear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="清空" />
+                    android:text="@string/clear"
+                    android:textColor="@color/blue"
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="5dp"
                 android:id="@+id/home_search_history_recycler"
                 android:layout_width="match_parent"
-                tools:listitem="@layout/item_search_history"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                tools:listitem="@layout/item_search_history" />
         </LinearLayout>
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/home_search_article"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/home_search_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="搜索到的文章列表"
-        tools:listitem="@layout/item_home"
-        android:visibility="gone" />
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/home_search_article"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:listitem="@layout/item_home"
+            tools:visibility="visible" />
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
 </LinearLayout>

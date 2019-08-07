@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -49,6 +48,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/me_collect"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
@@ -56,21 +56,21 @@
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/me_item_history"
+            android:id="@+id/me_item_collect_image"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:src="@mipmap/ic_type_selected" />
+            android:src="@mipmap/ic_me_collect" />
 
         <TextView
-            android:id="@+id/me_item_text"
+            android:id="@+id/me_item_collect_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/me_item_history"
-            android:text="历史阅读"
+            android:layout_toEndOf="@id/me_item_collect_image"
+            android:text="@string/collect_article"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -85,13 +85,59 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_alignStart="@id/me_item_text"
+            android:layout_alignStart="@id/me_item_collect_text"
+            android:layout_alignParentBottom="true"
+            android:background="@color/home_divide_gray" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/me_collect_website"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/me_item_collect_website_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/ic_me_collect_website" />
+
+        <TextView
+            android:id="@+id/me_item_collect_website_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/me_item_collect_website_image"
+            android:text="@string/collect_website"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/ic_enter" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignStart="@id/me_item_collect_website_text"
             android:layout_alignParentBottom="true"
             android:background="@color/home_divide_gray" />
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/me_navigation"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
@@ -99,21 +145,21 @@
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/me_item_history9"
+            android:id="@+id/me_item_navigation_image"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:src="@mipmap/ic_type_selected" />
+            android:src="@mipmap/ic_me_navigation" />
 
         <TextView
-            android:id="@+id/me_item_text1"
+            android:id="@+id/me_item_navigation_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/me_item_history9"
-            android:text="我的关注"
+            android:layout_toEndOf="@id/me_item_navigation_image"
+            android:text="@string/navigation"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -128,95 +174,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_alignStart="@id/me_item_text1"
-            android:layout_alignParentBottom="true"
-            android:background="@color/home_divide_gray" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true">
-
-        <ImageView
-            android:id="@+id/me_item_history1"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:src="@mipmap/ic_type_selected" />
-
-        <TextView
-            android:id="@+id/me_item_text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/me_item_history1"
-            android:text="关于我"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <ImageView
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:src="@mipmap/ic_enter" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignStart="@id/me_item_text2"
-            android:layout_alignParentBottom="true"
-            android:background="@color/home_divide_gray" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true">
-
-        <ImageView
-            android:id="@+id/me_item_history2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:src="@mipmap/ic_type_selected" />
-
-        <TextView
-            android:id="@+id/me_item_text3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/me_item_history2"
-            android:text="TODO"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <ImageView
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:src="@mipmap/ic_enter" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignStart="@id/me_item_text3"
+            android:layout_alignStart="@id/me_item_navigation_text"
             android:layout_alignParentBottom="true"
             android:background="@color/home_divide_gray" />
 
@@ -224,6 +182,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/me_todo"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
@@ -231,21 +190,21 @@
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/me_item_history3"
+            android:id="@+id/me_item_todo_image"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:src="@mipmap/ic_type_selected" />
+            android:src="@mipmap/ic_me_todo" />
 
         <TextView
-            android:id="@+id/me_item_text4"
+            android:id="@+id/me_item_todo_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/me_item_history3"
-            android:text="常用网站"
+            android:layout_toEndOf="@id/me_item_todo_image"
+            android:text="@string/todo"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -260,7 +219,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_alignStart="@id/me_item_text4"
+            android:layout_alignStart="@id/me_item_todo_text"
             android:layout_alignParentBottom="true"
             android:background="@color/home_divide_gray" />
 
@@ -268,6 +227,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/me_about"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
@@ -275,21 +235,21 @@
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/me_item_history4"
+            android:id="@+id/me_item_about_image"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:src="@mipmap/ic_type_selected" />
+            android:src="@mipmap/ic_me_about" />
 
         <TextView
-            android:id="@+id/me_item_text5"
+            android:id="@+id/me_item_about_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/me_item_history4"
-            android:text="版本"
+            android:layout_toEndOf="@id/me_item_about_image"
+            android:text="@string/about_me"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -304,55 +264,11 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_alignStart="@id/me_item_text5"
+            android:layout_alignStart="@id/me_item_about_text"
             android:layout_alignParentBottom="true"
             android:background="@color/home_divide_gray" />
 
-
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true">
-
-        <ImageView
-            android:id="@+id/me_item_history5"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:src="@mipmap/ic_type_selected" />
-
-        <TextView
-            android:id="@+id/me_item_text6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/me_item_history5"
-            android:text="设置"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <ImageView
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:src="@mipmap/ic_enter" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignStart="@id/me_item_text6"
-            android:layout_alignParentBottom="true"
-            android:background="@color/home_divide_gray"
-            android:visibility="visible" />
-
-    </RelativeLayout>
 
 </LinearLayout>

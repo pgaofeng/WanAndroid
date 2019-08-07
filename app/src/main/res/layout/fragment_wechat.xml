@@ -12,7 +12,7 @@
         android:layout_height="44dp"
         android:background="@color/colorPrimary"
         app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/home_author_gray"
+        app:tabTextColor="@color/search_hint_gray"
         android:textAllCaps= "false"
         app:tabIndicator="@null"
         app:tabMode="scrollable" />

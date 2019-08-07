@@ -25,10 +25,10 @@ public abstract class BaseActivity<P extends Presenter> extends AppCompatActivit
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
         setContentView(getContentView());
         mPresenter = createPresenter();
         initView();
-        mContext = this;
         mProgressDialog = DialogUtils.getDefaultDialog(mContext);
     }
 

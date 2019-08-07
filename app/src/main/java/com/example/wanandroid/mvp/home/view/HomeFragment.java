@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,7 +27,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     RecyclerView mHomeRecycler;
     RefreshLayout mRefreshLayout;
-    ImageView mImageView;
+    /**
+     * 搜索图片，点击进入搜索界面
+     */
+    FrameLayout mSearch;
 
     private ArticleAdapter mAdapter;
     /**
@@ -43,7 +47,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     protected void initView(View view) {
         mHomeRecycler = view.findViewById(R.id.home_recycler);
-        mImageView = view.findViewById(R.id.home_search);
+        mSearch = view.findViewById(R.id.home_search);
         mRefreshLayout = view.findViewById(R.id.home_refresh);
         mAdapter = new ArticleAdapter(mContext);
         mHomeRecycler.setLayoutManager(new LinearLayoutManager(mContext));
@@ -57,11 +61,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             this.page++;
             this.isLoadMore = true;
-            System.out.println(this.page);
             mPresenter.getArticleList(page);
         });
 
-        mImageView.setOnClickListener(v -> {
+        mSearch.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, SearchActivity.class);
             startActivity(intent);
         });

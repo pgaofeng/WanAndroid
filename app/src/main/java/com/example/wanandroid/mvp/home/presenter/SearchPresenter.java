@@ -38,7 +38,7 @@ public class SearchPresenter extends BasePresenter<SearchActivity, SearchModel> 
 
     @Override
     public void getHistory() {
-        mModel.getHotKey(new ModelCallback() {
+        mModel.getHistory(new ModelCallback() {
             @Override
             public void success(BaseResponse<?> baseData) {
                 mView.getHistorySuccess((List<String>) baseData.getData());
