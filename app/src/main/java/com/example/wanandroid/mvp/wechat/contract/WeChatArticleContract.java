@@ -1,9 +1,8 @@
 package com.example.wanandroid.mvp.wechat.contract;
 
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.mvp.collect_base.CollectContract;
 import com.example.wanandroid.network.ModelCallback;
-
-import java.util.List;
 
 /**
  * @author gaofengpeng
@@ -11,7 +10,7 @@ import java.util.List;
  * @description :
  */
 public interface WeChatArticleContract {
-    public interface View {
+    public interface View extends CollectContract.View {
         /**
          * 获取公众号对应的文章列表
          *
@@ -38,7 +37,7 @@ public interface WeChatArticleContract {
         void getArticleList(int id, int page, ModelCallback callback);
     }
 
-    public interface Presenter {
+    public interface Presenter extends CollectContract.Presenter {
         /**
          * 获取公众号对应文章列表
          *

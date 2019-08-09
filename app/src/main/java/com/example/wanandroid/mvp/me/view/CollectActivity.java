@@ -7,11 +7,14 @@ import android.widget.Toast;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.bean.CollectWebsiteBean;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.me.contract.CollectContract;
 import com.example.wanandroid.mvp.me.presenter.CollectPresenter;
 import com.pgaofeng.common.base.BaseActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +45,7 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
         }
         mMeCollectRefresh.finishRefresh();
         if (isLoadMore) {
+            this.isLoadMore = false;
             mAdapter.addDatas(bean.getDatas());
         } else {
             mAdapter.setDatas(bean.getDatas(), null);
@@ -51,6 +55,16 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     @Override
     public void getCollectFail(String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getCollectWebsiteSuccess(List<CollectWebsiteBean> list) {
+
+    }
+
+    @Override
+    public void getCollectWebsiteFail(String message) {
+
     }
 
     @Override

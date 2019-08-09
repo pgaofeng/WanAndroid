@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.wanandroid.R;
+import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.TypeBean;
 import com.example.wanandroid.mvp.type.adapter.TypeAdapter;
 import com.example.wanandroid.mvp.type.contract.TypeContract;
@@ -38,6 +39,16 @@ public class TypeFragment extends BaseFragment<TypePresenter> implements TypeCon
     }
 
     @Override
+    public void getTypeArticleSuccess(ArticleBean bean) {
+
+    }
+
+    @Override
+    public void getTypeArticleFail(String message) {
+
+    }
+
+    @Override
     protected int getContentView() {
         return R.layout.fragment_type;
     }
@@ -54,5 +65,25 @@ public class TypeFragment extends BaseFragment<TypePresenter> implements TypeCon
     @Override
     protected TypePresenter createPresenter() {
         return new TypePresenter(this);
+    }
+
+    @Override
+    public void collectSuccess(int position, View view) {
+
+    }
+
+    @Override
+    public void collectFail(int position, View view) {
+
+    }
+
+    @Override
+    public void unCollectSuccess(int position, View view) {
+
+    }
+
+    @Override
+    public void unCollectFail(int position, View view) {
+
     }
 }

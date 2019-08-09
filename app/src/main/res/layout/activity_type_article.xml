@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".mvp.me.view.CollectWebsiteActivity">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,12 +11,13 @@
         android:background="@color/colorPrimary">
 
         <TextView
+            android:id="@+id/home_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/collect_website"
             android:textColor="@color/white"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            tools:text="分类文章" />
 
         <FrameLayout
             android:id="@+id/me_collect_website_back"
@@ -36,7 +36,7 @@
     </RelativeLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/me_collect_website_refresh"
+        android:id="@+id/home_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -45,16 +45,14 @@
             android:layout_height="40dp" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/me_collect_website_recycler"
+            android:id="@+id/home_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_collect_website" />
+            tools:listitem="@layout/item_home" />
 
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
             android:layout_height="40dp" />
-
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
 
 </LinearLayout>

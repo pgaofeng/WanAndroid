@@ -126,6 +126,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     public void searchFail(String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        mHomeSearchRefresh.finishRefresh(false).finishLoadMore(false);
     }
 
     @Override
@@ -178,7 +179,14 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         mHomeSearchArticle.setAdapter(mArticleAdapter);
 
 
-        mHomeSearchBack.setOnClickListener(v -> finish());
+        mHomeSearchBack.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(mHomeSearchContent.getText().toString().trim())) {
+                finish();
+            } else {
+                mHomeSearchContent.setText("");
+                mHomeSearchContent.clearFocus();
+            }
+        });
         mHomeSearchContent.requestFocus();
         mHomeSearchContent.setFocusableInTouchMode(true);
 
@@ -241,6 +249,14 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             this.isLoadMore = true;
             mPresenter.searchArticle(page, searchContent);
         });
+        // 收藏和取消收藏
+        mArticleAdapter.setOnCollectClickListener((position, v, articleId, isCollect) -> {
+            if (isCollect) {
+                mPresenter.collectInside(position, v, articleId);
+            } else {
+                mPresenter.unCollect(position, v, articleId);
+            }
+        });
 
         mPresenter.getHotKey();
         mPresenter.getHistory();
@@ -269,5 +285,27 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             mHomeSearchContent.setText("");
             mHomeSearchContent.clearFocus();
         }
+    }
+
+    @Override
+    public void collectSuccess(int position, View view) {
+
+    }
+
+    @Override
+    public void collectFail(int position, View view) {
+        Toast.makeText(mContext, "收藏失败！", Toast.LENGTH_SHORT).show();
+        mArticleAdapter.setCollect(false, position, view);
+    }
+
+    @Override
+    public void unCollectSuccess(int position, View view) {
+
+    }
+
+    @Override
+    public void unCollectFail(int position, View view) {
+        Toast.makeText(mContext, "取消收藏失败！", Toast.LENGTH_SHORT).show();
+        mArticleAdapter.setCollect(true, position, view);
     }
 }

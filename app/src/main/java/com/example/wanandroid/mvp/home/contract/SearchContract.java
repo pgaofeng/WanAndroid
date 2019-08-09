@@ -2,6 +2,7 @@ package com.example.wanandroid.mvp.home.contract;
 
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.HotKeyBean;
+import com.example.wanandroid.mvp.collect_base.CollectContract;
 import com.example.wanandroid.network.ModelCallback;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @description :搜索界面契约类
  */
 public interface SearchContract {
-    public interface View {
+    public interface View extends CollectContract.View {
 
         /**
          * 获取热词成功
@@ -82,7 +83,7 @@ public interface SearchContract {
         void searchArticle(int page, String key, ModelCallback callback);
     }
 
-    public interface Presenter {
+    public interface Presenter extends CollectContract.Presenter{
         /**
          * 获取搜索热词
          */

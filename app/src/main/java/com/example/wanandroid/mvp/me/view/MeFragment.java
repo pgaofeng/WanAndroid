@@ -56,7 +56,7 @@ public class MeFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.me_collect, R.id.me_navigation, R.id.me_todo, R.id.me_about, R.id.me_collect_website})
+    @OnClick({R.id.me_collect, R.id.me_navigation, R.id.me_todo, R.id.me_about, R.id.me_collect_website, R.id.me_commonly_website})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             // 收藏文章
@@ -66,6 +66,10 @@ public class MeFragment extends BaseFragment {
             // 收集网址
             case R.id.me_collect_website:
                 startActivity(new Intent(mContext, CollectWebsiteActivity.class));
+                break;
+            // 常用网站
+            case R.id.me_commonly_website:
+                startActivity(new Intent(mContext, CommonlyWebsiteActivity.class));
                 break;
             // 导航
             case R.id.me_navigation:

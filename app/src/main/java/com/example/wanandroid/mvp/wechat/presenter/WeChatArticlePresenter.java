@@ -1,7 +1,10 @@
 package com.example.wanandroid.mvp.wechat.presenter;
 
+import android.view.View;
+
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
+import com.example.wanandroid.mvp.collect_base.CollectModel;
 import com.example.wanandroid.mvp.wechat.contract.WeChatArticleContract;
 import com.example.wanandroid.mvp.wechat.model.WeChatModel;
 import com.example.wanandroid.mvp.wechat.view.WeCharArticleFragment;
@@ -33,6 +36,46 @@ public class WeChatArticlePresenter extends BasePresenter<WeCharArticleFragment,
                 mView.getArticleListFail(throwable.getMessage());
             }
         });
+    }
+
+    @Override
+    public void collectInside(int position, View view, int articleId) {
+        CollectModel.collectInside(articleId, mModel.getDisposableManager(), new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.collectSuccess(position, view);
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.collectFail(position, view);
+            }
+        });
+    }
+
+    @Override
+    public void collectOutside(int position, View view,String author, String title, String link) {
+
+    }
+
+    @Override
+    public void unCollect(int position, View view,int articleId) {
+        CollectModel.unCollectArticle(articleId, mModel.getDisposableManager(), new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.unCollectSuccess(position, view);
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.unCollectFail(position, view);
+            }
+        });
+    }
+
+    @Override
+    public void unCollectFromCollect(int position, View view,int articleId, int originId) {
+
     }
 
     @Override

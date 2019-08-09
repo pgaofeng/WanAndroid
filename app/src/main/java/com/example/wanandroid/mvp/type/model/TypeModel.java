@@ -1,5 +1,6 @@
 package com.example.wanandroid.mvp.type.model;
 
+import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.TypeBean;
 import com.example.wanandroid.mvp.type.contract.TypeContract;
@@ -35,4 +36,25 @@ public class TypeModel extends BaseModel implements TypeContract.Model {
                     }
                 });
     }
+
+    @Override
+    public void getTypeArticle(int page, int cid, ModelCallback callback) {
+        RetrofitClient.getInstance()
+                .createService(TypeService.class)
+                .getTypeArticle(page, cid)
+                .compose(switchThread())
+                .subscribe(new BaseObserver<BaseResponse<ArticleBean>>(mDisposableManager) {
+                    @Override
+                    public void onSuccess(BaseResponse<ArticleBean> articleBeanBaseResponse) {
+                        callback.success(articleBeanBaseResponse);
+                    }
+
+                    @Override
+                    public void onFail(Throwable throwable) {
+                        callback.fail(throwable);
+                    }
+                });
+    }
+
+
 }

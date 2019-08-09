@@ -1,7 +1,10 @@
 package com.example.wanandroid.mvp.home.presenter;
 
+import android.view.View;
+
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
+import com.example.wanandroid.mvp.collect_base.CollectModel;
 import com.example.wanandroid.mvp.home.Model.HomeModel;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.view.HomeFragment;
@@ -54,5 +57,45 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
     @Override
     protected HomeModel createModel() {
         return new HomeModel();
+    }
+
+    @Override
+    public void collectInside(int position, View view,int articleId) {
+        CollectModel.collectInside(articleId, mModel.getDisposableManager(), new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.collectSuccess(position, view);
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.collectFail(position, view);
+            }
+        });
+    }
+
+    @Override
+    public void collectOutside(int position, View view,String author, String title, String link) {
+
+    }
+
+    @Override
+    public void unCollect(int position, View view,int articleId) {
+        CollectModel.unCollectArticle(articleId, mModel.getDisposableManager(), new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.unCollectSuccess(position, view);
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.unCollectFail(position, view);
+            }
+        });
+    }
+
+    @Override
+    public void unCollectFromCollect(int position, View view,int articleId, int originId) {
+
     }
 }

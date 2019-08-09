@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2019/8/1
  * ${DESCRIPTION}
  */
-public class WeChatContract {
+public interface WeChatContract {
     public interface View {
         /**
          * 获取微信列表成功

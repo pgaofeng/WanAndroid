@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.util.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +39,45 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
      * 置顶文章列表
      */
     private List<ArticleBean.DatasBean> topList;
+    private OnCollectClickListener mListener;
+
 
     public ArticleAdapter(Context context) {
         mContext = context;
         basicList = new ArrayList<>();
         topList = new ArrayList<>();
     }
+
+    /**
+     * 设置收藏按钮点击事件
+     *
+     * @param listener 点击事件
+     */
+    public void setOnCollectClickListener(OnCollectClickListener listener) {
+        if (listener != null) {
+            this.mListener = listener;
+        }
+    }
+
+    /**
+     * 设置收藏状态
+     * @param isCollect 是否收藏
+     * @param position 位置
+     * @param view 图标
+     */
+    public void setCollect(boolean isCollect, int position, View view) {
+        ArticleBean.DatasBean bean;
+        if (topList.size() == 0) {
+            bean = basicList.get(position);
+        } else if (position < topList.size()) {
+            bean = topList.get(position);
+        } else {
+            bean = basicList.get(position - topList.size());
+        }
+        bean.setCollect(isCollect);
+        notifyItemChanged(position, view);
+    }
+
 
     /**
      * 设置数据集
@@ -53,14 +87,34 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
      */
     public void setDatas(List<ArticleBean.DatasBean> basicList, List<ArticleBean.DatasBean> topList) {
         if (basicList != null) {
+            int oldSize = this.basicList.size();
+            int newSize = basicList.size();
+
             this.basicList.clear();
             this.basicList.addAll(basicList);
-            notifyItemRangeChanged(this.topList.size(), basicList.size());
+
+            // 新数据少于旧数据，移除多余数据。多于旧数据的话，则添加多于数据
+            if (oldSize > newSize) {
+                notifyItemRangeRemoved(this.topList.size() + newSize, oldSize - newSize);
+            } else if (oldSize < newSize) {
+                notifyItemRangeInserted(this.topList.size() + oldSize, newSize - oldSize);
+            }
+            // 其余的进行change变化
+            notifyItemRangeChanged(this.topList.size(), newSize);
         }
         if (topList != null) {
+            int oldSize = this.topList.size();
+            int newSize = topList.size();
+
             this.topList.clear();
             this.topList.addAll(topList);
-            notifyItemRangeChanged(0, topList.size());
+
+            if (oldSize > newSize) {
+                notifyItemRangeRemoved(newSize, oldSize - newSize);
+            } else if (oldSize < newSize) {
+                notifyItemRangeInserted(oldSize, newSize - oldSize);
+            }
+            notifyItemRangeChanged(0, newSize);
         }
     }
 
@@ -98,7 +152,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         // 章节名称
         viewHolder.mHomeItemCharacter.setText(fromHtml(bean.getChapterName()));
         // 收藏
-        viewHolder.mHomeItemCollect.setImageResource(bean.isCollect() ? R.mipmap.ic_collect : R.mipmap.ic_collect);
+        viewHolder.mHomeItemCollect.setImageResource(bean.isCollect() ? R.mipmap.ic_collect : R.mipmap.ic_uncollect);
         // 描述
         if (TextUtils.isEmpty(bean.getDesc())) {
             viewHolder.mHomeItemDesc.setVisibility(View.GONE);
@@ -111,7 +165,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             viewHolder.mHomeItemImage.setVisibility(View.GONE);
         } else {
             viewHolder.mHomeItemImage.setVisibility(View.VISIBLE);
-            viewHolder.mHomeItemImage.setImageResource(R.mipmap.ic_launcher);
+            ScreenUtils.loadImg(mContext, viewHolder.mHomeItemImage, bean.getEnvelopePic());
         }
         // 最新
         if (bean.isFresh()) {
@@ -132,12 +186,27 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         }
         // 标题
         viewHolder.mHomeItemTitle.setText(fromHtml(bean.getTitle()));
+        // 父章节或者本身章节为空的时候，隐藏分割点
+        if (TextUtils.isEmpty(bean.getChapterName()) || TextUtils.isEmpty(bean.getSuperChapterName())) {
+            viewHolder.mHomeDot.setVisibility(View.GONE);
+        } else {
+            viewHolder.mHomeDot.setVisibility(View.VISIBLE);
+        }
 
         // 设置置顶文章
         if (bean.getType() == 1) {
             viewHolder.mHomeItemTop.setVisibility(View.VISIBLE);
         } else {
             viewHolder.mHomeItemTop.setVisibility(View.GONE);
+        }
+
+        // 设置收藏点击事件
+        if (mListener != null) {
+            viewHolder.mHomeItemCollect.setOnClickListener(v -> {
+                bean.setCollect(!bean.isCollect());
+                notifyItemChanged(i, viewHolder.mHomeItemCollect);
+                mListener.onCollectClick(i, viewHolder.mHomeItemCollect, bean.getId(), bean.isCollect());
+            });
         }
     }
 
@@ -149,7 +218,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
      */
     private Spanned fromHtml(String html) {
         String result = html
-                .replace("<em", "<font color=red")
+                .replace("<em", "<font color=red ")
                 .replace("</em>", "</font>");
         return Html.fromHtml(result);
     }
@@ -182,10 +251,25 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         ImageView mHomeItemCollect;
         @BindView(R.id.home_item_new)
         TextView mHomeItemNew;
+        @BindView(R.id.home_item_dot)
+        View mHomeDot;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
+
+    public interface OnCollectClickListener {
+        /**
+         * 点击收藏触发的事件
+         *
+         * @param position  点击的item的位置
+         * @param view      点击的对象
+         * @param articleId 文章的ID
+         * @param isCollect 是否收藏
+         */
+        void onCollectClick(int position, View view, int articleId, boolean isCollect);
+    }
+
 }

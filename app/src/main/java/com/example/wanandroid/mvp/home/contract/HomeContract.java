@@ -1,6 +1,7 @@
 package com.example.wanandroid.mvp.home.contract;
 
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.mvp.collect_base.CollectContract;
 import com.example.wanandroid.network.ModelCallback;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @description : 首页Contract
  */
 public interface HomeContract {
-    interface View {
+    interface View extends CollectContract.View {
         /**
          * 获取文章列表成功
          *
@@ -41,7 +42,7 @@ public interface HomeContract {
         void getTopArticleListFail(String message);
     }
 
-    interface Presenter {
+    interface Presenter extends CollectContract.Presenter{
         /**
          * 获取文章列表
          *

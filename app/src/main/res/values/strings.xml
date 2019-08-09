@@ -18,8 +18,9 @@
     <string name="search_history">搜索历史</string>
     <string name="collect">收藏</string>
 
-    <string name="collect_article">收藏文章</string>
-    <string name="collect_website">收藏网址</string>
+    <string name="collect_article">我喜欢的文章</string>
+    <string name="collect_website">我喜欢的网址</string>
+    <string name="commonly_website">常用网站</string>
     <string name="navigation">导航</string>
     <string name="todo">TODO</string>
     <string name="about_me">关于我</string>

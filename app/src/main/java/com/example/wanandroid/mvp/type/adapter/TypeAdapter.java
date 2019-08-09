@@ -1,6 +1,7 @@
 package com.example.wanandroid.mvp.type.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.TypeBean;
+import com.example.wanandroid.mvp.type.view.TypeArticleActivity;
 import com.example.wanandroid.util.ScreenUtils;
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -51,7 +53,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Log.i(TAG, "onBindViewHolder position: "+i);
+        Log.i(TAG, "onBindViewHolder position: " + i);
         viewHolder.mTypeItemTitle.setText(mDatas.get(i).getName());
         viewHolder.mTypeItemChildren.removeAllViews();
         for (TypeBean.ChildrenBean bean : mDatas.get(i).getChildren()) {
@@ -66,6 +68,12 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.ViewHolder> {
             textView.setText(bean.getName());
             textView.setClickable(true);
             textView.setPadding(padding, padding, padding, padding);
+            textView.setOnClickListener(v -> {
+                Intent intent = new Intent(mContext, TypeArticleActivity.class);
+                intent.putExtra("cid", bean.getId());
+                intent.putExtra("title",bean.getName());
+                mContext.startActivity(intent);
+            });
             viewHolder.mTypeItemChildren.addView(textView);
         }
     }

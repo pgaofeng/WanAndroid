@@ -1,6 +1,13 @@
 package com.example.wanandroid.util;
 
 import android.content.Context;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.wanandroid.R;
 
 /**
  * @author gaofengpeng
@@ -43,6 +50,24 @@ public class ScreenUtils {
     public static int px2sp(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / scale + 0.5);
+    }
+
+    /**
+     * 加载图片
+     *
+     * @param context   上下文
+     * @param imageView ImageView
+     * @param url       图片url
+     */
+    public static void loadImg(Context context, ImageView imageView, String url) {
+        RequestOptions options = RequestOptions
+                .noTransformation()
+                .centerCrop()
+                .placeholder(R.mipmap.ic_img_loading)
+                .error(R.mipmap.ic_img_error)
+                .priority(Priority.HIGH)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context).load(url).apply(options).into(imageView);
     }
 
 

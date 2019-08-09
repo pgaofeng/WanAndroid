@@ -37,4 +37,13 @@ public class BaseModel implements Model {
     public void removeDisposable() {
         mDisposableManager.clearDisposable();
     }
+
+    /**
+     * DisposableManager
+     *
+     * @return DisposableManager
+     */
+    public DisposableManager getDisposableManager() {
+        return this.mDisposableManager;
+    }
 }

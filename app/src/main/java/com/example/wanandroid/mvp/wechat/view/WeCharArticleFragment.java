@@ -74,8 +74,37 @@ public class WeCharArticleFragment extends BaseFragment<WeChatArticlePresenter> 
             this.isLoadMore = true;
             mPresenter.getArticleList(id, page);
         });
+        mAdapter.setOnCollectClickListener((position, v, articleId, isCollect) -> {
+            if (isCollect) {
+                mPresenter.collectInside(position, v, articleId);
+            } else {
+                mPresenter.unCollect(position, v, articleId);
+            }
+        });
 
         mPresenter.getArticleList(id, page);
+    }
+
+    @Override
+    public void collectSuccess(int position, View view) {
+
+    }
+
+    @Override
+    public void collectFail(int position, View view) {
+        Toast.makeText(mContext, "收藏失败！", Toast.LENGTH_SHORT).show();
+        mAdapter.setCollect(false, position, view);
+    }
+
+    @Override
+    public void unCollectSuccess(int position, View view) {
+
+    }
+
+    @Override
+    public void unCollectFail(int position, View view) {
+        Toast.makeText(mContext, "取消收藏失败！", Toast.LENGTH_SHORT).show();
+        mAdapter.setCollect(true, position, view);
     }
 
     @Override

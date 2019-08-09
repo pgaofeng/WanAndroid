@@ -137,6 +137,51 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/me_commonly_website"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/me_item_commonly_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/ic_me_commonly" />
+
+        <TextView
+            android:id="@+id/me_item_commonly_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/me_item_commonly_image"
+            android:text="@string/commonly_website"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/ic_enter" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignStart="@id/me_item_commonly_text"
+            android:layout_alignParentBottom="true"
+            android:background="@color/home_divide_gray" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/me_navigation"
         android:layout_width="match_parent"
         android:layout_height="50dp"

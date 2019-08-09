@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.wanandroid.R;
@@ -69,6 +68,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             startActivity(intent);
         });
 
+        mAdapter.setOnCollectClickListener((position, v, articleId, isCollect) -> {
+            if (isCollect) {
+                mPresenter.collectInside(position, v, articleId);
+            } else {
+                mPresenter.unCollect(position, v, articleId);
+            }
+        });
+
         mPresenter.getTopArticleList();
         mPresenter.getArticleList(page);
     }
@@ -97,6 +104,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     public void getArticleFail(String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        mRefreshLayout.finishRefresh(false).finishLoadMore(false);
     }
 
     @Override
@@ -107,5 +115,28 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     public void getTopArticleListFail(String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        mRefreshLayout.finishRefresh(false).finishLoadMore(false);
+    }
+
+    @Override
+    public void collectSuccess(int position, View view) {
+
+    }
+
+    @Override
+    public void collectFail(int position, View view) {
+        Toast.makeText(mContext, "收藏失败！", Toast.LENGTH_SHORT).show();
+        mAdapter.setCollect(false, position, view);
+    }
+
+    @Override
+    public void unCollectSuccess(int position, View view) {
+
+    }
+
+    @Override
+    public void unCollectFail(int position, View view) {
+        Toast.makeText(mContext, "取消收藏失败！", Toast.LENGTH_SHORT).show();
+        mAdapter.setCollect(true, position, view);
     }
 }
