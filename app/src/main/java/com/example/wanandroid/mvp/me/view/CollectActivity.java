@@ -9,6 +9,7 @@ import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.CollectWebsiteBean;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
+import com.example.wanandroid.mvp.me.adapter.CollectAdapter;
 import com.example.wanandroid.mvp.me.contract.CollectContract;
 import com.example.wanandroid.mvp.me.presenter.CollectPresenter;
 import com.pgaofeng.common.base.BaseActivity;
@@ -89,7 +90,7 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     }
 
     private void init() {
-        mAdapter = new ArticleAdapter(mContext);
+        mAdapter = new CollectAdapter(mContext);
         mMeCollectRecycler.setLayoutManager(new LinearLayoutManager(mContext));
         mMeCollectRecycler.setAdapter(mAdapter);
         mMeCollectRefresh.setOnRefreshListener(refreshLayout -> {

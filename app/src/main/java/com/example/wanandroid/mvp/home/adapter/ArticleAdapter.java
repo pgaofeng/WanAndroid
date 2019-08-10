@@ -61,9 +61,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     /**
      * 设置收藏状态
+     *
      * @param isCollect 是否收藏
-     * @param position 位置
-     * @param view 图标
+     * @param position  位置
+     * @param view      图标
      */
     public void setCollect(boolean isCollect, int position, View view) {
         ArticleBean.DatasBean bean;
@@ -135,6 +136,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_home, viewGroup, false);
         return new ViewHolder(view);
+    }
+
+    /**
+     * 隐藏收藏按钮
+     *
+     * @param holder holder
+     * @param i      position
+     */
+    protected void setCollectGone(ViewHolder holder, int i) {
+        holder.mHomeItemCollect.setVisibility(View.GONE);
     }
 
     @Override
@@ -228,7 +239,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return basicList.size() + topList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.home_item_author)
         TextView mHomeItemAuthor;
         @BindView(R.id.home_item_time)
