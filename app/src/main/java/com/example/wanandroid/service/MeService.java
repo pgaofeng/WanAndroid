@@ -3,12 +3,14 @@ package com.example.wanandroid.service;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.CollectWebsiteBean;
+import com.example.wanandroid.bean.TodoBean;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author gaofengpeng
@@ -41,4 +43,14 @@ public interface MeService {
      */
     @GET("friend/json")
     Observable<BaseResponse<List<CollectWebsiteBean>>> getCommonlyWebsite();
+
+    /**
+     * 获取Todo列表
+     *
+     * @param page   页数
+     * @param status 0未完成，1已完成
+     * @return Todo列表信息
+     */
+    @GET("lg/todo/v2/list/{page}/json")
+    Observable<BaseResponse<List<TodoBean>>> getTodoList(@Path("page") int page, @Query("status") int status);
 }

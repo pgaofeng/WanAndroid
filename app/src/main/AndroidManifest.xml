@@ -16,12 +16,13 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".mvp.type.view.TypeArticleActivity"/>
+        <activity android:name=".mvp.type.view.TypeArticleActivity" />
         <activity android:name=".mvp.me.view.CommonlyWebsiteActivity" />
         <activity android:name=".mvp.me.view.CollectWebsiteActivity" />
         <activity android:name=".mvp.me.view.CollectActivity" />
         <activity android:name=".mvp.home.view.SearchActivity" />
         <activity android:name=".mvp.main.view.MainActivity" />
+        <activity android:name=".mvp.me.view.TodoActivity" />
         <activity android:name=".mvp.login.view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

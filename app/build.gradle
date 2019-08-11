@@ -1,6 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('D:\\project\\WanAndroid\\keystore.jks')
+            storePassword 'feng@2019'
+            keyAlias = 'key0'
+            keyPassword 'feng@2019'
+        }
+        release {
+            storeFile file('D:\\project\\WanAndroid\\keystore.jks')
+            storePassword 'feng@2019'
+            keyAlias = 'key0'
+            keyPassword 'feng@2019'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.wanandroid"
@@ -12,6 +26,10 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
