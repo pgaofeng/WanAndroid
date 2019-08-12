@@ -12,8 +12,11 @@ import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.presenter.HomePresenter;
+import com.example.wanandroid.util.EventBusUtils;
 import com.pgaofeng.common.base.BaseFragment;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -78,6 +81,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
         mPresenter.getTopArticleList();
         mPresenter.getArticleList(page);
+        EventBusUtils.register(this);
     }
 
     @Override
@@ -138,5 +142,18 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     public void unCollectFail(int position, View view) {
         Toast.makeText(mContext, "取消收藏失败！", Toast.LENGTH_SHORT).show();
         mAdapter.setCollect(true, position, view);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBusUtils.unRegister(this);
+    }
+
+    @Subscribe
+    public void onEvent(String message){
+        if (EventBusUtils.LOGIN_SUCCESS.equals(message)){
+            mRefreshLayout.autoRefresh();
+        }
     }
 }

@@ -1,20 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        debug {
-            storeFile file('D:\\project\\WanAndroid\\keystore.jks')
-            storePassword 'feng@2019'
-            keyAlias = 'key0'
-            keyPassword 'feng@2019'
-        }
-        release {
-            storeFile file('D:\\project\\WanAndroid\\keystore.jks')
-            storePassword 'feng@2019'
-            keyAlias = 'key0'
-            keyPassword 'feng@2019'
-        }
-    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.wanandroid"
@@ -26,10 +12,6 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -66,4 +48,6 @@ dependencies {
     implementation 'me.jessyan:autosize:1.1.2'
     // 图片加载库
     implementation 'com.github.bumptech.glide:glide:4.7.1'
+    //事件总线
+    implementation 'org.greenrobot:eventbus:3.0.0'
 }

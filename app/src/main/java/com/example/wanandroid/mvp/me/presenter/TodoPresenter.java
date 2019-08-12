@@ -1,5 +1,6 @@
 package com.example.wanandroid.mvp.me.presenter;
 
+import com.example.wanandroid.bean.BasePageBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.TodoBean;
 import com.example.wanandroid.mvp.me.contract.TodoContract;
@@ -32,7 +33,7 @@ public class TodoPresenter extends BasePresenter<TodoFragment, TodoModel> implem
         mModel.getTodoList(page, status, new ModelCallback() {
             @Override
             public void success(BaseResponse<?> baseData) {
-                mView.getTodoListSuccess((List<TodoBean>) baseData.getData());
+                mView.getTodoListSuccess(((BasePageBean<List<TodoBean>>) baseData.getData()));
             }
 
             @Override

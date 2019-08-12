@@ -10,8 +10,11 @@ import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.wechat.contract.WeChatArticleContract;
 import com.example.wanandroid.mvp.wechat.presenter.WeChatArticlePresenter;
+import com.example.wanandroid.util.EventBusUtils;
 import com.pgaofeng.common.base.BaseFragment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * @author gaofengpeng
@@ -81,6 +84,7 @@ public class WeCharArticleFragment extends BaseFragment<WeChatArticlePresenter> 
                 mPresenter.unCollect(position, v, articleId);
             }
         });
+        EventBusUtils.register(this);
 
         mPresenter.getArticleList(id, page);
     }
@@ -110,5 +114,18 @@ public class WeCharArticleFragment extends BaseFragment<WeChatArticlePresenter> 
     @Override
     protected WeChatArticlePresenter createPresenter() {
         return new WeChatArticlePresenter(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBusUtils.unRegister(this);
+    }
+
+    @Subscribe
+    public void onEvent(String message) {
+        if (EventBusUtils.LOGIN_SUCCESS.equals(message)) {
+            mRefreshLayout.autoRefresh();
+        }
     }
 }

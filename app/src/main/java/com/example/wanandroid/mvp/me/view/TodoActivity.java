@@ -1,6 +1,7 @@
 package com.example.wanandroid.mvp.me.view;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,16 +25,13 @@ public class TodoActivity extends BaseActivity {
 
     @Override
     protected int getContentView() {
-        return R.layout.fragment_wechat;
+        return R.layout.activity_todo;
     }
 
     @Override
     protected void initView() {
-        tabLayout = findViewById(R.id.weChat_tab);
-        pager = findViewById(R.id.weChat_pager);
-
-        tabLayout.addTab(tabLayout.newTab().setText("未完成"));
-        tabLayout.addTab(tabLayout.newTab().setText("已完成"));
+        tabLayout = findViewById(R.id.todo_tab);
+        pager = findViewById(R.id.todo_pager);
 
         Fragment unFinish = new TodoFragment();
         Bundle bundle = new Bundle();
@@ -42,7 +40,7 @@ public class TodoActivity extends BaseActivity {
 
         Fragment finish = new TodoFragment();
         Bundle bundle1 = new Bundle();
-        bundle.putInt("status", 1);
+        bundle1.putInt("status", 1);
         finish.setArguments(bundle1);
 
         PagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -54,6 +52,12 @@ public class TodoActivity extends BaseActivity {
             @Override
             public int getCount() {
                 return 2;
+            }
+
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return position == 0 ? "待完成" : "已完成";
             }
         };
         pager.setAdapter(adapter);

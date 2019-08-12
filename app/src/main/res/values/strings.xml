@@ -24,5 +24,6 @@
     <string name="navigation">导航</string>
     <string name="todo">TODO</string>
     <string name="about_me">关于我</string>
+    <string name="login_register">登录/注册</string>
 
 </resources>

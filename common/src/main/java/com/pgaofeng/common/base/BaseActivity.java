@@ -2,6 +2,7 @@ package com.pgaofeng.common.base;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -73,4 +74,13 @@ public abstract class BaseActivity<P extends Presenter> extends AppCompatActivit
      * @return 与Activity关联的Presenter
      */
     protected abstract P createPresenter();
+
+    /**
+     * 跳转登录界面
+     *
+     * @param calzz 登录界面
+     */
+    protected void toLogin(Class calzz) {
+        mContext.startActivity(new Intent(mContext, calzz));
+    }
 }

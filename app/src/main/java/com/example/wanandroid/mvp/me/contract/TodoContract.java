@@ -1,5 +1,6 @@
 package com.example.wanandroid.mvp.me.contract;
 
+import com.example.wanandroid.bean.BasePageBean;
 import com.example.wanandroid.bean.TodoBean;
 import com.example.wanandroid.network.ModelCallback;
 
@@ -18,7 +19,7 @@ public interface TodoContract {
          *
          * @param data 列表数据
          */
-        void getTodoListSuccess(List<TodoBean> data);
+        void getTodoListSuccess(BasePageBean<List<TodoBean>> data);
 
         /**
          * 获取Todo列表失败

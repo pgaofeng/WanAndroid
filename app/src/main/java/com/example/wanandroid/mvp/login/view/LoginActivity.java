@@ -1,6 +1,6 @@
 package com.example.wanandroid.mvp.login.view;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import com.example.wanandroid.R;
 import com.example.wanandroid.bean.LoginBean;
 import com.example.wanandroid.mvp.login.contract.LoginContract;
 import com.example.wanandroid.mvp.login.presenter.LoginPresenter;
-import com.example.wanandroid.mvp.main.view.MainActivity;
+import com.example.wanandroid.util.EventBusUtils;
 import com.pgaofeng.common.base.BaseActivity;
 
 import butterknife.BindView;
@@ -36,10 +36,19 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @BindView(R.id.login_login)
     Button loginLogin;
 
+    private SharedPreferences mPreferences;
+    public static final String LOGIN_STORE = "login_pref";
+
     @Override
     public void loginSuccess(LoginBean bean) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        mPreferences.edit()
+                .clear()
+                .putBoolean("new", true)
+                .putString("username", bean.getUsername())
+                .putString("nickname", bean.getNickname())
+                .putInt("id", bean.getId())
+                .apply();
+        EventBusUtils.sendMessage(EventBusUtils.LOGIN_SUCCESS);
         finish();
     }
 
@@ -56,6 +65,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void initView() {
         hideStatusBar();
+        mPreferences = getSharedPreferences(LOGIN_STORE, MODE_PRIVATE);
     }
 
     private void hideStatusBar() {

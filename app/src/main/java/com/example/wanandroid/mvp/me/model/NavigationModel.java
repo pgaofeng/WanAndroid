@@ -1,9 +1,8 @@
 package com.example.wanandroid.mvp.me.model;
 
-import com.example.wanandroid.bean.BasePageBean;
 import com.example.wanandroid.bean.BaseResponse;
-import com.example.wanandroid.bean.TodoBean;
-import com.example.wanandroid.mvp.me.contract.TodoContract;
+import com.example.wanandroid.bean.NavigationBean;
+import com.example.wanandroid.mvp.me.contract.NavigationContract;
 import com.example.wanandroid.network.ModelCallback;
 import com.example.wanandroid.network.RetrofitClient;
 import com.example.wanandroid.service.MeService;
@@ -13,21 +12,21 @@ import com.pgaofeng.common.network.BaseObserver;
 import java.util.List;
 
 /**
- * @author TodoModel
- * @date 2019/8/11
- * ${DESCRIPTION}
+ * @author gaofengpeng
+ * @date 2019/8/12
+ * @description :
  */
-public class TodoModel extends BaseModel implements TodoContract.Model {
+public class NavigationModel extends BaseModel implements NavigationContract.Model {
     @Override
-    public void getTodoList(int page, int status, ModelCallback callback) {
+    public void getNavigation(ModelCallback callback) {
         RetrofitClient.getInstance()
                 .createService(MeService.class)
-                .getTodoList(page, status)
+                .getNavigation()
                 .compose(switchThread())
-                .subscribe(new BaseObserver<BaseResponse<BasePageBean<List<TodoBean>>>>(mDisposableManager) {
+                .subscribe(new BaseObserver<BaseResponse<List<NavigationBean>>>(mDisposableManager) {
                     @Override
-                    public void onSuccess(BaseResponse<BasePageBean<List<TodoBean>>> basePageBeanBaseResponse) {
-                        callback.success(basePageBeanBaseResponse);
+                    public void onSuccess(BaseResponse<List<NavigationBean>> listBaseResponse) {
+                        callback.success(listBaseResponse);
                     }
 
                     @Override

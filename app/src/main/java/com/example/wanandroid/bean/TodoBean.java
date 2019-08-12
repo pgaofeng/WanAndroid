@@ -21,7 +21,7 @@ public class TodoBean {
      * userId : 3710
      */
 
-    private Object completeDate;
+    private long completeDate;
     private String completeDateStr;
     private String content;
     private long date;
@@ -33,11 +33,11 @@ public class TodoBean {
     private int type;
     private int userId;
 
-    public Object getCompleteDate() {
+    public long getCompleteDate() {
         return completeDate;
     }
 
-    public void setCompleteDate(Object completeDate) {
+    public void setCompleteDate(long completeDate) {
         this.completeDate = completeDate;
     }
 

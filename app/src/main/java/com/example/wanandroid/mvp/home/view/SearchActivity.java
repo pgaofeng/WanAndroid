@@ -25,10 +25,13 @@ import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.home.adapter.HistoryAdapter;
 import com.example.wanandroid.mvp.home.contract.SearchContract;
 import com.example.wanandroid.mvp.home.presenter.SearchPresenter;
+import com.example.wanandroid.util.EventBusUtils;
 import com.example.wanandroid.util.ScreenUtils;
 import com.google.android.flexbox.FlexboxLayout;
 import com.pgaofeng.common.base.BaseActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -157,6 +160,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        EventBusUtils.register(this);
         init();
     }
     // TODO 历史搜索相关，清除所有历史弹窗
@@ -307,5 +311,18 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     public void unCollectFail(int position, View view) {
         Toast.makeText(mContext, "取消收藏失败！", Toast.LENGTH_SHORT).show();
         mArticleAdapter.setCollect(true, position, view);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBusUtils.unRegister(this);
+    }
+
+    @Subscribe
+    public void onEvent(String message){
+        if (EventBusUtils.LOGIN_SUCCESS.equals(message)){
+            search(searchContent);
+        }
     }
 }

@@ -14,8 +14,11 @@ import com.example.wanandroid.bean.TypeBean;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.type.contract.TypeContract;
 import com.example.wanandroid.mvp.type.presenter.TypePresenter;
+import com.example.wanandroid.util.EventBusUtils;
 import com.pgaofeng.common.base.BaseActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -99,7 +102,15 @@ public class TypeArticleActivity extends BaseActivity<TypePresenter> implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        EventBusUtils.register(this);
         init();
+    }
+
+    @Subscribe
+    public void onEvent(String message) {
+        if (EventBusUtils.LOGIN_SUCCESS.equals(message)) {
+            mHomeRefresh.autoRefresh();
+        }
     }
 
     @Override
