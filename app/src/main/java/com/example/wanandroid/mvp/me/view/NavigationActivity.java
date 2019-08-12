@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.HeaderBean;
+import com.example.wanandroid.mvp.me.adapter.NavigationAdapter;
 import com.example.wanandroid.mvp.me.contract.NavigationContract;
 import com.example.wanandroid.mvp.me.presenter.NavigationPresenter;
 import com.pgaofeng.common.base.BaseActivity;
@@ -30,14 +32,18 @@ public class NavigationActivity extends BaseActivity<NavigationPresenter> implem
     @BindView(R.id.item_navigation_refresh)
     SmartRefreshLayout mItemNavigationRefresh;
 
+    private NavigationAdapter adapter;
+
     @Override
     public void getNavigationSuccess(List<HeaderBean> data) {
-
+        mItemNavigationRefresh.finishRefresh();
+        adapter.setData(data);
     }
 
     @Override
     public void getNavigationFail(String message) {
-
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        mItemNavigationRefresh.finishRefresh(false);
     }
 
     @Override
@@ -65,7 +71,12 @@ public class NavigationActivity extends BaseActivity<NavigationPresenter> implem
     private void init() {
         mMeNavigationBack.setOnClickListener(v -> finish());
         mItemNavigationRefresh.setEnableLoadMore(false);
+        mItemNavigationRefresh.setOnRefreshListener(refreshLayout -> mPresenter.gatNavigation());
         mItemNavigationRecycler.setLayoutManager(new LinearLayoutManager(mContext));
+        adapter = new NavigationAdapter(mContext);
+        mItemNavigationRecycler.setAdapter(adapter);
+
+        mPresenter.gatNavigation();
 
     }
 }

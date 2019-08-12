@@ -131,7 +131,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
                 viewHolder.mItemTodoType.setText("按时完成");
             }
         }
-        viewHolder.mView.setVisibility(i == data.size() - 1 ? View.GONE : View.VISIBLE);
+       // viewHolder.mView.setVisibility(i == data.size() - 1 ? View.GONE : View.VISIBLE);
 
 
     }

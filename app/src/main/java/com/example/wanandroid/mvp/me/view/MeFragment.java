@@ -120,7 +120,7 @@ public class MeFragment extends BaseFragment {
                 break;
             // 导航
             case R.id.me_navigation:
-                // TODO 跳转导航界面
+                startActivity(new Intent(mContext, NavigationActivity.class));
                 break;
             // TODO界面
             case R.id.me_todo:
