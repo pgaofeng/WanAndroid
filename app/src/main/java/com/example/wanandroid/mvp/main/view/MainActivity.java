@@ -1,6 +1,9 @@
 package com.example.wanandroid.mvp.main.view;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -161,6 +164,17 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        getAuth();
+    }
+
+    /**
+     * 申请读写权限，用于更新软件
+     * TODO 读写权限回调暂未实现
+     */
+    private void getAuth() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission_group.STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},100);
+        }
     }
 
     /**

@@ -9,7 +9,6 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class EventBusUtils {
 
-
     public static void register(Object object) {
         EventBus.getDefault().register(object);
     }

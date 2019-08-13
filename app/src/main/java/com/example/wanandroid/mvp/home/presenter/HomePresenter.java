@@ -1,5 +1,7 @@
 package com.example.wanandroid.mvp.home.presenter;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 import com.example.wanandroid.bean.ArticleBean;
@@ -55,12 +57,39 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
     }
 
     @Override
+    public void update() {
+        mView.startUpdate();
+        Handler handler = new Handler(Looper.getMainLooper());
+        mModel.update(new HomeContract.DownLoadListener() {
+            @Override
+            public void startDownload() {
+                handler.post(() -> mView.startUpdate());
+            }
+
+            @Override
+            public void downLoadProgress(long cur, long total) {
+                handler.post(() -> mView.updateProgress(cur, total));
+            }
+
+            @Override
+            public void downLoadSuccess() {
+                handler.post(() -> mView.updateSuccess());
+            }
+
+            @Override
+            public void downLoadFail(String message) {
+                handler.post(() -> mView.updateFail(message));
+            }
+        });
+    }
+
+    @Override
     protected HomeModel createModel() {
         return new HomeModel();
     }
 
     @Override
-    public void collectInside(int position, View view,int articleId) {
+    public void collectInside(int position, View view, int articleId) {
         CollectModel.collectInside(articleId, mModel.getDisposableManager(), new ModelCallback() {
             @Override
             public void success(BaseResponse<?> baseData) {
@@ -75,12 +104,12 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
     }
 
     @Override
-    public void collectOutside(int position, View view,String author, String title, String link) {
+    public void collectOutside(int position, View view, String author, String title, String link) {
 
     }
 
     @Override
-    public void unCollect(int position, View view,int articleId) {
+    public void unCollect(int position, View view, int articleId) {
         CollectModel.unCollectArticle(articleId, mModel.getDisposableManager(), new ModelCallback() {
             @Override
             public void success(BaseResponse<?> baseData) {
@@ -95,7 +124,7 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
     }
 
     @Override
-    public void unCollectFromCollect(int position, View view,int articleId, int originId) {
+    public void unCollectFromCollect(int position, View view, int articleId, int originId) {
 
     }
 }

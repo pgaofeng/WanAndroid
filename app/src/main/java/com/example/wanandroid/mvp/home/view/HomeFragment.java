@@ -1,14 +1,19 @@
 package com.example.wanandroid.mvp.home.view;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.wanandroid.App;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.mvp.home.service.DownLoadService;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.presenter.HomePresenter;
@@ -18,6 +23,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -40,6 +46,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
      */
     private int page = 0;
     private boolean isLoadMore = false;
+    private Intent serviceIntent;
 
     @Override
     protected int getContentView() {
@@ -48,6 +55,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void initView(View view) {
+        serviceIntent = new Intent(mContext, DownLoadService.class);
         mHomeRecycler = view.findViewById(R.id.home_recycler);
         mSearch = view.findViewById(R.id.home_search);
         mRefreshLayout = view.findViewById(R.id.home_refresh);
@@ -79,6 +87,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             }
         });
 
+        mPresenter.update();
         mPresenter.getTopArticleList();
         mPresenter.getArticleList(page);
         EventBusUtils.register(this);
@@ -123,6 +132,58 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
+    public void startUpdate() {
+        Toast.makeText(mContext, "开始下载", Toast.LENGTH_SHORT).show();
+        mContext.startService(serviceIntent);
+    }
+
+    @Override
+    public void updateProgress(long cur, long total) {
+        System.out.println(cur + "/" + total);
+    }
+
+    @Override
+    public void updateSuccess() {
+        Toast.makeText(mContext, "下载成功", Toast.LENGTH_SHORT).show();
+        mContext.stopService(serviceIntent);
+        File file = new File(App.getContext().getExternalFilesDir(null) + File.separator + "玩Android.apk");
+        installApk(file);
+    }
+
+
+    //安装apk，兼容7.0
+    protected void installApk(File file) {
+        if (!file.exists()) {
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        // 由于没有在Activity环境下启动Activity,设置下面的标签   setFlags要放在addFlags之前
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //版本在7.0以上是不能直接通过uri访问的
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //参数1 上下文, 参数2 Provider主机地址和清单文件中保持一致   参数3 共享的文件
+            Uri apkUri =
+                    FileProvider.getUriForFile(mContext, "com.example.wanandroid.fileProvider", file);
+            //添加这一句表示对目标应用临时授权该Uri所代表的文件
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(file),
+                    "application/vnd.android.package-archive");
+        }
+//        intent.setDataAndType(Uri.parse("file://" + file.toString()), "application/vnd.android.package-archive");
+        mContext.startActivity(intent);
+    }
+
+
+
+    @Override
+    public void updateFail(String message) {
+        Toast.makeText(mContext, "下载失败：" + message, Toast.LENGTH_SHORT).show();
+        mContext.stopService(serviceIntent);
+    }
+
+    @Override
     public void collectSuccess(int position, View view) {
 
     }
@@ -151,8 +212,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Subscribe
-    public void onEvent(String message){
-        if (EventBusUtils.LOGIN_SUCCESS.equals(message)){
+    public void onEvent(String message) {
+        if (EventBusUtils.LOGIN_SUCCESS.equals(message)) {
             mRefreshLayout.autoRefresh();
         }
     }

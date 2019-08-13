@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.HeaderBean;
 import com.example.wanandroid.mvp.me.adapter.NavigationAdapter;
+import com.example.wanandroid.mvp.me.adapter.NavigationDecoration;
 import com.example.wanandroid.mvp.me.contract.NavigationContract;
 import com.example.wanandroid.mvp.me.presenter.NavigationPresenter;
 import com.pgaofeng.common.base.BaseActivity;
@@ -74,6 +75,7 @@ public class NavigationActivity extends BaseActivity<NavigationPresenter> implem
         mItemNavigationRefresh.setOnRefreshListener(refreshLayout -> mPresenter.gatNavigation());
         mItemNavigationRecycler.setLayoutManager(new LinearLayoutManager(mContext));
         adapter = new NavigationAdapter(mContext);
+        mItemNavigationRecycler.addItemDecoration(new NavigationDecoration(mContext));
         mItemNavigationRecycler.setAdapter(adapter);
 
         mPresenter.gatNavigation();

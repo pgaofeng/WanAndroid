@@ -49,6 +49,13 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.Vi
         }
     }
 
+    public HeaderBean getBean(int position) {
+        if (data.size() > position) {
+            return data.get(position);
+        }
+        return null;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -60,6 +67,12 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.itemNavigationTitle.setText(data.get(i).getName());
         viewHolder.itemNavigationLink.setText(data.get(i).getLink());
+        // 设置View的tag，用于区分是否是标准头
+        if (data.get(i).isHeader()) {
+            viewHolder.itemView.setTag(true);
+        } else {
+            viewHolder.itemView.setTag(false);
+        }
     }
 
     @Override

@@ -40,9 +40,35 @@ public interface HomeContract {
          * @param message 失败原因
          */
         void getTopArticleListFail(String message);
+
+        /**
+         * 开始更新软件
+         */
+        void startUpdate();
+
+        /**
+         * 更新下载进度
+         *
+         * @param cur   当前下载
+         * @param total 总大小
+         */
+        void updateProgress(long cur, long total);
+
+        /**
+         * 更新成功
+         */
+        void updateSuccess();
+
+        /**
+         * 更新失败
+         *
+         * @param message 失败原因
+         */
+        void updateFail(String message);
+
     }
 
-    interface Presenter extends CollectContract.Presenter{
+    interface Presenter extends CollectContract.Presenter {
         /**
          * 获取文章列表
          *
@@ -54,6 +80,11 @@ public interface HomeContract {
          * 获取置顶文章
          */
         void getTopArticleList();
+
+        /**
+         * 更新软件
+         */
+        void update();
     }
 
     interface Model {
@@ -71,5 +102,39 @@ public interface HomeContract {
          * @param callback 回调接口
          */
         void getTopArticleList(ModelCallback callback);
+
+        /**
+         * 更新软件
+         *
+         * @param callback 回调接口
+         */
+        void update(DownLoadListener callback);
+    }
+
+    public interface DownLoadListener {
+        /**
+         * 开始下载
+         */
+        void startDownload();
+
+        /**
+         * 下载进度
+         *
+         * @param cur   当前下载大小
+         * @param total 所有大小
+         */
+        void downLoadProgress(long cur, long total);
+
+        /**
+         * 下载成功
+         */
+        void downLoadSuccess();
+
+        /**
+         * 下载失败
+         *
+         * @param message 失败信息
+         */
+        void downLoadFail(String message);
     }
 }

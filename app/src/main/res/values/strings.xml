@@ -26,4 +26,8 @@
     <string name="about_me">关于我</string>
     <string name="login_register">登录/注册</string>
 
+    <!-- 44dp before -->
+    <!-- ?android:attr/actionBarSize -->
+    <dimen name="action_bar_size">56dp</dimen>
+
 </resources>
