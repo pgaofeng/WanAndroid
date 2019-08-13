@@ -3,6 +3,7 @@ package com.example.wanandroid.service;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.HotKeyBean;
+import com.example.wanandroid.bean.UpdateBean;
 
 import java.util.List;
 
@@ -60,7 +61,22 @@ public interface HomeService {
     @POST("article/query/{page}/json")
     Observable<BaseResponse<ArticleBean>> search(@Path("page") int page, @Field("k") String key);
 
-   // @Streaming
+    /**
+     * 下载更新
+     *
+     * @param url 下载地址
+     * @return Stream
+     */
+    @Streaming
     @GET
     Call<ResponseBody> update(@Url String url);
+
+    /**
+     * 检查更新
+     *
+     * @param url 更新地址
+     * @return 更新结果
+     */
+    @GET
+    Observable<List<UpdateBean>> checkUpdate(@Url String url);
 }

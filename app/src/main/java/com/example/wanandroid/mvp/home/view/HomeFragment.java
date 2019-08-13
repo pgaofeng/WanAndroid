@@ -1,5 +1,6 @@
 package com.example.wanandroid.mvp.home.view;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -13,10 +14,10 @@ import android.widget.Toast;
 import com.example.wanandroid.App;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
-import com.example.wanandroid.mvp.home.service.DownLoadService;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.presenter.HomePresenter;
+import com.example.wanandroid.mvp.home.service.DownLoadService;
 import com.example.wanandroid.util.EventBusUtils;
 import com.pgaofeng.common.base.BaseFragment;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -86,8 +87,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 mPresenter.unCollect(position, v, articleId);
             }
         });
-
-        mPresenter.update();
+        mPresenter.checkUpdate();
         mPresenter.getTopArticleList();
         mPresenter.getArticleList(page);
         EventBusUtils.register(this);
@@ -171,16 +171,38 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             intent.setDataAndType(Uri.fromFile(file),
                     "application/vnd.android.package-archive");
         }
-//        intent.setDataAndType(Uri.parse("file://" + file.toString()), "application/vnd.android.package-archive");
         mContext.startActivity(intent);
     }
-
 
 
     @Override
     public void updateFail(String message) {
         Toast.makeText(mContext, "下载失败：" + message, Toast.LENGTH_SHORT).show();
         mContext.stopService(serviceIntent);
+    }
+
+    @Override
+    public void hasUpdate() {
+
+        new AlertDialog.Builder(mContext)
+                .setTitle("更新")
+                .setMessage("是否更新？")
+                .setCancelable(false)
+                .setNegativeButton("取消", (dialog1, which) -> dialog1.dismiss())
+                .setPositiveButton("确定", (dialog1, which) -> mPresenter.update())
+                .create()
+                .show();
+        mPresenter.update();
+    }
+
+    @Override
+    public void noUpdate() {
+//        Toast.makeText(mContext, "没有更新", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void checkFail(String message) {
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

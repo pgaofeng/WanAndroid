@@ -66,6 +66,22 @@ public interface HomeContract {
          */
         void updateFail(String message);
 
+        /**
+         * 有更新
+         */
+        void hasUpdate();
+
+        /**
+         * 没有更新
+         */
+        void noUpdate();
+
+        /**
+         * 检查更新失败
+         *
+         * @param message 失败信息
+         */
+        void checkFail(String message);
     }
 
     interface Presenter extends CollectContract.Presenter {
@@ -85,6 +101,11 @@ public interface HomeContract {
          * 更新软件
          */
         void update();
+
+        /**
+         * 检查更新
+         */
+        void checkUpdate();
     }
 
     interface Model {
@@ -109,6 +130,13 @@ public interface HomeContract {
          * @param callback 回调接口
          */
         void update(DownLoadListener callback);
+
+        /**
+         * 检查更新
+         *
+         * @param callback 回调接口
+         */
+        void checkUpdate(ModelCallback callback);
     }
 
     public interface DownLoadListener {

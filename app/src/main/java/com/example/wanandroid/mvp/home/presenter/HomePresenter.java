@@ -1,11 +1,15 @@
 package com.example.wanandroid.mvp.home.presenter;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
+import com.example.wanandroid.bean.UpdateBean;
 import com.example.wanandroid.mvp.collect_base.CollectModel;
 import com.example.wanandroid.mvp.home.Model.HomeModel;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
@@ -79,6 +83,34 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
             @Override
             public void downLoadFail(String message) {
                 handler.post(() -> mView.updateFail(message));
+            }
+        });
+    }
+
+    @Override
+    public void checkUpdate() {
+        mModel.checkUpdate(new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                UpdateBean updateBean = (UpdateBean) baseData.getData();
+
+                PackageInfo pi = null;
+                try {
+                    pi = mView.getContext().getPackageManager().getPackageInfo(mView.getContext().getPackageName(), 0);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                if (pi.versionCode<updateBean.getApkData().getVersionCode()) {
+                    mView.hasUpdate();
+                }else{
+                    mView.noUpdate();
+                }
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.checkFail(throwable.getMessage());
             }
         });
     }

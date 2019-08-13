@@ -3,6 +3,7 @@ package com.example.wanandroid.mvp.home.Model;
 import com.example.wanandroid.App;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
+import com.example.wanandroid.bean.UpdateBean;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.network.ModelCallback;
 import com.example.wanandroid.network.RetrofitClient;
@@ -71,7 +72,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     public void update(HomeContract.DownLoadListener callback) {
         RetrofitClient.getInstance()
                 .createService(HomeService.class)
-                .update("http://codown.youdao.com/note/youdaonote_android_6.7.4_youdaoweb.apk")
+                .update("https://raw.githubusercontent.com/pgaofeng/WanAndroid/master/update/release/app-release.apk")
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -82,7 +83,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                             ResponseBody responseBody = response.body();
 
                             //在外置存储下创建文件
-                            //目录为外置存储的Android/data/com.xxx.xx/files根目录下1.exe
+                            //目录为外置存储的Android/data/com.xxx.xx/files根目录下
                             File file = new File(App.getContext().getExternalFilesDir(null) + File.separator + "玩Android.apk");
 
                             FileOutputStream out = null;
@@ -90,14 +91,14 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                             try {
                                 out = new FileOutputStream(file);
                                 in = responseBody.byteStream();
-                                byte[] buffer = new byte[1024*8];
+                                byte[] buffer = new byte[1024 * 8];
                                 long curr = 0;
                                 long length = responseBody.contentLength();
                                 int n = 0;
                                 while ((n = in.read(buffer)) != -1) {
                                     curr += n;
                                     out.write(buffer, 0, n);
-                                ///    callback.downLoadProgress(curr, length);
+                                    ///    callback.downLoadProgress(curr, length);
                                 }
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
@@ -123,6 +124,27 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         callback.downLoadFail(t.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void checkUpdate(ModelCallback callback) {
+        RetrofitClient.getInstance()
+                .createService(HomeService.class)
+                .checkUpdate("https://raw.githubusercontent.com/pgaofeng/WanAndroid/master/update/release/output.json")
+                .compose(switchThread())
+                .subscribe(new BaseObserver<List<UpdateBean>>(mDisposableManager) {
+                    @Override
+                    public void onSuccess(List<UpdateBean> updateBeanlist) {
+                        BaseResponse<UpdateBean> response = new BaseResponse<>();
+                        response.setData(updateBeanlist.get(0));
+                        callback.success(response);
+                    }
+
+                    @Override
+                    public void onFail(Throwable throwable) {
+                        callback.fail(throwable);
                     }
                 });
     }
