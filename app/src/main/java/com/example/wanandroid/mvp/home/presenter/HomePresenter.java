@@ -2,7 +2,6 @@ package com.example.wanandroid.mvp.home.presenter;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -101,9 +100,9 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
                     e.printStackTrace();
                 }
 
-                if (pi.versionCode<updateBean.getApkData().getVersionCode()) {
+                if (pi.versionCode < updateBean.getApkData().getVersionCode()) {
                     mView.hasUpdate();
-                }else{
+                } else {
                     mView.noUpdate();
                 }
             }

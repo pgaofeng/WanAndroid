@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -33,7 +34,7 @@ import java.util.List;
  * 首页
  */
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
-
+    private static final String TAG = "HomeFragment";
     RecyclerView mHomeRecycler;
     RefreshLayout mRefreshLayout;
     /**
@@ -192,12 +193,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 .setPositiveButton("确定", (dialog1, which) -> mPresenter.update())
                 .create()
                 .show();
-        mPresenter.update();
     }
 
     @Override
     public void noUpdate() {
 //        Toast.makeText(mContext, "没有更新", Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "noUpdate: 没有更新");
     }
 
     @Override
