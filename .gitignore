@@ -1,7 +1,7 @@
 # Built application files
-*.apk
+#*.apk
 *.ap_
-
+app/release
 # Files for the ART/Dalvik VM
 *.dex
 
@@ -63,3 +63,4 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+!update
