@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wanandroid.R;
+import com.example.wanandroid.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     /**
      * 添加数据，添加在原数据之后
+     *
      * @param stringList String对象数据
      */
     public void addData(List<String> stringList) {
@@ -45,21 +47,23 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     /**
      * 设置数据，清空原数据后添加
+     *
      * @param stringList String对象数据
      */
     public void setData(List<String> stringList) {
         this.data.clear();
         this.data.addAll(stringList);
-        notifyItemRangeChanged(0,stringList.size());
+        notifyItemRangeChanged(0, stringList.size());
     }
 
-    public void clear(){
+    public void clear() {
         this.data.clear();
         notifyDataSetChanged();
     }
 
     /**
      * 设置item点击事件
+     *
      * @param listener 点击事件对象
      */
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -79,17 +83,19 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.mHomeSearchHistoryItemContent.setText(data.get(i));
         viewHolder.mHomeSearchHistoryItemDelete.setOnClickListener(v -> {
-            this.data.remove(viewHolder.getAdapterPosition());
-            notifyItemRemoved(viewHolder.getAdapterPosition());
+            if (!CommonUtils.quickClick(800)) {
+                this.data.remove(viewHolder.getAdapterPosition());
+                notifyItemRemoved(viewHolder.getAdapterPosition());
+            }
         });
         if (i == data.size() - 1) {
             viewHolder.mHomeSearchHistoryItemDivide.setVisibility(View.INVISIBLE);
         } else {
             viewHolder.mHomeSearchHistoryItemDivide.setVisibility(View.VISIBLE);
         }
-        viewHolder.itemView.setOnClickListener(v -> {
-            mOnItemClickListener.onItemClicked(viewHolder.getAdapterPosition(), data.get(viewHolder.getAdapterPosition()));
-        });
+        viewHolder.itemView.setOnClickListener(v ->
+                mOnItemClickListener.onItemClicked(viewHolder.getAdapterPosition(), data.get(viewHolder.getAdapterPosition()))
+        );
     }
 
     @Override
@@ -115,8 +121,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public interface OnItemClickListener {
         /**
          * item的点击事件
+         *
          * @param position 点击位置
-         * @param value item对应的数据
+         * @param value    item对应的数据
          */
         void onItemClicked(int position, String value);
     }

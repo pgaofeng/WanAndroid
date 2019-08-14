@@ -34,10 +34,17 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
     private Context mContext;
     private List<TodoBean> data;
+    private OnItemClickListener listener;
 
     public TodoAdapter(Context context) {
         this.mContext = context;
         this.data = new ArrayList<>();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        if (listener != null) {
+            this.listener = listener;
+        }
     }
 
     public void setData(List<TodoBean> data) {
@@ -131,8 +138,10 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
                 viewHolder.mItemTodoType.setText("按时完成");
             }
         }
-       // viewHolder.mView.setVisibility(i == data.size() - 1 ? View.GONE : View.VISIBLE);
-
+        // viewHolder.mView.setVisibility(i == data.size() - 1 ? View.GONE : View.VISIBLE);
+        if (listener != null) {
+            viewHolder.itemView.setOnClickListener(v -> listener.onItemClick(data.get(i)));
+        }
 
     }
 
@@ -158,5 +167,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(TodoBean bean);
     }
 }

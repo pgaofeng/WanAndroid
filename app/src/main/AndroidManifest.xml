@@ -28,6 +28,7 @@
         <activity android:name=".mvp.me.view.NavigationActivity" />
         <activity android:name=".mvp.me.view.TodoActivity" />
         <activity android:name=".mvp.login.view.LoginActivity" />
+        <activity android:name=".mvp.me.view.TodoAddActivity"/>
         <activity android:name=".mvp.main.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

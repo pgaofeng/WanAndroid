@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -25,5 +27,18 @@
             android:layout_height="40dp" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/me_todo_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@mipmap/ic_add"
+        app:backgroundTint="@color/floating_button_blue"
+        app:borderWidth="0dp"
+        app:elevation="5dp" />
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

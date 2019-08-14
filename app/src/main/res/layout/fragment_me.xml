@@ -293,6 +293,7 @@
         android:layout_height="50dp"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
+        android:visibility="gone"
         android:focusable="true">
 
         <ImageView

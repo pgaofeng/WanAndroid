@@ -1,5 +1,7 @@
 package com.example.wanandroid.mvp.me.view;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +13,7 @@ import com.example.wanandroid.bean.TodoBean;
 import com.example.wanandroid.mvp.me.adapter.TodoAdapter;
 import com.example.wanandroid.mvp.me.contract.TodoContract;
 import com.example.wanandroid.mvp.me.presenter.TodoPresenter;
+import com.google.gson.Gson;
 import com.pgaofeng.common.base.BaseFragment;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -30,6 +33,7 @@ public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoCon
 
     private RecyclerView mRecyclerView;
     private RefreshLayout mRefreshLayout;
+    private FloatingActionButton mButton;
 
     @Override
     public void getTodoListSuccess(BasePageBean<List<TodoBean>> data) {
@@ -62,6 +66,13 @@ public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoCon
         status = getArguments().getInt("status");
         mRecyclerView = view.findViewById(R.id.me_todo_recycler);
         mRefreshLayout = view.findViewById(R.id.me_todo_refresh);
+        mButton = view.findViewById(R.id.me_todo_add);
+        if (status == 1) {
+            mButton.hide();
+        } else {
+            mButton.show();
+        }
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mAdapter = new TodoAdapter(mContext);
         mRecyclerView.setAdapter(mAdapter);
@@ -74,6 +85,18 @@ public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoCon
             this.page++;
             this.isLoadMore = true;
             mPresenter.getTodoList(page, status);
+        });
+
+        mButton.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, TodoAddActivity.class);
+            mContext.startActivity(intent);
+        });
+
+        mAdapter.setOnItemClickListener(bean -> {
+            String beanStr = new Gson().toJson(bean);
+            Intent intent = new Intent(mContext, TodoAddActivity.class);
+            intent.putExtra("TODOBEAN", beanStr);
+            mContext.startActivity(intent);
         });
 
 

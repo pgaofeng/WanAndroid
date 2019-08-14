@@ -26,6 +26,14 @@
     <string name="about_me">关于我</string>
     <string name="login_register">登录/注册</string>
 
+    <string name="todo_title_hint">请输入标题（必填）</string>
+    <string name="todo_content_hint">请输入内容（选填）</string>
+
+    <string name="finish_time">完成时间</string>
+
+    <string name="pending">待完成</string>
+    <string name="finish">已完成</string>
+
     <!-- 44dp before -->
     <!-- ?android:attr/actionBarSize -->
     <dimen name="action_bar_size">56dp</dimen>
