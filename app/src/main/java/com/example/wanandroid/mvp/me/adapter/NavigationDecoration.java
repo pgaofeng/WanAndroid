@@ -2,9 +2,9 @@ package com.example.wanandroid.mvp.me.adapter;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -60,6 +60,7 @@ public class NavigationDecoration extends RecyclerView.ItemDecoration {
         mPaint = new Paint();
         mPaint.setTextSize(ScreenUtils.sp2px(mContext, 15));
         mPaint.setAntiAlias(true);
+        mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         Paint.FontMetrics metrics = mPaint.getFontMetrics();
         fix = (metrics.bottom + metrics.top) / 2;
 
@@ -86,12 +87,16 @@ public class NavigationDecoration extends RecyclerView.ItemDecoration {
                 c.drawRect(rect, mPaint);
                 mPaint.setColor(textColor);
                 c.drawText(bean.getHeaderName(), rect.left + marginStart, (rect.bottom + rect.top) / 2F - fix, mPaint);
-            } else {
-                // 绘制下方分割线
-                mPaint.setColor(divideColor);
-                rect = new Rect(view.getLeft() + marginStart, view.getBottom(), view.getRight(), view.getBottom() + divideLine);
-                c.drawRect(rect, mPaint);
             }
+            // 绘制下方分割线
+            if (i + 1 == parent.getChildCount() || adapter.getBean(parent.getChildAdapterPosition(parent.getChildAt(i + 1))).isHeader()) {
+                // 若是最后一个或者下一个为Header元素的话，则不绘制底部分割线
+                continue;
+            }
+            mPaint.setColor(divideColor);
+            rect = new Rect(view.getLeft() + marginStart, view.getBottom(), view.getRight(), view.getBottom() + divideLine);
+            c.drawRect(rect, mPaint);
+
         }
 
     }
@@ -120,7 +125,7 @@ public class NavigationDecoration extends RecyclerView.ItemDecoration {
                 top = bottom - head;
             }
             Rect rect = new Rect(left, top, right, bottom);
-            mPaint.setColor(divideColor);
+            mPaint.setColor(floatingColor);
             c.drawRect(rect, mPaint);
             mPaint.setColor(textColor);
             c.drawText(firstBean.getHeaderName(), rect.left + marginStart, (rect.bottom + rect.top) / 2F - fix, mPaint);
@@ -133,9 +138,15 @@ public class NavigationDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 
+        NavigationAdapter adapter = (NavigationAdapter) parent.getAdapter();
+
         if ((boolean) view.getTag()) {
             outRect.top = head;
-        } else {
+        }
+        // 最后一个item不添加分割线，下一个是Header的也不添加分割线
+        int position = parent.getChildAdapterPosition(view);
+        assert adapter != null;
+        if (position + 1 < adapter.getItemCount() && !adapter.getBean(position + 1).isHeader()) {
             outRect.bottom = divideLine;
         }
 

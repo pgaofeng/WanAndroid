@@ -47,6 +47,17 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         }
     }
 
+    public void replace(TodoBean bean, int position) {
+        this.data.remove(position);
+        this.data.add(position, bean);
+        notifyItemChanged(position);
+    }
+
+    public void remove(int position){
+        this.data.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public void setData(List<TodoBean> data) {
         int oldSize = this.data.size();
         int newSize = data.size();
@@ -68,6 +79,11 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         int newSize = data.size();
         this.data.addAll(data);
         notifyItemRangeInserted(oldSize, newSize);
+    }
+
+    public void addItem(TodoBean bean) {
+        this.data.add(0, bean);
+        notifyItemInserted(0);
     }
 
 
@@ -138,9 +154,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
                 viewHolder.mItemTodoType.setText("按时完成");
             }
         }
-        // viewHolder.mView.setVisibility(i == data.size() - 1 ? View.GONE : View.VISIBLE);
+        viewHolder.mView.setVisibility(i == data.size() - 1 ? View.GONE : View.VISIBLE);
         if (listener != null) {
-            viewHolder.itemView.setOnClickListener(v -> listener.onItemClick(data.get(i)));
+            viewHolder.itemView.setOnClickListener(v -> listener.onItemClick(data.get(i), i));
         }
 
     }
@@ -170,6 +186,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(TodoBean bean);
+        void onItemClick(TodoBean bean, int position);
     }
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.FrameLayout;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.mvp.me.presenter.TodoPresenter;
@@ -21,6 +22,7 @@ public class TodoActivity extends BaseActivity {
 
     private ViewPager pager;
     private TabLayout tabLayout;
+    private FrameLayout mFrameLayout;
 
 
     @Override
@@ -32,6 +34,7 @@ public class TodoActivity extends BaseActivity {
     protected void initView() {
         tabLayout = findViewById(R.id.todo_tab);
         pager = findViewById(R.id.todo_pager);
+        mFrameLayout = findViewById(R.id.todo_back);
 
         Fragment unFinish = new TodoFragment();
         Bundle bundle = new Bundle();
@@ -60,6 +63,7 @@ public class TodoActivity extends BaseActivity {
                 return position == 0 ? "待完成" : "已完成";
             }
         };
+        mFrameLayout.setOnClickListener(v -> finish());
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
 

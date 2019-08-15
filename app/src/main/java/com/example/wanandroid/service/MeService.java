@@ -10,7 +10,10 @@ import com.example.wanandroid.bean.TodoBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -64,5 +67,50 @@ public interface MeService {
     @GET("navi/json")
     Observable<BaseResponse<List<NavigationBean>>> getNavigation();
 
+
+    /**
+     * 添加一个TODO
+     *
+     * @param title   标题
+     * @param content 内容
+     * @param date    日期
+     * @return TODO对象
+     */
+    @FormUrlEncoded
+    @POST("lg/todo/add/json")
+    Observable<BaseResponse<TodoBean>> addTodo(@Field("title") String title, @Field("content") String content, @Field("date") String date);
+
+    /**
+     * 修改一个TODO
+     *
+     * @param id      id
+     * @param title   标题
+     * @param content 内容
+     * @param date    日期
+     * @param status  状态，0待完成，1已完成
+     * @return BaseResponse
+     */
+    @FormUrlEncoded
+    @POST("lg/todo/update/{id}/json")
+    Observable<BaseResponse<TodoBean>> updateTodo(@Path("id") int id, @Field("title") String title, @Field("content") String content, @Field("date") String date, @Field("status") int status);
+
+    /**
+     * 删除一个TODO
+     *
+     * @param id id
+     * @return BaseResponse
+     */
+    @POST("lg/todo/delete/{id}/json")
+    Observable<BaseResponse<TodoBean>> delTodo(@Path("id") int id);
+
+    /**
+     * 更新TODO的状态
+     *
+     * @param id     id
+     * @param status 状态，0待完成，1已完成
+     * @return BaseResponse
+     */
+    @POST("lg/todo/done/{id}/json")
+    Observable<BaseResponse<TodoBean>> doneTodo(@Path("id") int id, @Field("status") int status);
 
 }

@@ -40,6 +40,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
      */
     private List<ArticleBean.DatasBean> topList;
     private OnCollectClickListener mListener;
+    private OnItemClickListener mOnItemClickListener;
 
 
     public ArticleAdapter(Context context) {
@@ -148,6 +149,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         holder.mHomeItemCollect.setVisibility(View.GONE);
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        if (listener != null) {
+            this.mOnItemClickListener = listener;
+        }
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         ArticleBean.DatasBean bean;
@@ -219,6 +226,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
                 mListener.onCollectClick(i, viewHolder.mHomeItemCollect, bean.getId(), bean.isCollect());
             });
         }
+
+        if (mOnItemClickListener != null) {
+            viewHolder.itemView.setOnClickListener(v -> {
+                mOnItemClickListener.onItemClick(bean.getLink());
+            });
+        }
     }
 
     /**
@@ -281,6 +294,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
          * @param isCollect 是否收藏
          */
         void onCollectClick(int position, View view, int articleId, boolean isCollect);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(String link);
     }
 
 }

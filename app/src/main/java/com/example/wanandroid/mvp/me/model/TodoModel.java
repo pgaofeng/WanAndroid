@@ -36,4 +36,80 @@ public class TodoModel extends BaseModel implements TodoContract.Model {
                     }
                 });
     }
+
+    @Override
+    public void addTodo(String title, String content, String date, ModelCallback callback) {
+        RetrofitClient.getInstance()
+                .createService(MeService.class)
+                .addTodo(title, content, date)
+                .compose(switchThread())
+                .subscribe(new BaseObserver<BaseResponse<TodoBean>>(mDisposableManager) {
+                    @Override
+                    public void onSuccess(BaseResponse<TodoBean> todoBeanBaseResponse) {
+                        callback.success(todoBeanBaseResponse);
+                    }
+
+                    @Override
+                    public void onFail(Throwable throwable) {
+                        callback.fail(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void updateTodo(int id, String title, String content, String date, int status, ModelCallback callback) {
+        RetrofitClient.getInstance()
+                .createService(MeService.class)
+                .updateTodo(id, title, content, date, status)
+                .compose(switchThread())
+                .subscribe(new BaseObserver<BaseResponse>(mDisposableManager) {
+                    @Override
+                    public void onSuccess(BaseResponse baseResponse) {
+                        callback.success(baseResponse);
+                    }
+
+                    @Override
+                    public void onFail(Throwable throwable) {
+                        callback.fail(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void delTodo(int id, ModelCallback callback) {
+        RetrofitClient.getInstance()
+                .createService(MeService.class)
+                .delTodo(id)
+                .compose(switchThread())
+                .subscribe(new BaseObserver<BaseResponse>(mDisposableManager) {
+                    @Override
+                    public void onSuccess(BaseResponse baseResponse) {
+                        callback.success(baseResponse);
+                    }
+
+                    @Override
+                    public void onFail(Throwable throwable) {
+                        callback.fail(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void updateTodoState(int id, int status, ModelCallback callback) {
+        RetrofitClient.getInstance()
+                .createService(MeService.class)
+                .doneTodo(id, status)
+                .compose(switchThread())
+                .subscribe(new BaseObserver<BaseResponse>(mDisposableManager) {
+                    @Override
+                    public void onSuccess(BaseResponse baseResponse) {
+                        callback.success(baseResponse);
+                    }
+
+                    @Override
+                    public void onFail(Throwable throwable) {
+                        callback.fail(throwable);
+                    }
+                });
+    }
 }

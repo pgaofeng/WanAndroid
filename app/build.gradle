@@ -50,4 +50,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     //事件总线
     implementation 'org.greenrobot:eventbus:3.0.0'
+    // AgentWeb
+    implementation 'com.just.agentweb:agentweb:3.1.0'
 }

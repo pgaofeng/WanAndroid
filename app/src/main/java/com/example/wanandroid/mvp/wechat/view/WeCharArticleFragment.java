@@ -1,5 +1,6 @@
 package com.example.wanandroid.mvp.wechat.view;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
+import com.example.wanandroid.mvp.web.WebActivity;
 import com.example.wanandroid.mvp.wechat.contract.WeChatArticleContract;
 import com.example.wanandroid.mvp.wechat.presenter.WeChatArticlePresenter;
 import com.example.wanandroid.util.EventBusUtils;
@@ -83,6 +85,11 @@ public class WeCharArticleFragment extends BaseFragment<WeChatArticlePresenter> 
             } else {
                 mPresenter.unCollect(position, v, articleId);
             }
+        });
+        mAdapter.setOnItemClickListener(link -> {
+            Intent intent = new Intent(mContext, WebActivity.class);
+            intent.putExtra("link", link);
+            mContext.startActivity(intent);
         });
         EventBusUtils.register(this);
 

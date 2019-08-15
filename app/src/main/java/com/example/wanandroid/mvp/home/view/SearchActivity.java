@@ -1,6 +1,7 @@
 package com.example.wanandroid.mvp.home.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.home.adapter.HistoryAdapter;
 import com.example.wanandroid.mvp.home.contract.SearchContract;
 import com.example.wanandroid.mvp.home.presenter.SearchPresenter;
+import com.example.wanandroid.mvp.web.WebActivity;
 import com.example.wanandroid.util.EventBusUtils;
 import com.example.wanandroid.util.ScreenUtils;
 import com.google.android.flexbox.FlexboxLayout;
@@ -261,6 +263,11 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                 mPresenter.unCollect(position, v, articleId);
             }
         });
+        mArticleAdapter.setOnItemClickListener(link -> {
+            Intent intent = new Intent(mContext, WebActivity.class);
+            intent.putExtra("link", link);
+            mContext.startActivity(intent);
+        });
 
         mPresenter.getHotKey();
         mPresenter.getHistory();
@@ -320,8 +327,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     }
 
     @Subscribe
-    public void onEvent(String message){
-        if (EventBusUtils.LOGIN_SUCCESS.equals(message)){
+    public void onEvent(String message) {
+        if (EventBusUtils.LOGIN_SUCCESS.equals(message)) {
             search(searchContent);
         }
     }

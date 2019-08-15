@@ -19,6 +19,7 @@ import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.presenter.HomePresenter;
 import com.example.wanandroid.mvp.home.service.DownLoadService;
+import com.example.wanandroid.mvp.web.WebActivity;
 import com.example.wanandroid.util.EventBusUtils;
 import com.pgaofeng.common.base.BaseFragment;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -88,6 +89,13 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 mPresenter.unCollect(position, v, articleId);
             }
         });
+
+        mAdapter.setOnItemClickListener(link -> {
+            Intent intent = new Intent(mContext, WebActivity.class);
+            intent.putExtra("link", link);
+            startActivity(intent);
+        });
+
         mPresenter.checkUpdate();
         mPresenter.getTopArticleList();
         mPresenter.getArticleList(page);

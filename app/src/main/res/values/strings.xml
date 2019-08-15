@@ -36,6 +36,6 @@
 
     <!-- 44dp before -->
     <!-- ?android:attr/actionBarSize -->
-    <dimen name="action_bar_size">56dp</dimen>
+    <dimen name="action_bar_size">50dp</dimen>
 
 </resources>

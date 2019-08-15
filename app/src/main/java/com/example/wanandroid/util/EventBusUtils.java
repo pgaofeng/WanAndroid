@@ -21,6 +21,10 @@ public class EventBusUtils {
         EventBus.getDefault().post(message);
     }
 
+    public static void sendObject(Object object) {
+        EventBus.getDefault().post(object);
+    }
+
     public static final String LOGIN_SUCCESS = "login_success";
 
 }

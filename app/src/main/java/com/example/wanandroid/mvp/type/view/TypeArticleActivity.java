@@ -1,5 +1,6 @@
 package com.example.wanandroid.mvp.type.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.example.wanandroid.bean.TypeBean;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.type.contract.TypeContract;
 import com.example.wanandroid.mvp.type.presenter.TypePresenter;
+import com.example.wanandroid.mvp.web.WebActivity;
 import com.example.wanandroid.util.EventBusUtils;
 import com.pgaofeng.common.base.BaseActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -163,6 +165,11 @@ public class TypeArticleActivity extends BaseActivity<TypePresenter> implements 
             } else {
                 mPresenter.unCollect(position, v, articleId);
             }
+        });
+        mAdapter.setOnItemClickListener(link -> {
+            Intent intent = new Intent(mContext, WebActivity.class);
+            intent.putExtra("link", link);
+            mContext.startActivity(intent);
         });
         mPresenter.getTypeArticle(page, cid);
     }

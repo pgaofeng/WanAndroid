@@ -13,9 +13,13 @@ import com.example.wanandroid.bean.TodoBean;
 import com.example.wanandroid.mvp.me.adapter.TodoAdapter;
 import com.example.wanandroid.mvp.me.contract.TodoContract;
 import com.example.wanandroid.mvp.me.presenter.TodoPresenter;
+import com.example.wanandroid.util.CommonUtils;
+import com.example.wanandroid.util.EventBusUtils;
 import com.google.gson.Gson;
 import com.pgaofeng.common.base.BaseFragment;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -57,6 +61,26 @@ public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoCon
     }
 
     @Override
+    public void addTodoSuccess(TodoBean bean) {
+
+    }
+
+    @Override
+    public void delTodoSuccess(int position) {
+
+    }
+
+    @Override
+    public void updateTodoSuccess(int position, TodoBean bean) {
+
+    }
+
+    @Override
+    public void onFail(String message) {
+
+    }
+
+    @Override
     protected int getContentView() {
         return R.layout.fragment_todo;
     }
@@ -92,19 +116,51 @@ public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoCon
             mContext.startActivity(intent);
         });
 
-        mAdapter.setOnItemClickListener(bean -> {
-            String beanStr = new Gson().toJson(bean);
-            Intent intent = new Intent(mContext, TodoAddActivity.class);
-            intent.putExtra("TODOBEAN", beanStr);
-            mContext.startActivity(intent);
+        mAdapter.setOnItemClickListener((bean, position) -> {
+            if (!CommonUtils.quickClick(800)) {
+                String beanStr = new Gson().toJson(bean);
+                Intent intent = new Intent(mContext, TodoAddActivity.class);
+                intent.putExtra("TODOBEAN", beanStr);
+                intent.putExtra("POSITION", position);
+                intent.putExtra("status", status);
+                mContext.startActivity(intent);
+            }
         });
 
-
+        EventBusUtils.register(this);
         mPresenter.getTodoList(page, status);
     }
 
     @Override
     protected TodoPresenter createPresenter() {
         return new TodoPresenter(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBusUtils.unRegister(this);
+    }
+
+    @Subscribe
+    public void onEvent(Object object) {
+        if (object instanceof TodoBean) {
+            TodoBean bean = (TodoBean) object;
+            int position = bean.getType();
+            // 添加一个新的TODO
+            if (position == -1) {
+                mAdapter.addItem(bean);
+                mRecyclerView.scrollToPosition(0);
+                // 修改TODO
+            } else {
+                // 修改了状态为已完成(bean.getPriority()用于判断该item是哪里点击的，0则是待完成中的，1则是已完成中的)
+                if (bean.getStatus() == 1 && bean.getPriority() == 0) {
+                    mAdapter.remove(position);
+                    // 修改其他内容
+                } else {
+                    mAdapter.replace(bean, position);
+                }
+            }
+        }
     }
 }
