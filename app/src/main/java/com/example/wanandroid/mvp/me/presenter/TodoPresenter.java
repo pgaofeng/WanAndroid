@@ -3,6 +3,8 @@ package com.example.wanandroid.mvp.me.presenter;
 import com.example.wanandroid.bean.BasePageBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.TodoBean;
+import com.example.wanandroid.mvp.login.LoginException;
+import com.example.wanandroid.mvp.login.view.LoginActivity;
 import com.example.wanandroid.mvp.me.contract.TodoContract;
 import com.example.wanandroid.mvp.me.model.TodoModel;
 import com.example.wanandroid.network.ModelCallback;
@@ -37,6 +39,9 @@ public class TodoPresenter extends BasePresenter<TodoContract.View, TodoModel> i
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.getTodoListFail(throwable.getMessage());
             }
         });
@@ -52,6 +57,9 @@ public class TodoPresenter extends BasePresenter<TodoContract.View, TodoModel> i
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.onFail(throwable.getMessage());
             }
         });
@@ -67,6 +75,9 @@ public class TodoPresenter extends BasePresenter<TodoContract.View, TodoModel> i
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.onFail(throwable.getMessage());
             }
         });
@@ -82,6 +93,9 @@ public class TodoPresenter extends BasePresenter<TodoContract.View, TodoModel> i
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.onFail(throwable.getMessage());
             }
         });
@@ -97,6 +111,9 @@ public class TodoPresenter extends BasePresenter<TodoContract.View, TodoModel> i
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.onFail(throwable.getMessage());
             }
         });

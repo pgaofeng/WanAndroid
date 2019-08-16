@@ -3,11 +3,11 @@ package com.example.wanandroid.mvp.login.model;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.LoginBean;
 import com.example.wanandroid.mvp.login.contract.LoginContract;
+import com.example.wanandroid.network.BaseObserver;
 import com.example.wanandroid.network.ModelCallback;
 import com.example.wanandroid.network.RetrofitClient;
 import com.example.wanandroid.service.LoginService;
 import com.pgaofeng.common.base.BaseModel;
-import com.pgaofeng.common.network.BaseObserver;
 
 /**
  * @author LoginModel

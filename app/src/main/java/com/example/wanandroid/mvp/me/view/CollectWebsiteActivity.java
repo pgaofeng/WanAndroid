@@ -1,5 +1,6 @@
 package com.example.wanandroid.mvp.me.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import com.example.wanandroid.bean.CollectWebsiteBean;
 import com.example.wanandroid.mvp.me.adapter.CollectWebsiteAdapter;
 import com.example.wanandroid.mvp.me.contract.CollectContract;
 import com.example.wanandroid.mvp.me.presenter.CollectPresenter;
+import com.example.wanandroid.mvp.web.WebActivity;
 import com.pgaofeng.common.base.BaseActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -67,6 +69,12 @@ public class CollectWebsiteActivity extends BaseActivity<CollectPresenter> imple
 
         mMeCollectWebsiteRefresh.setOnRefreshListener(refreshLayout -> mPresenter.getCollectWebsite());
         mMeCollectWebsiteRefresh.setEnableLoadMore(false);
+
+        mAdapter.setOnItemClickListener((position, view) -> {
+            Intent intent = new Intent(mContext, WebActivity.class);
+            intent.putExtra("link", mAdapter.getBeanAt(position).getLink());
+            mContext.startActivity(intent);
+        });
 
         mPresenter.getCollectWebsite();
 

@@ -148,7 +148,7 @@ public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoCon
             TodoBean bean = (TodoBean) object;
             int position = bean.getType();
             // 添加一个新的TODO
-            if (position == -1) {
+            if (position == -1 && status == 0) {
                 mAdapter.addItem(bean);
                 mRecyclerView.scrollToPosition(0);
                 // 修改TODO

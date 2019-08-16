@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.CollectWebsiteBean;
+import com.example.wanandroid.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,13 @@ public class CollectWebsiteAdapter extends RecyclerView.Adapter<CollectWebsiteAd
         }
     }
 
+    public CollectWebsiteBean getBeanAt(int position) {
+        if (position < data.size()) {
+            return data.get(position);
+        }
+        return null;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -80,7 +88,11 @@ public class CollectWebsiteAdapter extends RecyclerView.Adapter<CollectWebsiteAd
             viewHolder.mItemCollectIcon.setImageResource(R.mipmap.ic_me);
         }
         if (mListener != null) {
-            viewHolder.itemView.setOnClickListener(v -> mListener.onItemClick(i, v));
+            viewHolder.itemView.setOnClickListener(v -> {
+                if (!CommonUtils.quickClick(500))
+                    mListener.onItemClick(i, v);
+            });
+
         }
 
     }

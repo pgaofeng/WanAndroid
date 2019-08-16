@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.util.CommonUtils;
 import com.example.wanandroid.util.ScreenUtils;
 
 import java.util.ArrayList;
@@ -229,7 +230,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
         if (mOnItemClickListener != null) {
             viewHolder.itemView.setOnClickListener(v -> {
-                mOnItemClickListener.onItemClick(bean.getLink());
+                if (!CommonUtils.quickClick(500)) {
+                    mOnItemClickListener.onItemClick(bean.getLink());
+                }
             });
         }
     }

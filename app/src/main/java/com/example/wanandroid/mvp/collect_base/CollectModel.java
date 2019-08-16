@@ -1,10 +1,10 @@
 package com.example.wanandroid.mvp.collect_base;
 
 import com.example.wanandroid.bean.BaseResponse;
+import com.example.wanandroid.network.BaseObserver;
 import com.example.wanandroid.network.ModelCallback;
 import com.example.wanandroid.network.RetrofitClient;
 import com.example.wanandroid.service.CollectService;
-import com.pgaofeng.common.network.BaseObserver;
 import com.pgaofeng.common.network.DisposableManager;
 
 import io.reactivex.ObservableTransformer;

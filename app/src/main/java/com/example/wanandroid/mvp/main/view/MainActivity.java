@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.mvp.home.view.HomeFragment;
@@ -19,17 +20,19 @@ import com.example.wanandroid.mvp.main.contract.MainActivityContract;
 import com.example.wanandroid.mvp.me.view.MeFragment;
 import com.example.wanandroid.mvp.type.view.TypeFragment;
 import com.example.wanandroid.mvp.wechat.view.WeChatFragment;
+import com.example.wanandroid.util.CommonUtils;
 import com.pgaofeng.common.base.BaseActivity;
 import com.pgaofeng.common.mvp.Presenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 /**
-* @author gaofengpeng
-* @date 2019/8/6
-* @description :主页Activity，分主tab
-*/
+ * @author gaofengpeng
+ * @date 2019/8/6
+ * @description :主页Activity，分主tab
+ */
 public class MainActivity extends BaseActivity implements MainActivityContract.View {
 
     @BindView(R.id.main_frame)
@@ -80,6 +83,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
      * 用于记录上一个选择的tab
      */
     private Fragment mPreFragment = null;
+    private int mPreIndex = -1;
 
 
     private FragmentManager manager;
@@ -91,11 +95,23 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
 
     @Override
     protected void initView() {
+        mHome = new HomeFragment();
+        mWeChat = new WeChatFragment();
+        mType = new TypeFragment();
+        mMe = new MeFragment();
+
         manager = getSupportFragmentManager();
         mHome = new HomeFragment();
-        manager.beginTransaction().add(R.id.main_frame, mHome, HomeFragment.class.getName()).show(mHome).commitAllowingStateLoss();
+        manager.beginTransaction()
+                .add(R.id.main_frame, mHome, HomeFragment.class.getName())
+                .add(R.id.main_frame, mWeChat, WeChatFragment.class.getName())
+                .hide(mWeChat)
+                .add(R.id.main_frame, mType, TypeFragment.class.getName())
+                .hide(mType)
+                .add(R.id.main_frame, mMe, MeFragment.class.getName())
+                .hide(mMe)
+                .commitAllowingStateLoss();
         mPreFragment = mHome;
-        View view;
     }
 
     @Override
@@ -172,8 +188,8 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
      * TODO 读写权限回调暂未实现
      */
     private void getAuth() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission_group.STORAGE)!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},100);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission_group.STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
         }
     }
 
@@ -184,13 +200,9 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
      */
     private void switchFragment(int index) {
         FragmentTransaction transaction = manager.beginTransaction();
+        addAnim(index, transaction);
         switch (index) {
             case 0:
-                mHome = manager.findFragmentByTag(HomeFragment.class.getName());
-                if (mHome == null) {
-                    mHome = new HomeFragment();
-                    transaction.add(R.id.main_frame, mHome, HomeFragment.class.getName());
-                }
                 if (mPreFragment == mHome) {
                     clickRepeat(mHome);
                 } else {
@@ -199,11 +211,6 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
                 mPreFragment = mHome;
                 break;
             case 1:
-                mWeChat = manager.findFragmentByTag(WeChatFragment.class.getName());
-                if (mWeChat == null) {
-                    mWeChat = new WeChatFragment();
-                    transaction.add(R.id.main_frame, mWeChat, WeChatFragment.class.getName());
-                }
                 if (mPreFragment == mWeChat) {
                     clickRepeat(mWeChat);
                 } else {
@@ -212,11 +219,6 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
                 mPreFragment = mWeChat;
                 break;
             case 2:
-                mType = manager.findFragmentByTag(TypeFragment.class.getName());
-                if (mType == null) {
-                    mType = new TypeFragment();
-                    transaction.add(R.id.main_frame, mType, TypeFragment.class.getName());
-                }
                 if (mPreFragment == mType) {
                     clickRepeat(mType);
                 } else {
@@ -225,11 +227,6 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
                 mPreFragment = mType;
                 break;
             case 3:
-                mMe = manager.findFragmentByTag(MeFragment.class.getName());
-                if (mMe == null) {
-                    mMe = new MeFragment();
-                    transaction.add(R.id.main_frame, mMe, MeFragment.class.getName());
-                }
                 if (mPreFragment == mMe) {
                     clickRepeat(mMe);
                 } else {
@@ -250,5 +247,22 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
      */
     private void clickRepeat(Fragment fragment) {
         //
+    }
+
+    private void addAnim(int index, FragmentTransaction transaction) {
+        if (mPreIndex < index) {
+            transaction.setCustomAnimations(R.anim.right_in, R.anim.left_out, 0, 0);
+        } else if (mPreIndex > index) {
+            transaction.setCustomAnimations(R.anim.left_in, R.anim.right_out, 0, 0);
+        }
+        mPreIndex = index;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (CommonUtils.quickClick(1000)) {
+            super.onBackPressed();
+        }
+        Toast.makeText(mContext, "再按一次退出程序", Toast.LENGTH_SHORT).show();
     }
 }

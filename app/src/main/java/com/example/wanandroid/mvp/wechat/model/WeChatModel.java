@@ -5,11 +5,11 @@ import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.WeChatBean;
 import com.example.wanandroid.mvp.wechat.contract.WeChatArticleContract;
 import com.example.wanandroid.mvp.wechat.contract.WeChatContract;
+import com.example.wanandroid.network.BaseObserver;
 import com.example.wanandroid.network.ModelCallback;
 import com.example.wanandroid.network.RetrofitClient;
 import com.example.wanandroid.service.WeChatService;
 import com.pgaofeng.common.base.BaseModel;
-import com.pgaofeng.common.network.BaseObserver;
 
 import java.util.List;
 

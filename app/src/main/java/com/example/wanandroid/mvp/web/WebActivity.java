@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import com.example.wanandroid.R;
 import com.just.agentweb.AgentWeb;
+import com.just.agentweb.AgentWebConfig;
 import com.just.agentweb.DefaultWebClient;
+
+import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +41,11 @@ public class WebActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         String url = getIntent().getStringExtra("link");
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            url = "https://" + url;
+        if (url.startsWith("http://")) {
+            url = url.replace("http://", "https://");
+        }
 
         System.out.println(url);
         mAgentWeb = AgentWeb.with(this)
@@ -45,19 +53,21 @@ public class WebActivity extends AppCompatActivity {
                 .useDefaultIndicator()
                 .defaultProgressBarColor()
                 .setReceivedTitleCallback((view, title) -> mWebTitle.setText(title))
-                .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)
+                .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.DISALLOW)
                 .createAgentWeb()
                 .ready()
                 .go(url);
+        
 
 
         mWebClose.setOnClickListener(v -> {
-            new AlertDialog.Builder(WebActivity.this)
-                    .setTitle("关闭网页")
-                    .setMessage("是否要关闭网页？")
-                    .setPositiveButton("确定", (dialog, which) -> finish())
-                    .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
-                    .create().show();
+//            new AlertDialog.Builder(WebActivity.this)
+//                    .setTitle("关闭网页")
+//                    .setMessage("是否要关闭网页？")
+//                    .setPositiveButton("确定", (dialog, which) -> finish())
+//                    .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
+//                    .create().show();
+            finish();
 
         });
     }
@@ -67,7 +77,7 @@ public class WebActivity extends AppCompatActivity {
         if (!mAgentWeb.back()) {
             new AlertDialog.Builder(WebActivity.this)
                     .setTitle("退出")
-                    .setMessage("是否要退 出浏览？")
+                    .setMessage("是否要退出浏览？")
                     .setPositiveButton("确定", (dialog, which) -> finish())
                     .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
                     .create().show();

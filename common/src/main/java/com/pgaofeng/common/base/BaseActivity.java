@@ -78,9 +78,10 @@ public abstract class BaseActivity<P extends Presenter> extends AppCompatActivit
     /**
      * 跳转登录界面
      *
-     * @param calzz 登录界面
+     * @param clazz 登录界面
      */
-    protected void toLogin(Class calzz) {
-        mContext.startActivity(new Intent(mContext, calzz));
+    @Override
+    public void toLogin(Class clazz) {
+        mContext.startActivity(new Intent(mContext, clazz));
     }
 }

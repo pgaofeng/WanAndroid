@@ -6,6 +6,8 @@ import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.TypeBean;
 import com.example.wanandroid.mvp.collect_base.CollectModel;
+import com.example.wanandroid.mvp.login.LoginException;
+import com.example.wanandroid.mvp.login.view.LoginActivity;
 import com.example.wanandroid.mvp.type.contract.TypeContract;
 import com.example.wanandroid.mvp.type.model.TypeModel;
 import com.example.wanandroid.mvp.type.view.TypeFragment;
@@ -64,6 +66,9 @@ public class TypePresenter extends BasePresenter<TypeContract.View, TypeModel> i
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.collectFail(position, view);
             }
         });
@@ -84,6 +89,9 @@ public class TypePresenter extends BasePresenter<TypeContract.View, TypeModel> i
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.unCollectFail(position, view);
             }
         });

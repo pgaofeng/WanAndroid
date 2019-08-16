@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.HeaderBean;
+import com.example.wanandroid.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.Vi
 
     private List<HeaderBean> data;
     private Context mContext;
+    private OnItemClickListener mOnItemClickListener;
 
     public NavigationAdapter(Context context) {
         this.mContext = context;
@@ -56,6 +58,12 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.Vi
         return null;
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        if (listener != null) {
+            this.mOnItemClickListener = listener;
+        }
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -72,6 +80,12 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.Vi
             viewHolder.itemView.setTag(true);
         } else {
             viewHolder.itemView.setTag(false);
+        }
+        if (mOnItemClickListener != null) {
+            viewHolder.itemView.setOnClickListener(v -> {
+                if (!CommonUtils.quickClick(500))
+                    mOnItemClickListener.onItemClick(i, v);
+            });
         }
     }
 
@@ -90,5 +104,9 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.Vi
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, View view);
     }
 }

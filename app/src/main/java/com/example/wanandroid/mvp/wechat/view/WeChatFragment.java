@@ -41,7 +41,6 @@ public class WeChatFragment extends BaseFragment<WeChatPresenter> implements WeC
         tabLayout = view.findViewById(R.id.weChat_tab);
         viewPager.setAdapter(mAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabsFromPagerAdapter(mAdapter);
         mPresenter.getWxList();
     }
 
@@ -53,12 +52,10 @@ public class WeChatFragment extends BaseFragment<WeChatPresenter> implements WeC
     @Override
     public void getWxListSuccess(BaseResponse<List<WeChatBean>> data) {
         for (WeChatBean bean : data.getData()) {
-            TabLayout.Tab tab = tabLayout.newTab();
-            tab.setText(bean.getName());
-            tabLayout.addTab(tab);
             Fragment fragment = new WeCharArticleFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("id", bean.getId());
+            bundle.putString("title",bean.getName());
             fragment.setArguments(bundle);
             mAdapter.addFragment(fragment);
         }

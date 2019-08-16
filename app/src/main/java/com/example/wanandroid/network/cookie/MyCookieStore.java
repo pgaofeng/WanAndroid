@@ -24,7 +24,7 @@ import okhttp3.Cookie;
 
 public class MyCookieStore {
 
-    private final String STORE_NAME = "cookies_pref";
+    public static final String COOKIE_STORE_NAME = "cookies_pref";
     private final String ENCODING = "ISO-8859-1";
     private Context context;
     private SharedPreferences preferences;//存放本地的Cookie
@@ -33,7 +33,7 @@ public class MyCookieStore {
 
     public MyCookieStore(Context context) {
         this.context = context;
-        preferences = context.getSharedPreferences(STORE_NAME, Context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences(COOKIE_STORE_NAME, Context.MODE_PRIVATE);
         cookies = new ConcurrentHashMap<>();
 
         //初始化时将所有的Cookie读取到内存中去

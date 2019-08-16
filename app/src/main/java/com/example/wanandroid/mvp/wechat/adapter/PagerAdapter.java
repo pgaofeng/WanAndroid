@@ -1,5 +1,6 @@
 package com.example.wanandroid.mvp.wechat.adapter;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -33,5 +34,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
     public void addFragment(Fragment fragment) {
         this.mFragments.add(fragment);
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mFragments.get(position).getArguments().getString("title");
     }
 }

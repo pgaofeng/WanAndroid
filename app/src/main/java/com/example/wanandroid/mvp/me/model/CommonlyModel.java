@@ -3,11 +3,11 @@ package com.example.wanandroid.mvp.me.model;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.CollectWebsiteBean;
 import com.example.wanandroid.mvp.me.contract.CommonlyContract;
+import com.example.wanandroid.network.BaseObserver;
 import com.example.wanandroid.network.ModelCallback;
 import com.example.wanandroid.network.RetrofitClient;
 import com.example.wanandroid.service.MeService;
 import com.pgaofeng.common.base.BaseModel;
-import com.pgaofeng.common.network.BaseObserver;
 
 import java.util.List;
 

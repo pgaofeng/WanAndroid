@@ -5,11 +5,11 @@ import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.UpdateBean;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
+import com.example.wanandroid.network.BaseObserver;
 import com.example.wanandroid.network.ModelCallback;
 import com.example.wanandroid.network.RetrofitClient;
 import com.example.wanandroid.service.HomeService;
 import com.pgaofeng.common.base.BaseModel;
-import com.pgaofeng.common.network.BaseObserver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -134,7 +134,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                 .createService(HomeService.class)
                 .checkUpdate("https://raw.githubusercontent.com/pgaofeng/WanAndroid/master/update/release/output.json")
                 .compose(switchThread())
-                .subscribe(new BaseObserver<List<UpdateBean>>(mDisposableManager) {
+                .subscribe(new com.pgaofeng.common.network.BaseObserver<List<UpdateBean>>(mDisposableManager) {
                     @Override
                     public void onSuccess(List<UpdateBean> updateBeanlist) {
                         BaseResponse<UpdateBean> response = new BaseResponse<>();

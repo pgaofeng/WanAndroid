@@ -5,6 +5,8 @@ import android.view.View;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.mvp.collect_base.CollectModel;
+import com.example.wanandroid.mvp.login.LoginException;
+import com.example.wanandroid.mvp.login.view.LoginActivity;
 import com.example.wanandroid.mvp.wechat.contract.WeChatArticleContract;
 import com.example.wanandroid.mvp.wechat.model.WeChatModel;
 import com.example.wanandroid.mvp.wechat.view.WeCharArticleFragment;
@@ -48,6 +50,9 @@ public class WeChatArticlePresenter extends BasePresenter<WeCharArticleFragment,
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.collectFail(position, view);
             }
         });
@@ -68,6 +73,9 @@ public class WeChatArticlePresenter extends BasePresenter<WeCharArticleFragment,
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.unCollectFail(position, view);
             }
         });

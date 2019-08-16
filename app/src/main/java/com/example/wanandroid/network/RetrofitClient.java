@@ -1,5 +1,7 @@
 package com.example.wanandroid.network;
 
+import android.util.SparseArray;
+
 import com.example.wanandroid.App;
 import com.example.wanandroid.network.cookie.MyCookieJar;
 
@@ -20,6 +22,8 @@ public class RetrofitClient {
     private OkHttpClient mOkHttpClient;
     private Retrofit mRetrofit;
 
+    private SparseArray<Object> mSparseArray;
+
     private RetrofitClient() {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -36,6 +40,8 @@ public class RetrofitClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(mOkHttpClient)
                 .build();
+
+        mSparseArray = new SparseArray<>();
 
     }
 
@@ -63,6 +69,12 @@ public class RetrofitClient {
      * @return Service
      */
     public <T> T createService(Class<T> tClass) {
-        return mRetrofit.create(tClass);
+        int hash = tClass.hashCode();
+        Object object = mSparseArray.get(hash);
+        if (object != null)
+            return (T) object;
+        T t = mRetrofit.create(tClass);
+        mSparseArray.put(hash, t);
+        return t;
     }
 }

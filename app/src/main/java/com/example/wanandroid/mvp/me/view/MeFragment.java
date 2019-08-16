@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.mvp.login.view.LoginActivity;
+import com.example.wanandroid.network.cookie.MyCookieStore;
 import com.example.wanandroid.util.EventBusUtils;
 import com.pgaofeng.common.base.BaseFragment;
 import com.pgaofeng.common.mvp.Presenter;
@@ -32,7 +35,6 @@ import butterknife.Unbinder;
  */
 public class MeFragment extends BaseFragment {
 
-
     @BindView(R.id.me_collect)
     RelativeLayout mMeCollect;
     Unbinder unbinder;
@@ -46,6 +48,8 @@ public class MeFragment extends BaseFragment {
     LinearLayout mMeInfo;
 
     private SharedPreferences mPreferences;
+
+    private boolean isLogin;
 
 
     @Override
@@ -62,8 +66,9 @@ public class MeFragment extends BaseFragment {
         return null;
     }
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         EventBusUtils.register(this);
@@ -74,7 +79,8 @@ public class MeFragment extends BaseFragment {
 
     @SuppressLint("SetTextI18n")
     private void init() {
-        if (mPreferences.getBoolean("new", false)) {
+        isLogin = mPreferences.getBoolean("new", false);
+        if (isLogin) {
             mMeLoginOrRegister.setVisibility(View.GONE);
             mMeInfo.setVisibility(View.VISIBLE);
             mMeNickName.setText(mPreferences.getString("nickname", ""));
@@ -108,11 +114,17 @@ public class MeFragment extends BaseFragment {
         switch (view.getId()) {
             // 收藏文章
             case R.id.me_collect:
-                startActivity(new Intent(mContext, CollectActivity.class));
+                if (isLogin)
+                    startActivity(new Intent(mContext, CollectActivity.class));
+                else
+                    toLogin(LoginActivity.class);
                 break;
             // 收集网址
             case R.id.me_collect_website:
-                startActivity(new Intent(mContext, CollectWebsiteActivity.class));
+                if (isLogin)
+                    startActivity(new Intent(mContext, CollectWebsiteActivity.class));
+                else
+                    toLogin(LoginActivity.class);
                 break;
             // 常用网站
             case R.id.me_commonly_website:
@@ -124,15 +136,33 @@ public class MeFragment extends BaseFragment {
                 break;
             // TODO界面
             case R.id.me_todo:
-                startActivity(new Intent(mContext, TodoActivity.class));
+                if (isLogin)
+                    startActivity(new Intent(mContext, TodoActivity.class));
+                else
+                    toLogin(LoginActivity.class);
                 break;
-            //　我的
+            //　我的（已修改为退出登录）
             case R.id.me_about:
-                // TODO 跳转关于我界面
+                new AlertDialog.Builder(mContext)
+                        .setTitle("提示")
+                        .setMessage("退出登录后部分功能将不能使用，是否确认退出登录？")
+                        .setPositiveButton("确定", (dialog, which) -> logout())
+                        .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
+                        .create()
+                        .show();
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 退出登录
+     */
+    private void logout() {
+        mPreferences.edit().clear().apply();
+        mContext.getSharedPreferences(MyCookieStore.COOKIE_STORE_NAME, Context.MODE_PRIVATE).edit().clear().apply();
+        init();
     }
 
 }

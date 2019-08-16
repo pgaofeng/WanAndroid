@@ -126,6 +126,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         } else {
             mArticleAdapter.setDatas(bean.getDatas(), null);
         }
+        mHomeSearchArticle.scrollToPosition(0);
     }
 
     @Override
@@ -165,7 +166,6 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         EventBusUtils.register(this);
         init();
     }
-    // TODO 历史搜索相关，清除所有历史弹窗
 
     /**
      * 初始化

@@ -16,4 +16,6 @@ public interface View {
      */
     void hideProgress();
 
+    void toLogin(Class tClass);
+
 }

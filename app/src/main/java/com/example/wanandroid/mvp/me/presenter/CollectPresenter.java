@@ -3,6 +3,8 @@ package com.example.wanandroid.mvp.me.presenter;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.CollectWebsiteBean;
+import com.example.wanandroid.mvp.login.LoginException;
+import com.example.wanandroid.mvp.login.view.LoginActivity;
 import com.example.wanandroid.mvp.me.contract.CollectContract;
 import com.example.wanandroid.mvp.me.model.CollectModel;
 import com.example.wanandroid.mvp.me.view.CollectActivity;
@@ -31,6 +33,9 @@ public class CollectPresenter extends BasePresenter<CollectContract.View, Collec
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.getCollectFail(throwable.getMessage());
             }
         });
@@ -46,6 +51,9 @@ public class CollectPresenter extends BasePresenter<CollectContract.View, Collec
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.getCollectWebsiteFail(throwable.getMessage());
             }
         });

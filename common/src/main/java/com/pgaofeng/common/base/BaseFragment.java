@@ -25,16 +25,19 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment impleme
     protected P mPresenter;
     private Dialog mDialog;
     protected Context mContext;
+    protected android.view.View mView;
 
-    @Nullable
+    @NonNull
     @Override
     public android.view.View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        android.view.View view = inflater.inflate(getContentView(), container, false);
         mPresenter = createPresenter();
         mContext = getContext();
         mDialog = DialogUtils.getDefaultDialog(mContext);
-        initView(view);
-        return view;
+        if (mView == null) {
+            mView = inflater.inflate(getContentView(), container, false);
+            initView(mView);
+        }
+        return mView;
     }
 
     @Override
@@ -84,10 +87,11 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment impleme
     /**
      * 跳转登录界面
      *
-     * @param calzz 登录界面
+     * @param clazz 登录界面
      */
-    protected void toLogin(Class calzz) {
-        mContext.startActivity(new Intent(mContext, calzz));
+    @Override
+    public void toLogin(Class clazz) {
+        mContext.startActivity(new Intent(mContext, clazz));
     }
 
 }

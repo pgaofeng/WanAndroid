@@ -13,6 +13,8 @@ import com.example.wanandroid.mvp.collect_base.CollectModel;
 import com.example.wanandroid.mvp.home.Model.HomeModel;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.view.HomeFragment;
+import com.example.wanandroid.mvp.login.LoginException;
+import com.example.wanandroid.mvp.login.view.LoginActivity;
 import com.example.wanandroid.network.ModelCallback;
 import com.pgaofeng.common.base.BasePresenter;
 
@@ -129,6 +131,9 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.collectFail(position, view);
             }
         });
@@ -149,6 +154,9 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
 
             @Override
             public void fail(Throwable throwable) {
+                if (throwable instanceof LoginException) {
+                    mView.toLogin(LoginActivity.class);
+                }
                 mView.unCollectFail(position, view);
             }
         });

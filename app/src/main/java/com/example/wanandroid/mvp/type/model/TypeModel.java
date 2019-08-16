@@ -4,11 +4,11 @@ import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.TypeBean;
 import com.example.wanandroid.mvp.type.contract.TypeContract;
+import com.example.wanandroid.network.BaseObserver;
 import com.example.wanandroid.network.ModelCallback;
 import com.example.wanandroid.network.RetrofitClient;
 import com.example.wanandroid.service.TypeService;
 import com.pgaofeng.common.base.BaseModel;
-import com.pgaofeng.common.network.BaseObserver;
 
 import java.util.List;
 
