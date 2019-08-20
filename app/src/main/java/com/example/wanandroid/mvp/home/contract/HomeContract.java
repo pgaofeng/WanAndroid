@@ -1,6 +1,7 @@
 package com.example.wanandroid.mvp.home.contract;
 
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.bean.DatasBean;
 import com.example.wanandroid.mvp.collect_base.CollectContract;
 import com.example.wanandroid.network.ModelCallback;
 
@@ -32,7 +33,7 @@ public interface HomeContract {
          *
          * @param bean 文章数据
          */
-        void getTopArticleListSuccess(List<ArticleBean.DatasBean> bean);
+        void getTopArticleListSuccess(List<DatasBean> bean);
 
         /**
          * 获取置顶文章失败
@@ -82,6 +83,13 @@ public interface HomeContract {
          * @param message 失败信息
          */
         void checkFail(String message);
+
+        /**
+         * 获取缓存数据成功
+         *
+         * @param datasBeans 缓存数据
+         */
+        void getCacheSuccess(List<DatasBean> datasBeans);
     }
 
     interface Presenter extends CollectContract.Presenter {
@@ -106,6 +114,11 @@ public interface HomeContract {
          * 检查更新
          */
         void checkUpdate();
+
+        /**
+         * 获取缓存数据
+         */
+        void getCache();
     }
 
     interface Model {
@@ -137,6 +150,13 @@ public interface HomeContract {
          * @param callback 回调接口
          */
         void checkUpdate(ModelCallback callback);
+
+        /**
+         * 从数据库中加载数据
+         *
+         * @param callback 回调接口
+         */
+        void loadFromDB(ModelCallback callback);
     }
 
     public interface DownLoadListener {

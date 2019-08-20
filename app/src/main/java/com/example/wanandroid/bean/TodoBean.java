@@ -1,11 +1,13 @@
 package com.example.wanandroid.bean;
 
+import io.realm.RealmObject;
+
 /**
  * @author TodoBean
  * @date 2019/8/11
  * ${DESCRIPTION}
  */
-public class TodoBean {
+public class TodoBean extends RealmObject {
 
     /**
      * completeDate : null

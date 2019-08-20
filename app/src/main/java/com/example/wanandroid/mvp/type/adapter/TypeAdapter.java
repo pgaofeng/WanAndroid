@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.wanandroid.R;
+import com.example.wanandroid.bean.ChildrenBean;
 import com.example.wanandroid.bean.TypeBean;
 import com.example.wanandroid.mvp.type.view.TypeArticleActivity;
 import com.example.wanandroid.util.ScreenUtils;
@@ -56,7 +57,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.ViewHolder> {
         Log.i(TAG, "onBindViewHolder position: " + i);
         viewHolder.mTypeItemTitle.setText(mDatas.get(i).getName());
         viewHolder.mTypeItemChildren.removeAllViews();
-        for (TypeBean.ChildrenBean bean : mDatas.get(i).getChildren()) {
+        for (ChildrenBean bean : mDatas.get(i).getChildren()) {
             TextView textView = new TextView(mContext);
             ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             int margin = ScreenUtils.dp2px(mContext, 10);

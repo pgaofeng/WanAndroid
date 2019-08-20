@@ -39,4 +39,19 @@ public class WeChatPresenter extends BasePresenter<WeChatFragment, WeChatModel> 
             }
         });
     }
+
+    @Override
+    public void getWxListCache() {
+        mModel.getWxListCache(new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.getWxListSuccess((BaseResponse<List<WeChatBean>>) baseData);
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.getWxListFail(throwable.getMessage());
+            }
+        });
+    }
 }

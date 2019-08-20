@@ -34,6 +34,13 @@ public interface NavigationContract {
          * @param callback 回调接口
          */
         void getNavigation(ModelCallback callback);
+
+        /**
+         * 从缓存中获取数据
+         *
+         * @param callback 回调接口
+         */
+        void getNaviCache(ModelCallback callback);
     }
 
     public interface Presenter {
@@ -41,6 +48,11 @@ public interface NavigationContract {
          * 获取导航数据
          */
         void gatNavigation();
+
+        /**
+         * 从缓存中获取导航数据
+         */
+        void getNaviCache();
     }
 
 

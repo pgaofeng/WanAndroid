@@ -81,13 +81,25 @@ public interface SearchContract {
          * @param callback 回调接口
          */
         void searchArticle(int page, String key, ModelCallback callback);
+
+        /**
+         * 从缓存中获取搜索热词
+         *
+         * @param callback 回调接口
+         */
+        void hotKeyFromCache(ModelCallback callback);
     }
 
-    public interface Presenter extends CollectContract.Presenter{
+    public interface Presenter extends CollectContract.Presenter {
         /**
          * 获取搜索热词
          */
         void getHotKey();
+
+        /**
+         * 从缓存中获取搜索热词
+         */
+        void getHotKeycache();
 
         /**
          * 获取搜索历史

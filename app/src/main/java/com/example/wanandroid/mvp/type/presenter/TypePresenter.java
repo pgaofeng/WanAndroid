@@ -10,7 +10,6 @@ import com.example.wanandroid.mvp.login.LoginException;
 import com.example.wanandroid.mvp.login.view.LoginActivity;
 import com.example.wanandroid.mvp.type.contract.TypeContract;
 import com.example.wanandroid.mvp.type.model.TypeModel;
-import com.example.wanandroid.mvp.type.view.TypeFragment;
 import com.example.wanandroid.network.ModelCallback;
 import com.pgaofeng.common.base.BasePresenter;
 
@@ -57,6 +56,21 @@ public class TypePresenter extends BasePresenter<TypeContract.View, TypeModel> i
     }
 
     @Override
+    public void getTypeCache() {
+        mModel.getTypeCache(new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.getTypeListSuccess((List<TypeBean>) baseData.getData());
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.getTypeListFail(throwable.getMessage());
+            }
+        });
+    }
+
+    @Override
     public void collectInside(int position, View view, int articleId) {
         CollectModel.collectInside(articleId, mModel.getDisposableManager(), new ModelCallback() {
             @Override
@@ -75,12 +89,12 @@ public class TypePresenter extends BasePresenter<TypeContract.View, TypeModel> i
     }
 
     @Override
-    public void collectOutside(int position, View view,String author, String title, String link) {
+    public void collectOutside(int position, View view, String author, String title, String link) {
 
     }
 
     @Override
-    public void unCollect(int position, View view,int articleId) {
+    public void unCollect(int position, View view, int articleId) {
         CollectModel.unCollectArticle(articleId, mModel.getDisposableManager(), new ModelCallback() {
             @Override
             public void success(BaseResponse<?> baseData) {
@@ -98,10 +112,9 @@ public class TypePresenter extends BasePresenter<TypeContract.View, TypeModel> i
     }
 
     @Override
-    public void unCollectFromCollect(int position, View view,int articleId, int originId) {
+    public void unCollectFromCollect(int position, View view, int articleId, int originId) {
 
     }
-
 
 
     @Override

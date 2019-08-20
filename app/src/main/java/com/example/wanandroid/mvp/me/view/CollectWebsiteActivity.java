@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.CollectWebsiteBean;
+import com.example.wanandroid.bean.DatasBean;
 import com.example.wanandroid.mvp.me.adapter.CollectWebsiteAdapter;
 import com.example.wanandroid.mvp.me.contract.CollectContract;
 import com.example.wanandroid.mvp.me.presenter.CollectPresenter;
@@ -76,6 +77,7 @@ public class CollectWebsiteActivity extends BaseActivity<CollectPresenter> imple
             mContext.startActivity(intent);
         });
 
+        mPresenter.getCollectWebCache();
         mPresenter.getCollectWebsite();
 
 
@@ -105,5 +107,17 @@ public class CollectWebsiteActivity extends BaseActivity<CollectPresenter> imple
     @Override
     public void getCollectWebsiteFail(String message) {
 
+    }
+
+    @Override
+    public void getCollectListCacheSuccess(List<DatasBean> datasBeans) {
+
+    }
+
+    @Override
+    public void getCollectWebCacheSuccess(List<CollectWebsiteBean> collectWebsiteBeans) {
+        if (collectWebsiteBeans != null && collectWebsiteBeans.size() > 0 && mAdapter.getItemCount() == 0) {
+            mAdapter.setData(collectWebsiteBeans);
+        }
     }
 }

@@ -6,7 +6,7 @@ import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
 import com.example.wanandroid.bean.HotKeyBean;
 import com.example.wanandroid.mvp.collect_base.CollectModel;
-import com.example.wanandroid.mvp.home.Model.SearchModel;
+import com.example.wanandroid.mvp.home.model.SearchModel;
 import com.example.wanandroid.mvp.home.contract.SearchContract;
 import com.example.wanandroid.mvp.home.view.SearchActivity;
 import com.example.wanandroid.mvp.login.LoginException;
@@ -29,6 +29,21 @@ public class SearchPresenter extends BasePresenter<SearchActivity, SearchModel> 
     @Override
     public void getHotKey() {
         mModel.getHotKey(new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.getHotKeySuccess((List<HotKeyBean>) baseData.getData());
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.getHistoryFail(throwable.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getHotKeycache() {
+        mModel.hotKeyFromCache(new ModelCallback() {
             @Override
             public void success(BaseResponse<?> baseData) {
                 mView.getHotKeySuccess((List<HotKeyBean>) baseData.getData());

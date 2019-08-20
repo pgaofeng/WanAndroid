@@ -43,9 +43,21 @@ public class CollectWebsiteAdapter extends RecyclerView.Adapter<CollectWebsiteAd
      * @param data 新数据
      */
     public void setData(List<CollectWebsiteBean> data) {
+        int oldSize = this.data.size();
+        int newSize = data.size();
+
         this.data.clear();
         this.data.addAll(data);
-        notifyItemRangeChanged(0, data.size());
+
+        if (oldSize > newSize) {
+            notifyItemRangeChanged(0, newSize);
+            notifyItemRangeRemoved(newSize, oldSize - newSize);
+        } else if (oldSize < newSize) {
+            notifyItemRangeChanged(0, oldSize);
+            notifyItemRangeInserted(oldSize, newSize - oldSize);
+        } else {
+            notifyItemRangeChanged(0, newSize);
+        }
     }
 
     public void setOnItemClickListener(OnItemClickListener lisntener) {

@@ -1,8 +1,9 @@
-package com.example.wanandroid.mvp.home.Model;
+package com.example.wanandroid.mvp.home.model;
 
 import com.example.wanandroid.App;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
+import com.example.wanandroid.bean.DatasBean;
 import com.example.wanandroid.bean.UpdateBean;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.network.BaseObserver;
@@ -16,8 +17,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +42,22 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                 .createService(HomeService.class)
                 .articleList(page)
                 .compose(switchThread())
+                .map(dataList -> {
+                    if (page != 0)
+                        return dataList;
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.executeTransaction(realm1 -> {
+                        RealmResults<DatasBean> list = realm.where(DatasBean.class).equalTo("articleType", 1).findAll();
+                        for (DatasBean bean : list) {
+                            bean.deleteFromRealm();
+                        }
+                        for (DatasBean bean : dataList.getData().getDatas()) {
+                            bean.setArticleType(1);
+                            realm.copyToRealm(bean);
+                        }
+                    });
+                    return dataList;
+                })
                 .subscribe(new BaseObserver<BaseResponse<ArticleBean>>(mDisposableManager) {
                     @Override
                     public void onSuccess(BaseResponse<ArticleBean> articleBeanBaseResponse) {
@@ -55,9 +77,23 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                 .createService(HomeService.class)
                 .topArticleList()
                 .compose(switchThread())
-                .subscribe(new BaseObserver<BaseResponse<List<ArticleBean.DatasBean>>>(mDisposableManager) {
+                .map(dataList -> {
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.executeTransaction(realm1 -> {
+                        RealmResults<DatasBean> list = realm.where(DatasBean.class).equalTo("articleType", 0).findAll();
+                        for (DatasBean bean : list) {
+                            bean.deleteFromRealm();
+                        }
+                        for (DatasBean bean : dataList.getData()) {
+                            bean.setArticleType(0);
+                            realm.copyToRealm(bean);
+                        }
+                    });
+                    return dataList;
+                })
+                .subscribe(new BaseObserver<BaseResponse<List<DatasBean>>>(mDisposableManager) {
                     @Override
-                    public void onSuccess(BaseResponse<List<ArticleBean.DatasBean>> listBaseResponse) {
+                    public void onSuccess(BaseResponse<List<DatasBean>> listBaseResponse) {
                         callback.success(listBaseResponse);
                     }
 
@@ -147,5 +183,35 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                         callback.fail(throwable);
                     }
                 });
+    }
+
+    @Override
+    public void loadFromDB(ModelCallback callback) {
+        Observable.just(1)
+                .map(integer -> {
+                    Realm realm = Realm.getDefaultInstance();
+                    RealmResults<DatasBean> datasBeans = realm.where(DatasBean.class)
+                            .equalTo("articleType", 0)
+                            .or()
+                            .equalTo("articleType", 1)
+                            .findAll()
+                            .sort("type", Sort.DESCENDING);
+                    BaseResponse<List<DatasBean>> response = new BaseResponse<>();
+                    response.setData(new ArrayList<>(datasBeans));
+                    return response;
+                })
+                .subscribe(new com.pgaofeng.common.network.BaseObserver<BaseResponse<List<DatasBean>>>(mDisposableManager) {
+                    @Override
+                    public void onSuccess(BaseResponse<List<DatasBean>> datasBeans) {
+                        callback.success(datasBeans);
+                    }
+
+                    @Override
+                    public void onFail(Throwable throwable) {
+                        callback.fail(throwable);
+                    }
+                });
+
+
     }
 }

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.wanandroid.App;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.bean.DatasBean;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.presenter.HomePresenter;
@@ -96,6 +97,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             startActivity(intent);
         });
 
+        mPresenter.getCache();
         mPresenter.checkUpdate();
         mPresenter.getTopArticleList();
         mPresenter.getArticleList(page);
@@ -120,6 +122,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             isLoadMore = false;
         } else {
             mAdapter.setDatas(bean.getDatas(), null);
+            mHomeRecycler.scrollToPosition(0);
         }
     }
 
@@ -130,8 +133,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void getTopArticleListSuccess(List<ArticleBean.DatasBean> bean) {
+    public void getTopArticleListSuccess(List<DatasBean> bean) {
         mAdapter.setDatas(null, bean);
+        mHomeRecycler.scrollToPosition(0);
     }
 
     @Override
@@ -192,7 +196,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void hasUpdate() {
-
         new AlertDialog.Builder(mContext)
                 .setTitle("更新")
                 .setMessage("是否更新？")
@@ -212,6 +215,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     public void checkFail(String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getCacheSuccess(List<DatasBean> datasBeans) {
+        if (datasBeans == null || mAdapter.getItemCount() > 0) {
+            Toast.makeText(mContext, "未更新", Toast.LENGTH_SHORT).show();
+        } else {
+            mAdapter.setDatas(datasBeans, null);
+        }
     }
 
     @Override

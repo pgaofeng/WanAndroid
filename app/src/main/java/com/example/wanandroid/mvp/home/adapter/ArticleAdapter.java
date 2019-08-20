@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.bean.DatasBean;
 import com.example.wanandroid.util.CommonUtils;
 import com.example.wanandroid.util.ScreenUtils;
 
@@ -35,11 +36,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     /**
      * 基本文章列表
      */
-    private List<ArticleBean.DatasBean> basicList;
+    private List<DatasBean> basicList;
     /**
      * 置顶文章列表
      */
-    private List<ArticleBean.DatasBean> topList;
+    private List<DatasBean> topList;
     private OnCollectClickListener mListener;
     private OnItemClickListener mOnItemClickListener;
 
@@ -69,7 +70,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
      * @param view      图标
      */
     public void setCollect(boolean isCollect, int position, View view) {
-        ArticleBean.DatasBean bean;
+        DatasBean bean;
         if (topList.size() == 0) {
             bean = basicList.get(position);
         } else if (position < topList.size()) {
@@ -88,7 +89,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
      * @param basicList 基本文章数据
      * @param topList   置顶文章数据
      */
-    public void setDatas(List<ArticleBean.DatasBean> basicList, List<ArticleBean.DatasBean> topList) {
+    public void setDatas(List<DatasBean> basicList, List<DatasBean> topList) {
         if (basicList != null) {
             int oldSize = this.basicList.size();
             int newSize = basicList.size();
@@ -126,7 +127,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
      *
      * @param basicList 基础文章数据
      */
-    public void addDatas(List<ArticleBean.DatasBean> basicList) {
+    public void addDatas(List<DatasBean> basicList) {
         if (basicList != null) {
             this.basicList.addAll(basicList);
             notifyItemRangeChanged(this.topList.size(), basicList.size());
@@ -158,7 +159,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        ArticleBean.DatasBean bean;
+        DatasBean bean;
         if (topList.size() == 0) {
             bean = basicList.get(i);
         } else if (i < topList.size()) {

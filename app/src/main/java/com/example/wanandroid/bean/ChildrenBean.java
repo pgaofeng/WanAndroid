@@ -1,25 +1,20 @@
 package com.example.wanandroid.bean;
 
-import java.util.List;
-
-import io.realm.RealmList;
 import io.realm.RealmObject;
 
 /**
  * @author gaofengpeng
- * @date 2019/7/31
- * @description : 分类模块bean
+ * @date 2019/8/19
+ * @description :
  */
-public class TypeBean extends RealmObject {
-
-
+public class ChildrenBean  extends RealmObject{
     /**
-     * children : [{"children":[],"courseId":13,"id":60,"name":"Android Studio相关","order":1000,"parentChapterId":150,"userControlSetTop":false,"visible":1},{"children":[],"courseId":13,"id":169,"name":"gradle","order":1001,"parentChapterId":150,"userControlSetTop":false,"visible":1},{"children":[],"courseId":13,"id":269,"name":"官方发布","order":1002,"parentChapterId":150,"userControlSetTop":false,"visible":1}]
+     * children : []
      * courseId : 13
-     * id : 150
-     * name : 开发环境
-     * order : 1
-     * parentChapterId : 0
+     * id : 60
+     * name : Android Studio相关
+     * order : 1000
+     * parentChapterId : 150
      * userControlSetTop : false
      * visible : 1
      */
@@ -31,7 +26,7 @@ public class TypeBean extends RealmObject {
     private int parentChapterId;
     private boolean userControlSetTop;
     private int visible;
-    private RealmList<ChildrenBean> children;
+  //  private List<?> children;
 
     public int getCourseId() {
         return courseId;
@@ -89,11 +84,11 @@ public class TypeBean extends RealmObject {
         this.visible = visible;
     }
 
-    public List<ChildrenBean> getChildren() {
-        return children;
-    }
-
-    public void setChildren(RealmList<ChildrenBean> children) {
-        this.children = children;
-    }
+//    public List<?> getChildren() {
+//        return children;
+//    }
+//
+//    public void setChildren(List<?> children) {
+//        this.children = children;
+//    }
 }

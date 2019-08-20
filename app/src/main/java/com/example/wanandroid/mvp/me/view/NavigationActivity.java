@@ -85,6 +85,7 @@ public class NavigationActivity extends BaseActivity<NavigationPresenter> implem
             mContext.startActivity(intent);
         });
 
+        mPresenter.getNaviCache();
         mPresenter.gatNavigation();
 
     }

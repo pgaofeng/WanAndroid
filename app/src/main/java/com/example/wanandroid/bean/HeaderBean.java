@@ -1,11 +1,13 @@
 package com.example.wanandroid.bean;
 
+import io.realm.RealmObject;
+
 /**
  * @author gaofengpeng
  * @date 2019/8/12
  * @description :
  */
-public class HeaderBean {
+public class HeaderBean extends RealmObject {
 
     private String name;
     private String link;

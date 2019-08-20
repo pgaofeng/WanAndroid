@@ -47,7 +47,6 @@ public class WebActivity extends AppCompatActivity {
             url = url.replace("http://", "https://");
         }
 
-        System.out.println(url);
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mParent, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
                 .useDefaultIndicator()

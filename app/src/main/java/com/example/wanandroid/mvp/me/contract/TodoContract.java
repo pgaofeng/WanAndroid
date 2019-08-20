@@ -58,6 +58,13 @@ public interface TodoContract {
          */
         void onFail(String message);
 
+        /**
+         * 成功获取todo缓存
+         *
+         * @param data 缓存数据
+         */
+        void getTodoCacheSuccess(List<TodoBean> data);
+
     }
 
     public interface Model {
@@ -70,6 +77,13 @@ public interface TodoContract {
          * @param callback
          */
         void getTodoList(int page, int status, ModelCallback callback);
+
+        /**
+         * 获取缓存的TODO列表
+         *
+         * @param status 状态，0未完成1已完成
+         */
+        void getTodoListCache(int status, ModelCallback callback);
 
         /**
          * 添加一个TODO
@@ -156,5 +170,12 @@ public interface TodoContract {
          * @param position 修改位置
          */
         void updateTodoState(int id, int status, int position);
+
+        /**
+         * 从缓存中获取TODO列表
+         *
+         * @param status 0未完成1已完成
+         */
+        void getTodoListCache(int status);
     }
 }

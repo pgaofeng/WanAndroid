@@ -81,6 +81,12 @@ public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoCon
     }
 
     @Override
+    public void getTodoCacheSuccess(List<TodoBean> data) {
+        if (data != null && data.size() > 0 && mAdapter.getItemCount() == 0)
+            mAdapter.setData(data);
+    }
+
+    @Override
     protected int getContentView() {
         return R.layout.fragment_todo;
     }
@@ -128,6 +134,7 @@ public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoCon
         });
 
         EventBusUtils.register(this);
+        mPresenter.getTodoListCache(status);
         mPresenter.getTodoList(page, status);
     }
 

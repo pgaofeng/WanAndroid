@@ -41,4 +41,9 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return mFragments.get(position).getArguments().getString("title");
     }
+
+    public void removeAll() {
+        this.mFragments.clear();
+        notifyDataSetChanged();
+    }
 }

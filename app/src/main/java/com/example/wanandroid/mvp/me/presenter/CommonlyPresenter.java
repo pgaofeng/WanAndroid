@@ -36,6 +36,21 @@ public class CommonlyPresenter extends BasePresenter<CommonlyWebsiteActivity, Co
     }
 
     @Override
+    public void getCommonlyCache() {
+        mModel.getCommonlyCache(new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.getCommonlyWebsiteSuccess((List<CollectWebsiteBean>) baseData.getData());
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.getCommonlyWebsiteFail(throwable.getMessage());
+            }
+        });
+    }
+
+    @Override
     protected CommonlyModel createModel() {
         return new CommonlyModel();
     }

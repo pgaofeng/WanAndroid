@@ -8,9 +8,10 @@ import android.view.View;
 
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
+import com.example.wanandroid.bean.DatasBean;
 import com.example.wanandroid.bean.UpdateBean;
 import com.example.wanandroid.mvp.collect_base.CollectModel;
-import com.example.wanandroid.mvp.home.Model.HomeModel;
+import com.example.wanandroid.mvp.home.model.HomeModel;
 import com.example.wanandroid.mvp.home.contract.HomeContract;
 import com.example.wanandroid.mvp.home.view.HomeFragment;
 import com.example.wanandroid.mvp.login.LoginException;
@@ -41,6 +42,7 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
 
             @Override
             public void fail(Throwable throwable) {
+                throwable.printStackTrace();
                 mView.getArticleFail(throwable.getMessage());
             }
         });
@@ -51,11 +53,12 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
         mModel.getTopArticleList(new ModelCallback() {
             @Override
             public void success(BaseResponse<?> baseData) {
-                mView.getTopArticleListSuccess((List<ArticleBean.DatasBean>) baseData.getData());
+                mView.getTopArticleListSuccess((List<DatasBean>) baseData.getData());
             }
 
             @Override
             public void fail(Throwable throwable) {
+                throwable.printStackTrace();
                 mView.getTopArticleListFail(throwable.getMessage());
             }
         });
@@ -112,6 +115,21 @@ public class HomePresenter extends BasePresenter<HomeFragment, HomeModel> implem
             @Override
             public void fail(Throwable throwable) {
                 mView.checkFail(throwable.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getCache() {
+        mModel.loadFromDB(new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.getCacheSuccess((List<DatasBean>) baseData.getData());
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.updateFail(throwable.getMessage());
             }
         });
     }

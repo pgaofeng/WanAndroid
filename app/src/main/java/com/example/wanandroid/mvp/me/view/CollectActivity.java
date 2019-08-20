@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.CollectWebsiteBean;
+import com.example.wanandroid.bean.DatasBean;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.me.adapter.CollectAdapter;
 import com.example.wanandroid.mvp.me.contract.CollectContract;
@@ -71,6 +72,18 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     }
 
     @Override
+    public void getCollectListCacheSuccess(List<DatasBean> datasBeans) {
+        if (datasBeans != null && datasBeans.size() > 0 && mAdapter.getItemCount() == 0) {
+            mAdapter.setDatas(datasBeans, null);
+        }
+    }
+
+    @Override
+    public void getCollectWebCacheSuccess(List<CollectWebsiteBean> collectWebsiteBeans) {
+
+    }
+
+    @Override
     protected int getContentView() {
         return R.layout.activity_collect;
     }
@@ -109,6 +122,7 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
             intent.putExtra("link", link);
             mContext.startActivity(intent);
         });
+        mPresenter.getCollectListCache();
         mPresenter.getCollectList(page);
     }
 

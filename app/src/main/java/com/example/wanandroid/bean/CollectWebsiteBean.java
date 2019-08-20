@@ -1,11 +1,13 @@
 package com.example.wanandroid.bean;
 
+import io.realm.RealmObject;
+
 /**
  * @author gaofengpeng
  * @date 2019/8/8
  * @description : 收藏网址界面
  */
-public class CollectWebsiteBean {
+public class CollectWebsiteBean extends RealmObject {
 
 
     /**
@@ -17,6 +19,9 @@ public class CollectWebsiteBean {
      * order : 0
      * userId : 3710
      * visible : 1
+     * <p>
+     * 以下参数额外添加用于区分
+     * type：0，收藏网址，1，常用网址
      */
 
     private String desc;
@@ -27,6 +32,16 @@ public class CollectWebsiteBean {
     private int order;
     private int userId;
     private int visible;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    private  int type;
 
     public String getDesc() {
         return desc;

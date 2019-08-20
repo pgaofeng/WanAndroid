@@ -4,7 +4,6 @@ import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.TypeBean;
 import com.example.wanandroid.mvp.collect_base.CollectContract;
 import com.example.wanandroid.network.ModelCallback;
-import com.pgaofeng.common.mvp.View;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
  */
 public class TypeContract {
 
-    public interface View extends com.pgaofeng.common.mvp.View , CollectContract.View {
+    public interface View extends com.pgaofeng.common.mvp.View, CollectContract.View {
         /**
          * 获取分类数据成功
          *
@@ -46,7 +45,7 @@ public class TypeContract {
 
     }
 
-    public interface Presenter extends CollectContract.Presenter{
+    public interface Presenter extends CollectContract.Presenter {
         /**
          * 获取分类数据
          */
@@ -59,6 +58,11 @@ public class TypeContract {
          * @param cid  分类id
          */
         void getTypeArticle(int page, int cid);
+
+        /**
+         * 从缓存中获取数据
+         */
+        void getTypeCache();
     }
 
     public interface Model {
@@ -77,6 +81,14 @@ public class TypeContract {
          * @param callback 回调接口
          */
         void getTypeArticle(int page, int cid, ModelCallback callback);
+
+        /**
+         * 从缓存中获取类型
+         *
+         * @param callback 回调接口
+         */
+        void getTypeCache(ModelCallback callback);
+
     }
 
 }

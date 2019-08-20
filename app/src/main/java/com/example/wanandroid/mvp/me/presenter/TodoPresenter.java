@@ -119,4 +119,19 @@ public class TodoPresenter extends BasePresenter<TodoContract.View, TodoModel> i
         });
     }
 
+    @Override
+    public void getTodoListCache(int status) {
+        mModel.getTodoListCache(status, new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.getTodoCacheSuccess((List<TodoBean>) baseData.getData());
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.onFail(throwable.getMessage());
+            }
+        });
+    }
+
 }

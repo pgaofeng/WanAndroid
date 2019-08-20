@@ -34,6 +34,13 @@ public interface CommonlyContract {
          * @param callback 回调接口
          */
         void getCommonlyWebsite(ModelCallback callback);
+
+        /**
+         * 从缓存中获取常用网站
+         *
+         * @param callback 回调接口
+         */
+        void getCommonlyCache(ModelCallback callback);
     }
 
     public interface Presenter {
@@ -41,5 +48,10 @@ public interface CommonlyContract {
          * 获取常用网站
          */
         void getCommonlyWebsite();
+
+        /**
+         * 从缓存中获取常用网站
+         */
+        void getCommonlyCache();
     }
 }

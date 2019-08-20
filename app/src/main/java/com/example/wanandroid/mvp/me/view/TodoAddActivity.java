@@ -196,4 +196,9 @@ public class TodoAddActivity extends BaseActivity<TodoPresenter> implements Todo
     public void onFail(String message) {
 
     }
+
+    @Override
+    public void getTodoCacheSuccess(List<TodoBean> data) {
+
+    }
 }

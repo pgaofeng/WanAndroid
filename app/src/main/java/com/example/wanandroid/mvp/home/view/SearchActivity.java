@@ -269,6 +269,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             mContext.startActivity(intent);
         });
 
+        mPresenter.getHotKeycache();
         mPresenter.getHotKey();
         mPresenter.getHistory();
     }

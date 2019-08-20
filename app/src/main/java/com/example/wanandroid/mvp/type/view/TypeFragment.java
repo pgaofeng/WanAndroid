@@ -59,6 +59,7 @@ public class TypeFragment extends BaseFragment<TypePresenter> implements TypeCon
         mAdapter = new TypeAdapter(mContext);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mAdapter);
+        mPresenter.getTypeCache();
         mPresenter.getTypeList();
     }
 

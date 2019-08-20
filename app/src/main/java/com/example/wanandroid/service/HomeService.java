@@ -2,6 +2,7 @@ package com.example.wanandroid.service;
 
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BaseResponse;
+import com.example.wanandroid.bean.DatasBean;
 import com.example.wanandroid.bean.HotKeyBean;
 import com.example.wanandroid.bean.UpdateBean;
 
@@ -40,7 +41,7 @@ public interface HomeService {
      * @return 首页文章数据
      */
     @GET("article/top/json")
-    Observable<BaseResponse<List<ArticleBean.DatasBean>>> topArticleList();
+    Observable<BaseResponse<List<DatasBean>>> topArticleList();
 
     /**
      * 获取搜索热词

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.wanandroid.R;
+import com.example.wanandroid.bean.ChildrenBean;
 import com.example.wanandroid.bean.TypeBean;
 
 import java.util.ArrayList;
@@ -21,14 +22,14 @@ import java.util.List;
  */
 public class TypeChildAdapter extends RecyclerView.Adapter<TypeChildAdapter.ViewHolder> {
     private Context mContext;
-    private List<TypeBean.ChildrenBean> mDatas;
+    private List<ChildrenBean> mDatas;
 
     public TypeChildAdapter(Context context) {
         this.mContext = context;
         mDatas = new ArrayList<>();
     }
 
-    public void setDatas(List<TypeBean.ChildrenBean> datas) {
+    public void setDatas(List<ChildrenBean> datas) {
         this.mDatas.clear();
         this.mDatas.addAll(datas);
         notifyDataSetChanged();

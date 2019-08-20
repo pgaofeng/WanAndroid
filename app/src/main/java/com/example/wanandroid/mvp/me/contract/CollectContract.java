@@ -2,8 +2,8 @@ package com.example.wanandroid.mvp.me.contract;
 
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.CollectWebsiteBean;
+import com.example.wanandroid.bean.DatasBean;
 import com.example.wanandroid.network.ModelCallback;
-import com.pgaofeng.common.mvp.View;
 
 import java.util.List;
 
@@ -41,6 +41,20 @@ public interface CollectContract {
          * @param message 失败原因
          */
         void getCollectWebsiteFail(String message);
+
+        /**
+         * 从缓存中获取数据成功
+         *
+         * @param datasBeans 缓存的收藏文章
+         */
+        void getCollectListCacheSuccess(List<DatasBean> datasBeans);
+
+        /**
+         * 成功从缓存中获取收藏网站
+         *
+         * @param collectWebsiteBeans 缓存的收藏网站
+         */
+        void getCollectWebCacheSuccess(List<CollectWebsiteBean> collectWebsiteBeans);
     }
 
     public interface Model {
@@ -58,6 +72,20 @@ public interface CollectContract {
          * @param callback 回调接口
          */
         void getCollectWebsite(ModelCallback callback);
+
+        /**
+         * 从缓存中获取收藏文章列表
+         *
+         * @param callBack 回调接口
+         */
+        void getCollectListCache(ModelCallback callBack);
+
+        /**
+         * 从缓存中获取收藏网站列表
+         *
+         * @param callback 回调接口
+         */
+        void getCollectWebCache(ModelCallback callback);
     }
 
     public interface Presenter {
@@ -72,5 +100,15 @@ public interface CollectContract {
          * 获取收藏网址列表
          */
         void getCollectWebsite();
+
+        /**
+         * 从缓存中获取文章列表
+         */
+        void getCollectListCache();
+
+        /**
+         * 从缓存中获取收藏网站
+         */
+        void getCollectWebCache();
     }
 }

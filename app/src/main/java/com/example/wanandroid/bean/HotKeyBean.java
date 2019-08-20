@@ -1,11 +1,13 @@
 package com.example.wanandroid.bean;
 
+import io.realm.RealmObject;
+
 /**
  * @author gaofengpeng
  * @date 2019/8/6
  * @description : 搜索热词
  */
-public class HotKeyBean {
+public class HotKeyBean extends RealmObject {
 
     /**
      * id : 6

@@ -83,6 +83,7 @@ public class CommonlyWebsiteActivity extends BaseActivity<CommonlyPresenter> imp
             intent.putExtra("link", mAdapter.getBeanAt(position).getLink());
             mContext.startActivity(intent);
         });
+        mPresenter.getCommonlyCache();
         mPresenter.getCommonlyWebsite();
     }
 }

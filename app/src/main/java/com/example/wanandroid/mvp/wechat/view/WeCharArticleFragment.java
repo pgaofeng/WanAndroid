@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.bean.DatasBean;
 import com.example.wanandroid.mvp.home.adapter.ArticleAdapter;
 import com.example.wanandroid.mvp.web.WebActivity;
 import com.example.wanandroid.mvp.wechat.contract.WeChatArticleContract;
@@ -17,6 +18,8 @@ import com.pgaofeng.common.base.BaseFragment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
 
 /**
  * @author gaofengpeng
@@ -57,6 +60,13 @@ public class WeCharArticleFragment extends BaseFragment<WeChatArticlePresenter> 
     }
 
     @Override
+    public void getArticleCacheSuccess(List<DatasBean> datasBeans) {
+        if (datasBeans != null && datasBeans.size() > 0 && mAdapter.getItemCount() == 0) {
+            mAdapter.setDatas(datasBeans, null);
+        }
+    }
+
+    @Override
     protected int getContentView() {
         return R.layout.fragment_wechat_detail;
     }
@@ -93,6 +103,7 @@ public class WeCharArticleFragment extends BaseFragment<WeChatArticlePresenter> 
         });
         EventBusUtils.register(this);
 
+        mPresenter.getArticleListCache(id);
         mPresenter.getArticleList(id, page);
     }
 

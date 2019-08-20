@@ -36,6 +36,13 @@ public interface WeChatContract {
          * @param callback 回调接口
          */
         void getWxList(ModelCallback callback);
+
+        /**
+         * 从缓存中获取微信列表
+         *
+         * @param callback 回调接口
+         */
+        void getWxListCache(ModelCallback callback);
     }
 
     public interface Presenter {
@@ -43,5 +50,10 @@ public interface WeChatContract {
          * 获取微信列表
          */
         void getWxList();
+
+        /**
+         * 从缓存获取微信列表
+         */
+        void getWxListCache();
     }
 }

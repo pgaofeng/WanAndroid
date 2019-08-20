@@ -1,13 +1,13 @@
 package com.example.wanandroid.bean;
 
-import java.util.List;
+import io.realm.RealmObject;
 
 /**
  * @author WeChatBean
  * @date 2019/8/1
  * ${DESCRIPTION}
  */
-public class WeChatBean {
+public class WeChatBean extends RealmObject {
 
     /**
      * children : []
@@ -27,7 +27,7 @@ public class WeChatBean {
     private int parentChapterId;
     private boolean userControlSetTop;
     private int visible;
-    private List<?> children;
+    //private List<?> children;
 
     public int getCourseId() {
         return courseId;
@@ -85,11 +85,11 @@ public class WeChatBean {
         this.visible = visible;
     }
 
-    public List<?> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<?> children) {
-        this.children = children;
-    }
+//    public List<?> getChildren() {
+//        return children;
+//    }
+//
+//    public void setChildren(List<?> children) {
+//        this.children = children;
+//    }
 }
