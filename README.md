@@ -1,3 +1,4 @@
+<img src="./screen/home.jpg" width = "50%" height = "50%"/>
 ![首页](./screen/home.jpg)
 ![搜索](./screen/search.jpg)
 ![搜索详情](./screen/search1.jpg)
