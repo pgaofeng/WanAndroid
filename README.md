@@ -1,12 +1,14 @@
-<img src="./screen/home.jpg" width = "50%" height = "50%"/>
-![首页](./screen/home.jpg)
-![搜索](./screen/search.jpg)
-![搜索详情](./screen/search1.jpg)
-![公众号](./screen/wechat.jpg)
-![分类](./screen/type.jpg)
-![我的](./screen/me.jpg =300x)
-![收藏](./screen/collect.jpg)
-![导航](./screen/navi.jpg)
-![待做](./screen/todo.jpg)
-![退出登录](./screen/quit.jpg)
-![登录](./screen/login.jpg)
+
+<a href="./update/release/app-release.apk">直接下载体验</a>
+
+
+<img src="./screen/home.jpg" width = "40%" height = "40%"/>
+<img src="./screen/search.jpg" width = "40%" height = "40%"/>
+<img src="./screen/search1.jpg" width = "40%" height = "40%"/>
+<img src="./screen/wechat.jpg" width = "40%" height = "40%"/>
+<img src="./screen/type.jpg" width = "40%" height = "40%"/>
+<img src="./screen/me.jpg" width = "40%" height = "40%"/>
+<img src="./screen/collect.jpg" width = "40%" height = "40%"/>
+<img src="./screen/navi.jpg" width = "40%" height = "40%"/>
+<img src="./screen/todo.jpg" width = "40%" height = "40%"/>
+<img src="./screen/quit.jpg" width = "40%" height = "40%"/>
