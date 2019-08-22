@@ -1,23 +1,11 @@
-![首页](./screen/home.jpg)
-
-
-##### 开源框架
-> // ButterKnife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    // 拦截器
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
-    // FlexBoxLayout
-    implementation 'com.google.android:flexbox:1.0.0'
-    // TabLayout
-    implementation 'com.android.support:design:28.0.0'
-    // 下拉刷新
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-12'
-    //屏幕适配
-    implementation 'me.jessyan:autosize:1.1.2'
-    // 图片加载库
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    //事件总线
-    implementation 'org.greenrobot:eventbus:3.0.0'
-    // AgentWeb
-    implementation 'com.just.agentweb:agentweb:3.1.0'
+![首页](./screen/home.jpg =300x)
+![搜索](./screen/search.jpg =300x)
+![搜索详情](./screen/search1.jpg =300x)
+![公众号](./screen/wechat.jpg =300x)
+![分类](./screen/type.jpg =300x)
+![我的](./screen/me.jpg =300x)
+![收藏](./screen/collect.jpg =300x)
+![导航](./screen/navi.jpg =300x)
+![待做](./screen/todo.jpg =300x)
+![退出登录](./screen/quit.jpg =300x)
+![登录](./screen/login.jpg =300x)
