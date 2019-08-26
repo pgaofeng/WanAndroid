@@ -15,11 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.wanandroid.R;
+import com.example.wanandroid.bean.LoginBean;
+import com.example.wanandroid.mvp.login.contract.LoginContract;
+import com.example.wanandroid.mvp.login.presenter.LoginPresenter;
 import com.example.wanandroid.mvp.login.view.LoginActivity;
 import com.example.wanandroid.network.cookie.MyCookieStore;
 import com.example.wanandroid.util.EventBusUtils;
 import com.pgaofeng.common.base.BaseFragment;
-import com.pgaofeng.common.mvp.Presenter;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -33,7 +35,7 @@ import butterknife.Unbinder;
  * @date 2019/7/28
  * 我的
  */
-public class MeFragment extends BaseFragment {
+public class MeFragment extends BaseFragment<LoginPresenter> implements LoginContract.View {
 
     @BindView(R.id.me_collect)
     RelativeLayout mMeCollect;
@@ -62,8 +64,8 @@ public class MeFragment extends BaseFragment {
     }
 
     @Override
-    protected Presenter createPresenter() {
-        return null;
+    protected LoginPresenter createPresenter() {
+        return new LoginPresenter(this);
     }
 
     @NonNull
@@ -160,9 +162,23 @@ public class MeFragment extends BaseFragment {
      * 退出登录
      */
     private void logout() {
+        mPresenter.logout();
+    }
+
+    @Override
+    public void loginSuccess(LoginBean bean) {
+
+    }
+
+    @Override
+    public void loginFail(String message) {
+
+    }
+
+    @Override
+    public void logoutSuccess() {
         mPreferences.edit().clear().apply();
         mContext.getSharedPreferences(MyCookieStore.COOKIE_STORE_NAME, Context.MODE_PRIVATE).edit().clear().apply();
         init();
     }
-
 }

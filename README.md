@@ -3,7 +3,6 @@
 <img src="./screen/qrcode.png" />
 <a href="https://raw.githubusercontent.com/pgaofeng/WanAndroid/master/update/release/app-release.apk">直接下载体验</a>
 
-
 <img src="./screen/home.jpg" width = "40%" height = "40%"/>
 <img src="./screen/search.jpg" width = "40%" height = "40%"/>
 <img src="./screen/search1.jpg" width = "40%" height = "40%"/>

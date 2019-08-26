@@ -58,6 +58,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
+    public void logoutSuccess() {
+
+    }
+
+    @Override
     protected int getContentView() {
         return R.layout.activity_login;
     }

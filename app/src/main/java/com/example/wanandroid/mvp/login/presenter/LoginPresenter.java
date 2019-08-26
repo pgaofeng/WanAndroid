@@ -13,10 +13,10 @@ import com.pgaofeng.common.base.BasePresenter;
  * @date 2019/8/2
  * ${DESCRIPTION}
  */
-public class LoginPresenter extends BasePresenter<LoginActivity, LoginModel> implements LoginContract.Presenter {
+public class LoginPresenter extends BasePresenter<LoginContract.View, LoginModel> implements LoginContract.Presenter {
 
 
-    public LoginPresenter(LoginActivity view) {
+    public LoginPresenter(LoginContract.View view) {
         super(view);
     }
 
@@ -26,6 +26,21 @@ public class LoginPresenter extends BasePresenter<LoginActivity, LoginModel> imp
             @Override
             public void success(BaseResponse<?> baseData) {
                 mView.loginSuccess((LoginBean) baseData.getData());
+            }
+
+            @Override
+            public void fail(Throwable throwable) {
+                mView.loginFail(throwable.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void logout() {
+        mModel.logout(new ModelCallback() {
+            @Override
+            public void success(BaseResponse<?> baseData) {
+                mView.logoutSuccess();
             }
 
             @Override

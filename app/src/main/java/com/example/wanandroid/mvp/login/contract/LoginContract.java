@@ -2,6 +2,7 @@ package com.example.wanandroid.mvp.login.contract;
 
 import com.example.wanandroid.bean.LoginBean;
 import com.example.wanandroid.network.ModelCallback;
+import com.pgaofeng.common.mvp.View;
 
 /**
  * @author LoginContract
@@ -9,7 +10,7 @@ import com.example.wanandroid.network.ModelCallback;
  * ${DESCRIPTION}
  */
 public interface LoginContract {
-    public interface View {
+    public interface View extends com.pgaofeng.common.mvp.View {
         /**
          * 登录成功
          *
@@ -23,6 +24,11 @@ public interface LoginContract {
          * @param message 失败信息
          */
         void loginFail(String message);
+
+        /**
+         * 成功退出登录
+         */
+        void logoutSuccess();
     }
 
     public interface Model {
@@ -34,6 +40,13 @@ public interface LoginContract {
          * @param callback 回调接口
          */
         void login(String username, String password, ModelCallback callback);
+
+        /**
+         * 退出登录
+         *
+         * @param callback 回调接口
+         */
+        void logout(ModelCallback callback);
     }
 
     public interface Presenter {
@@ -44,5 +57,10 @@ public interface LoginContract {
          * @param password 密码
          */
         void login(String username, String password);
+
+        /**
+         * 登出
+         */
+        void logout();
     }
 }

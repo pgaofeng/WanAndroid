@@ -34,4 +34,23 @@ public class LoginModel extends BaseModel implements LoginContract.Model {
                     }
                 });
     }
+
+    @Override
+    public void logout(ModelCallback callback) {
+        RetrofitClient.getInstance()
+                .createService(LoginService.class)
+                .logout()
+                .compose(switchThread())
+                .subscribe(new BaseObserver<BaseResponse>(mDisposableManager) {
+                    @Override
+                    public void onSuccess(BaseResponse baseResponse) {
+                        callback.success(baseResponse);
+                    }
+
+                    @Override
+                    public void onFail(Throwable throwable) {
+                        callback.fail(throwable);
+                    }
+                });
+    }
 }
