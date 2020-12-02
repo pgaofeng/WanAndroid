@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">wanandroid</string>
+    
+    <string name="home">首页</string>
+    <string name="square">广场</string>
+    <string name="answer">问答</string>
+    <string name="me">我的</string>
 </resources>
