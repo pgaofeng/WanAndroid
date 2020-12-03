@@ -24,7 +24,13 @@ abstract class BaseFragment : Fragment() {
         return inflater.inflate(layoutRes(), container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initView()
+    }
+
     @LayoutRes
     abstract fun layoutRes(): Int
 
+    open fun initView(){}
 }
