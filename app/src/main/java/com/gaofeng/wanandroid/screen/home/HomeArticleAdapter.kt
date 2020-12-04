@@ -13,10 +13,9 @@ import com.gaofeng.wanandroid.databinding.ItemArticleBinding
  * @date 2020/12/4 13:47
  * @desc 首页文章adapter
  */
-class HomeArticleAdapter(private val lifecycleOwner: LifecycleOwner) :
-    BaseAdapter<ArticleBean, ItemArticleBinding>(R.layout.item_article) {
+class HomeArticleAdapter(lifecycleOwner: LifecycleOwner) :
+    BaseAdapter<ArticleBean, ItemArticleBinding>(R.layout.item_article, lifecycleOwner) {
     override fun binding(binding: ItemArticleBinding, item: ArticleBean?) {
-        binding.lifecycleOwner = lifecycleOwner
         binding.article = item
         binding.tvTitle.text = item?.title?.toSpanned()
         binding.tvContent.text = item?.title?.toSpanned()

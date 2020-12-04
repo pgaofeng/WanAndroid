@@ -1,6 +1,6 @@
 package com.gaofeng.wanandroid.screen.home
 
-import androidx.core.text.toSpanned
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseFragment
@@ -20,8 +20,8 @@ class HomeFragment : BaseFragment() {
     private val viewModel by viewModels<HomeViewModel>()
     private lateinit var adapter: HomeArticleAdapter
 
-    override fun initView() {
-        super.initView()
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
         banner.setUrl(
             listOf(
                 "https://wanandroid.com/blogimgs/184b499f-dc69-41f1-b519-ff6cae530796.jpeg",
@@ -32,7 +32,7 @@ class HomeFragment : BaseFragment() {
         )
         adapter = HomeArticleAdapter(this)
         recyclerView.adapter = adapter
-        viewModel.articles.observe(this, { adapter.setData(it) })
+        viewModel.articles.observe(this) { adapter.setData(it) }
     }
 
     override fun initData() {

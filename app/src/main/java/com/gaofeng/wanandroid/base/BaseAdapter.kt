@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +17,10 @@ import androidx.viewbinding.ViewBinding
  * @date 2020/12/3 15:58
  * @desc 通用的RecyclerViewAdapter，使用Binding
  */
-abstract class BaseAdapter<T : Any, B : ViewBinding>(@LayoutRes private val layoutRes: Int) :
-    RecyclerView.Adapter<BindingViewHolder<B>>() {
+abstract class BaseAdapter<T : Any, B : ViewDataBinding>(
+    @LayoutRes private val layoutRes: Int,
+    private val lifecycleOwner: LifecycleOwner
+) : RecyclerView.Adapter<BindingViewHolder<B>>() {
 
     private val dataList by lazy { mutableListOf<T?>() }
 
@@ -27,6 +31,7 @@ abstract class BaseAdapter<T : Any, B : ViewBinding>(@LayoutRes private val layo
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder<B>, position: Int) {
+        holder.binding.lifecycleOwner = lifecycleOwner
         binding(holder.binding, dataList[position])
     }
 
@@ -57,8 +62,9 @@ abstract class BaseAdapter<T : Any, B : ViewBinding>(@LayoutRes private val layo
  * @author 高峰
  * @desc 通用的RecyclerViewAdapter，使用Binding+Paging3
  */
-abstract class BaseAdapterWithPaging<T : Any, B : ViewBinding>(
+abstract class BaseAdapterWithPaging<T : Any, B : ViewDataBinding>(
     @LayoutRes private val layoutRes: Int,
+    private val lifecycleOwner: LifecycleOwner,
     callback: DiffUtil.ItemCallback<T>
 ) : PagingDataAdapter<T, BindingViewHolder<B>>(callback) {
 
@@ -68,6 +74,7 @@ abstract class BaseAdapterWithPaging<T : Any, B : ViewBinding>(
     abstract fun binding(binding: B, item: T?)
 
     override fun onBindViewHolder(holder: BindingViewHolder<B>, position: Int) {
+        holder.binding.lifecycleOwner = lifecycleOwner
         binding(holder.binding, getItem(position))
     }
 

@@ -26,14 +26,29 @@ abstract class BaseFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initView()
+        initView(savedInstanceState)
+        observe()
         initData()
     }
 
+    /**
+     * 布局文件
+     */
     @LayoutRes
     abstract fun layoutRes(): Int
 
-    open fun initView(){}
+    /**
+     * 初始化布局View
+     */
+    open fun initView(savedInstanceState: Bundle?) {}
 
-    open fun initData(){}
+    /**
+     * 与ViewModel中的数据进行绑定
+     */
+    open fun observe() {}
+
+    /**
+     * 初始化一些数据
+     */
+    open fun initData() {}
 }

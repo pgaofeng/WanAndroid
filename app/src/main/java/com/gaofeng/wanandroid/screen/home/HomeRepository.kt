@@ -9,9 +9,7 @@ import javax.inject.Inject
  * @date 2020/12/4 10:14
  * @desc 首页Repository，用于获取首页相关数据
  */
-class HomeRepository @Inject constructor(
-    private val api: ServiceApi
-) {
+class HomeRepository @Inject constructor(private val api: ServiceApi) {
     /**
      * 获取首页置顶文章
      */
