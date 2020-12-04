@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
         <import type="android.text.TextUtils" />
+
+        <import type="androidx.core.text.SpannableStringKt" />
 
         <variable
             name="article"
@@ -21,7 +24,8 @@
         android:layout_marginEnd="10dp"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?attr/selectableItemBackground">
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="6dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -75,10 +79,11 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 android:scaleType="centerCrop"
+                android:visibility="@{TextUtils.isEmpty(article.envelopePic)?View.GONE:View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@id/tvContent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTime"
-                bind:url="@{article.envelopePic}"
+
                 tools:src="@mipmap/ic_temp" />
 
             <TextView
@@ -89,7 +94,7 @@
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{article.title}"
+
                 android:textColor="@color/primary_text"
                 app:layout_constraintEnd_toStartOf="@id/imgProject"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +109,7 @@
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:maxLines="4"
-                android:text="@{article.desc}"
+
                 android:textColor="@color/secondary_text"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@id/imgProject"

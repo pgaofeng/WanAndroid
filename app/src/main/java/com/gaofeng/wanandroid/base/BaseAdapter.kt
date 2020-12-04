@@ -15,7 +15,7 @@ import androidx.viewbinding.ViewBinding
  * @date 2020/12/3 15:58
  * @desc 通用的RecyclerViewAdapter，使用Binding
  */
-abstract class BaseAdapter<T : Any, B : ViewBinding>(@LayoutRes val layoutRes: Int) :
+abstract class BaseAdapter<T : Any, B : ViewBinding>(@LayoutRes private val layoutRes: Int) :
     RecyclerView.Adapter<BindingViewHolder<B>>() {
 
     private val dataList by lazy { mutableListOf<T?>() }

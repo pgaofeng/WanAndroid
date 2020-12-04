@@ -27,10 +27,13 @@ abstract class BaseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initView()
+        initData()
     }
 
     @LayoutRes
     abstract fun layoutRes(): Int
 
     open fun initView(){}
+
+    open fun initData(){}
 }

@@ -8,6 +8,7 @@ import com.gaofeng.wanandroid.screen.answer.AnswerFragment
 import com.gaofeng.wanandroid.screen.home.HomeFragment
 import com.gaofeng.wanandroid.screen.me.MeFragment
 import com.gaofeng.wanandroid.screen.square.SquareFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  *
  * 程序的主Activity
  */
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     override fun layoutRes() = R.layout.activity_main
