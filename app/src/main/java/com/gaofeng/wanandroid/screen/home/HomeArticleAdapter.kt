@@ -1,5 +1,6 @@
 package com.gaofeng.wanandroid.screen.home
 
+import android.text.Html
 import androidx.core.text.toSpanned
 import androidx.lifecycle.LifecycleOwner
 import com.gaofeng.wanandroid.R
@@ -18,6 +19,6 @@ class HomeArticleAdapter(lifecycleOwner: LifecycleOwner) :
     override fun binding(binding: ItemArticleBinding, item: ArticleBean?) {
         binding.article = item
         binding.tvTitle.text = item?.title?.toSpanned()
-        binding.tvContent.text = item?.title?.toSpanned()
+        binding.tvContent.text =Html.fromHtml(item?.desc,Html.FROM_HTML_MODE_LEGACY)
     }
 }

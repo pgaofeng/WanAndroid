@@ -1,11 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -37,11 +35,6 @@ android {
     // 开启DataBinding
     buildFeatures {
         dataBinding = true
-    }
-
-    // 使用Parcelize. 对象实现Parcelize接口后，直接在对象上注解@Parcelize即可
-    androidExtensions {
-        experimental = true
     }
 }
 

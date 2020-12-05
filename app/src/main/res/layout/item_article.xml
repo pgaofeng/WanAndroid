@@ -94,7 +94,6 @@
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-
                 android:textColor="@color/primary_text"
                 app:layout_constraintEnd_toStartOf="@id/imgProject"
                 app:layout_constraintStart_toStartOf="parent"
@@ -109,9 +108,9 @@
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:maxLines="4"
-
                 android:textColor="@color/secondary_text"
                 android:textSize="12sp"
+                android:visibility="@{TextUtils.isEmpty(article.desc)?View.GONE:View.VISIBLE}"
                 app:layout_constraintEnd_toStartOf="@id/imgProject"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"

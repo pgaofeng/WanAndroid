@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
 /**
@@ -13,7 +15,9 @@ import androidx.fragment.app.Fragment
  * @date 2020/12/2 14:37
  * @desc Fragment基类
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
+
+    protected lateinit var binding: B
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,7 +25,8 @@ abstract class BaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(layoutRes(), container, false)
+        binding = DataBindingUtil.inflate(inflater, layoutRes(), container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

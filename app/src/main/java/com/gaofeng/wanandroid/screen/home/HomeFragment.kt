@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseFragment
+import com.gaofeng.wanandroid.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * @desc 首页Fragment
  */
 @AndroidEntryPoint
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun layoutRes() = R.layout.fragment_home
 
     private val viewModel by viewModels<HomeViewModel>()

@@ -2,6 +2,7 @@ package com.gaofeng.wanandroid.screen.answer
 
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseFragment
+import com.gaofeng.wanandroid.databinding.FragmentAnswerBinding
 
 /**
  *
@@ -9,6 +10,6 @@ import com.gaofeng.wanandroid.base.BaseFragment
  * @date 2020/12/2 14:41
  * @desc 问答模块
  */
-class AnswerFragment : BaseFragment() {
+class AnswerFragment : BaseFragment<FragmentAnswerBinding>() {
     override fun layoutRes() = R.layout.fragment_answer
 }

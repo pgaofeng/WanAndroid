@@ -2,6 +2,7 @@ package com.gaofeng.wanandroid.screen.square
 
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseFragment
+import com.gaofeng.wanandroid.databinding.FragmentSquareBinding
 
 /**
  *
@@ -9,6 +10,6 @@ import com.gaofeng.wanandroid.base.BaseFragment
  * @date 2020/12/2 14:40
  * @desc 广场Fragment
  */
-class SquareFragment : BaseFragment() {
+class SquareFragment : BaseFragment<FragmentSquareBinding>() {
     override fun layoutRes() = R.layout.fragment_square
 }

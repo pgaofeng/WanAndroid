@@ -3,6 +3,8 @@ package com.gaofeng.wanandroid.base
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import com.gaofeng.wanandroid.util.ActivityUtils
 
 /**
@@ -11,17 +13,18 @@ import com.gaofeng.wanandroid.util.ActivityUtils
  * @date 2020/11/25 11:45
  * @desc BaseActivity
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     /**
      * 标识当前Activity是否处于前台
      */
     protected var isActive: Boolean = false
+    protected lateinit var binding: B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityUtils.add(this)
-        setContentView(layoutRes())
+        binding = DataBindingUtil.setContentView(this, layoutRes())
         initView(savedInstanceState)
         observe()
         initData()
