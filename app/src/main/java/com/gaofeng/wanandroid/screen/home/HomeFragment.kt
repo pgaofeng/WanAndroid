@@ -1,12 +1,11 @@
 package com.gaofeng.wanandroid.screen.home
 
-import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import com.gaofeng.wanandroid.R
-import com.gaofeng.wanandroid.base.BaseFragment
+import com.gaofeng.wanandroid.base.BaseBindingFragment
 import com.gaofeng.wanandroid.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  *
@@ -15,15 +14,15 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * @desc 首页Fragment
  */
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     override fun layoutRes() = R.layout.fragment_home
 
     private val viewModel by viewModels<HomeViewModel>()
     private lateinit var adapter: HomeArticleAdapter
 
-    override fun initView(savedInstanceState: Bundle?) {
-        super.initView(savedInstanceState)
-        banner.setUrl(
+    override fun initView(view: View, isFirst: Boolean) {
+        super.initView(view,isFirst)
+        binding.banner.setUrl(
             listOf(
                 "https://wanandroid.com/blogimgs/184b499f-dc69-41f1-b519-ff6cae530796.jpeg",
                 "https://www.wanandroid.com/blogimgs/62c1bd68-b5f3-4a3c-a649-7ca8c7dfabe6.png",
@@ -32,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             )
         )
         adapter = HomeArticleAdapter(this)
-        recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter
         viewModel.articles.observe(this) { adapter.setData(it) }
     }
 

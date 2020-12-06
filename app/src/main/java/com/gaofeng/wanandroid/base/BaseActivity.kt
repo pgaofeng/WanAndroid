@@ -3,29 +3,24 @@ package com.gaofeng.wanandroid.base
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import com.gaofeng.wanandroid.util.ActivityUtils
 
 /**
- *
  * @author 高峰
- * @date 2020/11/25 11:45
- * @desc BaseActivity
+ * @date 202/12/6
  */
-abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     /**
      * 标识当前Activity是否处于前台
      */
     protected var isActive: Boolean = false
-    protected lateinit var binding: B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityUtils.add(this)
-        binding = DataBindingUtil.setContentView(this, layoutRes())
-        initView(savedInstanceState)
+        setView()
+        initView(savedInstanceState == null)
         observe()
         initData()
     }
@@ -45,6 +40,9 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
         isActive = false
     }
 
+    open fun setView() {
+        setContentView(layoutRes())
+    }
 
     /**
      * 布局文件
@@ -55,7 +53,7 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
     /**
      * 初始化布局View
      */
-    open fun initView(savedInstanceState: Bundle?) {}
+    open fun initView(isFirst: Boolean) {}
 
     /**
      * 与ViewModel中的数据进行绑定

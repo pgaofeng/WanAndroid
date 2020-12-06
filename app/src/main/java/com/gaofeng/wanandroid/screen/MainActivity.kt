@@ -1,9 +1,8 @@
 package com.gaofeng.wanandroid.screen
 
-import android.os.Bundle
 import androidx.fragment.app.commit
 import com.gaofeng.wanandroid.R
-import com.gaofeng.wanandroid.base.BaseActivity
+import com.gaofeng.wanandroid.base.BaseBindingActivity
 import com.gaofeng.wanandroid.databinding.ActivityMainBinding
 import com.gaofeng.wanandroid.screen.answer.AnswerFragment
 import com.gaofeng.wanandroid.screen.home.HomeFragment
@@ -18,18 +17,18 @@ import dagger.hilt.android.AndroidEntryPoint
  * 程序的主Activity
  */
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
     override fun layoutRes() = R.layout.activity_main
 
-    override fun initView(savedInstanceState: Bundle?) {
-        super.initView(savedInstanceState)
+    override fun initView(isFirst: Boolean) {
+        super.initView(isFirst)
         binding.bottomView.setOnNavigationItemSelectedListener {
             showFragment(it.itemId, first = false)
             true
         }
         binding.bottomView.setOnNavigationItemReselectedListener {}
-        if (savedInstanceState == null) {
+        if (isFirst) {
             showFragment(R.id.home, first = true)
         }
     }
