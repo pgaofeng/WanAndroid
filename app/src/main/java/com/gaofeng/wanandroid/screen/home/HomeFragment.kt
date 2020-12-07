@@ -2,42 +2,68 @@ package com.gaofeng.wanandroid.screen.home
 
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.ConcatAdapter
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseBindingFragment
+import com.gaofeng.wanandroid.common.CommonFooterAdapter
 import com.gaofeng.wanandroid.databinding.FragmentHomeBinding
+import com.gaofeng.wanandroid.screen.home.adapter.BannerAdapter
+import com.gaofeng.wanandroid.screen.home.adapter.MainArticleAdapter
+import com.gaofeng.wanandroid.screen.home.adapter.TopArticleAdapter
+import com.gaofeng.wanandroid.screen.home.viewModel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  *
  * @author 高峰
  * @date 2020/12/2 14:36
- * @desc 首页Fragment
+ * @desc 首页Fragment，首页主要是一个RecyclerView，分了三个adapter，分别是banner，置顶文章，普通文章
  */
 @AndroidEntryPoint
 class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
-    override fun layoutRes() = R.layout.fragment_home
 
     private val viewModel by viewModels<HomeViewModel>()
-    private lateinit var adapter: HomeArticleAdapter
+    private lateinit var topAdapter: TopArticleAdapter
+    private lateinit var mainAdapter: MainArticleAdapter
+    private lateinit var bannerAdapter: BannerAdapter
+
+    override fun layoutRes() = R.layout.fragment_home
 
     override fun initView(view: View, isFirst: Boolean) {
-        super.initView(view,isFirst)
-        binding.banner.setUrl(
-            listOf(
-                "https://wanandroid.com/blogimgs/184b499f-dc69-41f1-b519-ff6cae530796.jpeg",
-                "https://www.wanandroid.com/blogimgs/62c1bd68-b5f3-4a3c-a649-7ca8c7dfabe6.png",
-                "https://www.wanandroid.com/blogimgs/50c115c2-cf6c-4802-aa7b-a4334de444cd.png",
-                "https://www.wanandroid.com/blogimgs/90c6cc12-742e-4c9f-b318-b912f163b8d0.png"
-            )
+        super.initView(view, isFirst)
+        binding.refreshLayout.setColorSchemeResources(R.color.accent)
+        topAdapter = TopArticleAdapter(this)
+        mainAdapter = MainArticleAdapter(this)
+        bannerAdapter = BannerAdapter(this)
+        binding.recyclerView.adapter = ConcatAdapter(
+            bannerAdapter, topAdapter,
+            mainAdapter.withLoadStateFooter(CommonFooterAdapter { mainAdapter.retry() })
         )
-        adapter = HomeArticleAdapter(this)
-        binding.recyclerView.adapter = adapter
-        viewModel.articles.observe(this) { adapter.setData(it) }
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.getArticlesAndBanners()
+            mainAdapter.refresh()
+        }
+        mainAdapter.addLoadStateListener {
+            when (it.refresh) {
+                is LoadState.Loading -> binding.refreshLayout.isRefreshing = true
+                else -> binding.refreshLayout.isRefreshing = false
+            }
+        }
+        lifecycleScope.launchWhenCreated { viewModel.getArticlesAndBanners() }
     }
 
-    override fun initData() {
-        super.initData()
-        viewModel.getTopArticle()
+    override fun observe() {
+        super.observe()
+        viewModel.also { model ->
+            model.topArticles.observe(this) { topAdapter.setData(it) }
+            model.banners.observe(this) { bannerAdapter.setData(it) }
+            lifecycleScope.launch {
+                model.pager.flow.collectLatest { mainAdapter.submitData(it) }
+            }
+        }
     }
-
 }

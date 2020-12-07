@@ -1,4 +1,4 @@
-package com.gaofeng.wanandroid.screen.home
+package com.gaofeng.wanandroid.screen.home.adapter
 
 import android.text.Html
 import androidx.core.text.toSpanned
@@ -14,11 +14,11 @@ import com.gaofeng.wanandroid.databinding.ItemArticleBinding
  * @date 2020/12/4 13:47
  * @desc 首页文章adapter
  */
-class HomeArticleAdapter(lifecycleOwner: LifecycleOwner) :
+class TopArticleAdapter(lifecycleOwner: LifecycleOwner) :
     BaseAdapter<ArticleBean, ItemArticleBinding>(R.layout.item_article, lifecycleOwner) {
     override fun binding(binding: ItemArticleBinding, item: ArticleBean?) {
         binding.article = item
-        binding.tvTitle.text = item?.title?.toSpanned()
+        binding.tvTitle.text = Html.fromHtml(item?.title,Html.FROM_HTML_MODE_LEGACY)
         binding.tvContent.text =Html.fromHtml(item?.desc,Html.FROM_HTML_MODE_LEGACY)
     }
 }

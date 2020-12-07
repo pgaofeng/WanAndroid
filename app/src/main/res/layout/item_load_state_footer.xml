@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.paging.LoadState" />
+        <variable
+            name="state"
+            type="androidx.paging.LoadState" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/tvRetry"
+            visible="@{state instanceof LoadState.Error}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@string/retry"
+            android:textColor="@color/accent"
+            android:textSize="12sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            visible="@{state instanceof LoadState.Loading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="4dp"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvNoMore"
+            visible="@{state instanceof LoadState.NotLoading}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@string/no_more_data"
+            android:textColor="@color/secondary_text"
+            android:textSize="12sp"
+            tools:visibility="gone" />
+    </FrameLayout>
+
+</layout>

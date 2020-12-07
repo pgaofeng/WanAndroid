@@ -10,6 +10,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.gaofeng.wanandroid.common.BindingViewHolder
 
 /**
  *
@@ -56,7 +57,6 @@ abstract class BaseAdapter<T : Any, B : ViewDataBinding>(
     }
 }
 
-
 /**
  *
  * @author 高峰
@@ -84,8 +84,3 @@ abstract class BaseAdapterWithPaging<T : Any, B : ViewDataBinding>(
         return BindingViewHolder(binding)
     }
 }
-
-/**
- * 通用ViewHolder
- */
-class BindingViewHolder<VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root)

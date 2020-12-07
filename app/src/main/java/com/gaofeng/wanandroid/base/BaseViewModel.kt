@@ -10,11 +10,16 @@ import kotlinx.coroutines.launch
  * @date 2020/11/25 16:12
  * @desc ViewModel 基类
  */
-open class BaseViewModel : ViewModel(){
+open class BaseViewModel : ViewModel() {
 
-    fun launch(block:suspend ()->Unit){
+    fun launch(block: suspend () -> Unit) {
+
         viewModelScope.launch {
-            block()
+            try {
+                block()
+            } catch (exception: Exception) {
+                //exception.printStackTrace()
+            }
         }
     }
 
