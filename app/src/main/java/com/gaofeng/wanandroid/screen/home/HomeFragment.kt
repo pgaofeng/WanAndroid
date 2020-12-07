@@ -58,7 +58,7 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
         viewModel.also { model ->
             model.banners.observe(this) { bannerAdapter.setData(it) }
             lifecycleScope.launch {
-                model.pager.flow.collectLatest { mainAdapter.submitData(it) }
+                model.pager.collectLatest { mainAdapter.submitData(it) }
             }
         }
     }

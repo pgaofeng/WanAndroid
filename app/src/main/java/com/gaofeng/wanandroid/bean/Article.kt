@@ -7,7 +7,7 @@ package com.gaofeng.wanandroid.bean
  *
  * 文章
  */
-data class ArticleBean(
+data class Article(
     val apkLink: String = "",
     val audit: Int = 0,
     val author: String = "",

@@ -2,9 +2,12 @@ package com.gaofeng.wanandroid.screen.home.viewModel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.gaofeng.wanandroid.base.BaseViewModel
+import com.gaofeng.wanandroid.bean.Article
 import com.gaofeng.wanandroid.common.CommonDataSource
 import com.gaofeng.wanandroid.screen.home.repository.HomeRepository
 
@@ -20,17 +23,16 @@ class HomeViewModel @ViewModelInject constructor(
 
     val banners: MutableLiveData<List<List<String>>> by lazy { MutableLiveData() }
     val pager by lazy {
-        println("create pager")
         Pager(PagingConfig(pageSize = 20, prefetchDistance = 10)) {
             CommonDataSource { page ->
+                val list = mutableListOf<Article>()
                 val result = repository.getHomeMainArticle(page)
                 if (page == 0) {
-                    val list = repository.getHomeTopArticle()
-                    result.datas = list + result.datas
+                    list.addAll(repository.getHomeTopArticle())
                 }
-                result
+                result.copy(datas = list + result.datas, size = result.size + list.size)
             }
-        }
+        }.flow.cachedIn(viewModelScope)
     }
 
     /**

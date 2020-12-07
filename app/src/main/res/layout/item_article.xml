@@ -13,7 +13,7 @@
 
         <variable
             name="article"
-            type="com.gaofeng.wanandroid.bean.ArticleBean" />
+            type="com.gaofeng.wanandroid.bean.Article" />
     </data>
 
     <androidx.cardview.widget.CardView
