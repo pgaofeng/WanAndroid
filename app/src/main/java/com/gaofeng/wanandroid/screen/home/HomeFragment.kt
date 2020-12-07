@@ -11,7 +11,6 @@ import com.gaofeng.wanandroid.common.CommonFooterAdapter
 import com.gaofeng.wanandroid.databinding.FragmentHomeBinding
 import com.gaofeng.wanandroid.screen.home.adapter.BannerAdapter
 import com.gaofeng.wanandroid.screen.home.adapter.MainArticleAdapter
-import com.gaofeng.wanandroid.screen.home.adapter.TopArticleAdapter
 import com.gaofeng.wanandroid.screen.home.viewModel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -27,7 +26,6 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
 
     private val viewModel by viewModels<HomeViewModel>()
-    private lateinit var topAdapter: TopArticleAdapter
     private lateinit var mainAdapter: MainArticleAdapter
     private lateinit var bannerAdapter: BannerAdapter
 
@@ -36,11 +34,10 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     override fun initView(view: View, isFirst: Boolean) {
         super.initView(view, isFirst)
         binding.refreshLayout.setColorSchemeResources(R.color.accent)
-        topAdapter = TopArticleAdapter(this)
         mainAdapter = MainArticleAdapter(this)
         bannerAdapter = BannerAdapter(this)
         binding.recyclerView.adapter = ConcatAdapter(
-            bannerAdapter, topAdapter,
+            bannerAdapter,
             mainAdapter.withLoadStateFooter(CommonFooterAdapter { mainAdapter.retry() })
         )
         binding.refreshLayout.setOnRefreshListener {
@@ -59,7 +56,6 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     override fun observe() {
         super.observe()
         viewModel.also { model ->
-            model.topArticles.observe(this) { topAdapter.setData(it) }
             model.banners.observe(this) { bannerAdapter.setData(it) }
             lifecycleScope.launch {
                 model.pager.flow.collectLatest { mainAdapter.submitData(it) }

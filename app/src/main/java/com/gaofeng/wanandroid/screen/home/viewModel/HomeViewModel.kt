@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.gaofeng.wanandroid.base.BaseViewModel
-import com.gaofeng.wanandroid.bean.ArticleBean
 import com.gaofeng.wanandroid.common.CommonDataSource
 import com.gaofeng.wanandroid.screen.home.repository.HomeRepository
 
@@ -20,10 +19,13 @@ class HomeViewModel @ViewModelInject constructor(
 ) : BaseViewModel() {
 
     val banners: MutableLiveData<List<List<String>>> by lazy { MutableLiveData() }
-    val topArticles: MutableLiveData<List<ArticleBean>> by lazy { MutableLiveData() }
     val pager by lazy {
         Pager(PagingConfig(pageSize = 20, prefetchDistance = 10)) {
-            CommonDataSource { page -> repository.getHomeMainArticle(page) }
+            CommonDataSource { page ->
+                if (page == 0)
+                    repository.getHomeTopArticle() + repository.getHomeMainArticle(page)
+                repository.getHomeMainArticle(page)
+            }
         }
     }
 
@@ -32,9 +34,7 @@ class HomeViewModel @ViewModelInject constructor(
      */
     fun getArticlesAndBanners() {
         launch {
-            val list = repository.getHomeTopArticle()
             val bannerList = repository.getBanner()
-            topArticles.value = list
             banners.value = listOf(bannerList.map { it.imagePath })
         }
     }
