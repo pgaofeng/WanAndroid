@@ -20,17 +20,21 @@ class HomeViewModel @ViewModelInject constructor(
 
     val banners: MutableLiveData<List<List<String>>> by lazy { MutableLiveData() }
     val pager by lazy {
+        println("create pager")
         Pager(PagingConfig(pageSize = 20, prefetchDistance = 10)) {
             CommonDataSource { page ->
-                if (page == 0)
-                    repository.getHomeTopArticle() + repository.getHomeMainArticle(page)
-                repository.getHomeMainArticle(page)
+                val result = repository.getHomeMainArticle(page)
+                if (page == 0) {
+                    val list = repository.getHomeTopArticle()
+                    result.datas = list + result.datas
+                }
+                result
             }
         }
     }
 
     /**
-     * 获取置顶文章和Banner
+     * 获取Banner
      */
     fun getArticlesAndBanners() {
         launch {

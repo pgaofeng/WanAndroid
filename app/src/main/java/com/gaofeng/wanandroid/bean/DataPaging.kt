@@ -5,7 +5,7 @@ package com.gaofeng.wanandroid.bean
  */
 data class DataPaging<T>(
     val curPage: Int = 0,
-    val datas: List<T> = emptyList(),
+    var datas: List<T> = emptyList(),
     val offset: Int = 0,
     val over: Boolean = false,
     val pageCount: Int = 0,

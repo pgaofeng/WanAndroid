@@ -33,6 +33,7 @@
 
             <TextView
                 android:id="@+id/tvTop"
+                visible="@{article.fresh}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -40,7 +41,6 @@
                 android:text="@string/fresh"
                 android:textColor="@color/red"
                 android:textSize="11sp"
-                android:visibility="@{article.fresh?View.VISIBLE:View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SmallSp" />
@@ -74,16 +74,16 @@
 
             <ImageView
                 android:id="@+id/imgProject"
-                android:layout_width="wrap_content"
+                url="@{article.envelopePic}"
+                visible="@{!TextUtils.isEmpty(article.envelopePic)}"
+                android:layout_width="110dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 android:scaleType="centerCrop"
-                android:visibility="@{TextUtils.isEmpty(article.envelopePic)?View.GONE:View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@id/tvContent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTime"
-
                 tools:src="@mipmap/ic_temp" />
 
             <TextView
@@ -102,6 +102,7 @@
 
             <TextView
                 android:id="@+id/tvContent"
+                visible="@{!TextUtils.isEmpty(article.desc)}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
@@ -110,7 +111,6 @@
                 android:maxLines="4"
                 android:textColor="@color/secondary_text"
                 android:textSize="12sp"
-                android:visibility="@{TextUtils.isEmpty(article.desc)?View.GONE:View.VISIBLE}"
                 app:layout_constraintEnd_toStartOf="@id/imgProject"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"

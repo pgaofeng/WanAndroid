@@ -18,7 +18,7 @@ open class BaseViewModel : ViewModel() {
             try {
                 block()
             } catch (exception: Exception) {
-                //exception.printStackTrace()
+                exception.printStackTrace()
             }
         }
     }
