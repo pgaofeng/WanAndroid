@@ -9,6 +9,7 @@ import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseBindingFragment
 import com.gaofeng.wanandroid.common.CommonFooterAdapter
 import com.gaofeng.wanandroid.databinding.FragmentHomeBinding
+import com.gaofeng.wanandroid.ext.visible
 import com.gaofeng.wanandroid.screen.home.adapter.BannerAdapter
 import com.gaofeng.wanandroid.screen.home.adapter.MainArticleAdapter
 import com.gaofeng.wanandroid.screen.home.viewModel.HomeViewModel
@@ -37,7 +38,6 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
         bannerAdapter = BannerAdapter(this)
         binding.apply {
             mainAdapter.addLoadStateListener {
-                println(it.append)
                 when (it.refresh) {
                     is LoadState.Loading -> refreshLayout.isRefreshing = true
                     else -> refreshLayout.isRefreshing = false
@@ -60,6 +60,10 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
             model.banners.observe(this) { bannerAdapter.setData(it) }
             lifecycleScope.launch {
                 model.pager.collectLatest { mainAdapter.submitData(it) }
+            }
+            model.empty.observe(this) {
+                binding.emptyView.visible = it
+                binding.recyclerView.visible = !it
             }
         }
     }

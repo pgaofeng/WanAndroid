@@ -40,7 +40,9 @@ data class Article(
     val userId: Int = 0,
     val visible: Int = 0,
     val zan: Int = 0
-)
+){
+    var isTop = false
+}
 
 data class Tag(
     val name: String = "",

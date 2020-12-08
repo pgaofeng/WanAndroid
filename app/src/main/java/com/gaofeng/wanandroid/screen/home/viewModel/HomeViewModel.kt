@@ -37,13 +37,21 @@ class HomeViewModel @ViewModelInject constructor(
                     val top = async { repository.getHomeTopArticle() }
                     val banner = async { repository.getBanner() }
                     DataPaging(
-                        datas = top.await() + main.await().datas,
+                        datas = top.await().map { it.apply { isTop = true } } + main.await().datas,
                         over = main.await().over
-                    ).also { banners.value = listOf(banner.await().map { it.imagePath }) }
+                    ).also { paging ->
+                        banners.value = listOf(banner.await().map { it.imagePath })
+                        empty.value = paging.datas.isEmpty()
+                    }
                 } else {
                     main.await()
                 }
             }
         }.flow.cachedIn(viewModelScope)
     }
+
+    /**
+     * 当前列表是否为空
+     */
+    val empty = MutableLiveData(true)
 }

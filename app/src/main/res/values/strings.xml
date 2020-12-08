@@ -7,6 +7,8 @@
     <string name="me">我的</string>
 
     <string name="fresh">新</string>
+    <string name="top">顶</string>
     <string name="retry">加载失败,点击重试</string>
     <string name="no_more_data">没有更多数据了~</string>
+    <string name="no_data_current">当前没有数据~</string>
 </resources>

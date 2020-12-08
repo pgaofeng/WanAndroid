@@ -23,6 +23,7 @@ class MainArticleAdapter(lifecycleOwner: LifecycleOwner) :
 
     override fun binding(binding: ItemArticleBinding, item: Article?) {
         binding.article = item
+        binding.tvTop.setText(if (item != null && item.isTop) R.string.top else R.string.fresh)
         binding.tvTitle.text = Html.fromHtml(item?.title, Html.FROM_HTML_MODE_LEGACY)
         binding.tvContent.text = Html.fromHtml(item?.desc, Html.FROM_HTML_MODE_LEGACY)
     }
