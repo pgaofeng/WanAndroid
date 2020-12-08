@@ -31,7 +31,5 @@ class CommonFooterAdapter(private val onClick: () -> Unit) :
         return BindingViewHolder(binding)
     }
 
-    override fun displayLoadStateAsItem(loadState: LoadState): Boolean {
-        return loadState is LoadState.Loading || loadState is LoadState.Error || loadState is LoadState.NotLoading
-    }
+    override fun displayLoadStateAsItem(loadState: LoadState) = true
 }

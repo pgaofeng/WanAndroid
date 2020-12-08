@@ -7,7 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.gaofeng.wanandroid.base.BaseViewModel
-import com.gaofeng.wanandroid.bean.Article
+import com.gaofeng.wanandroid.bean.DataPaging
 import com.gaofeng.wanandroid.common.CommonDataSource
 import com.gaofeng.wanandroid.screen.home.repository.HomeRepository
 
@@ -21,27 +21,29 @@ class HomeViewModel @ViewModelInject constructor(
     private val repository: HomeRepository
 ) : BaseViewModel() {
 
+    /**
+     * banner数据
+     */
     val banners: MutableLiveData<List<List<String>>> by lazy { MutableLiveData() }
+
+    /**
+     * 文章数据
+     */
     val pager by lazy {
         Pager(PagingConfig(pageSize = 20, prefetchDistance = 10)) {
             CommonDataSource { page ->
-                val list = mutableListOf<Article>()
-                val result = repository.getHomeMainArticle(page)
+                val main = async { repository.getHomeMainArticle(page) }
                 if (page == 0) {
-                    list.addAll(repository.getHomeTopArticle())
+                    val top = async { repository.getHomeTopArticle() }
+                    val banner = async { repository.getBanner() }
+                    DataPaging(
+                        datas = top.await() + main.await().datas,
+                        over = main.await().over
+                    ).also { banners.value = listOf(banner.await().map { it.imagePath }) }
+                } else {
+                    main.await()
                 }
-                result.copy(datas = list + result.datas, size = result.size + list.size)
             }
         }.flow.cachedIn(viewModelScope)
-    }
-
-    /**
-     * 获取Banner
-     */
-    fun getArticlesAndBanners() {
-        launch {
-            val bannerList = repository.getBanner()
-            banners.value = listOf(bannerList.map { it.imagePath })
-        }
     }
 }

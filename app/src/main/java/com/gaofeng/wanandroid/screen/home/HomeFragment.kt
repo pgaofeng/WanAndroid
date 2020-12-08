@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
  *
  * @author 高峰
  * @date 2020/12/2 14:36
- * @desc 首页Fragment，首页主要是一个RecyclerView，分了三个adapter，分别是banner，置顶文章，普通文章
+ * @desc 首页Fragment，首页主要是一个RecyclerView，分了2个adapter，分别是banner，文章
  */
 @AndroidEntryPoint
 class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
@@ -33,24 +33,25 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
 
     override fun initView(view: View, isFirst: Boolean) {
         super.initView(view, isFirst)
-        binding.refreshLayout.setColorSchemeResources(R.color.accent)
         mainAdapter = MainArticleAdapter(this)
         bannerAdapter = BannerAdapter(this)
-        binding.recyclerView.adapter = ConcatAdapter(
-            bannerAdapter,
-            mainAdapter.withLoadStateFooter(CommonFooterAdapter { mainAdapter.retry() })
-        )
-        binding.refreshLayout.setOnRefreshListener {
-            viewModel.getArticlesAndBanners()
-            mainAdapter.refresh()
-        }
-        mainAdapter.addLoadStateListener {
-            when (it.refresh) {
-                is LoadState.Loading -> binding.refreshLayout.isRefreshing = true
-                else -> binding.refreshLayout.isRefreshing = false
+        binding.apply {
+            mainAdapter.addLoadStateListener {
+                println(it.append)
+                when (it.refresh) {
+                    is LoadState.Loading -> refreshLayout.isRefreshing = true
+                    else -> refreshLayout.isRefreshing = false
+                }
+            }
+            recyclerView.adapter = ConcatAdapter(
+                bannerAdapter,
+                mainAdapter.withLoadStateFooter(CommonFooterAdapter { mainAdapter.retry() })
+            )
+            refreshLayout.apply {
+                setColorSchemeResources(R.color.accent)
+                setOnRefreshListener { mainAdapter.refresh() }
             }
         }
-        lifecycleScope.launchWhenCreated { viewModel.getArticlesAndBanners() }
     }
 
     override fun observe() {

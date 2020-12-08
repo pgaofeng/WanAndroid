@@ -2,6 +2,7 @@ package com.gaofeng.wanandroid.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 /**
@@ -21,6 +22,10 @@ open class BaseViewModel : ViewModel() {
                 exception.printStackTrace()
             }
         }
+    }
+
+    fun <T> async(block: suspend () -> T) = viewModelScope.async {
+        block()
     }
 
 
