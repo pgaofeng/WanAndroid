@@ -45,9 +45,6 @@ class ArticleViewModel @ViewModelInject constructor(
     val pager by lazy {
         Pager(PagingConfig(pageSize = 20, prefetchDistance = 10)) {
             CommonDataSource { page ->
-
-                println("开始获取数据：type=$type,page=$page")
-
                 when (type) {
                     0 -> {
                         if (page == 0) {
@@ -68,6 +65,6 @@ class ArticleViewModel @ViewModelInject constructor(
                     empty.value = paging.datas.isEmpty()
                 }
             }
-        }.flow.cachedIn(viewModelScope).catch { it.printStackTrace() }
+        }.flow.cachedIn(viewModelScope)
     }
 }

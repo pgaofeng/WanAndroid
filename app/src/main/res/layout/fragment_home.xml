@@ -2,55 +2,88 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_home_scene">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/searchView"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_search_edit"
-            android:gravity="center_vertical"
-            android:hint="@string/search_tip"
-            android:maxLines="1"
-            android:paddingHorizontal="20dp"
-            android:singleLine="true"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed"
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            app:barrierDirection="bottom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchView"
-            app:tabGravity="fill" />
+            <com.gaofeng.wanandroid.widget.CollapsibleToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutDescription="@xml/fragment_home_scene">
 
-        <View
-            android:id="@+id/view_divide"
+                <TextView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_search_edit"
+                    android:gravity="center_vertical"
+                    android:hint="@string/search_tip"
+                    android:maxLines="1"
+                    android:paddingHorizontal="20dp"
+                    android:singleLine="true"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    app:barrierDirection="bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/searchView"
+                    app:tabGravity="fill" />
+
+                <View
+                    android:id="@+id/view_divide"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/ripple_color"
+                    app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+
+            </com.gaofeng.wanandroid.widget.CollapsibleToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/ripple_color"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+                <TextView
+                    android:id="@+id/tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 </layout>

@@ -74,7 +74,6 @@ class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticl
          * Create a fragment with the article type
          */
         fun create(type: Int) = ArticleFragment().apply {
-            println("create fragment with : $type")
             val bundle = Bundle()
             bundle.putInt(ARTICLE_TYPE, type)
             arguments = bundle

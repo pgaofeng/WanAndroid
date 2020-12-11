@@ -25,20 +25,6 @@
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start">
-        <KeyFrameSet>
-            <KeyPosition
-                app:framePosition="50"
-                app:keyPositionType="deltaRelative"
-                app:motionTarget="@id/tabLayout"
-                app:percentX="1"
-                app:percentY="0" />
-            <KeyPosition
-                app:framePosition="50"
-                app:keyPositionType="deltaRelative"
-                app:motionTarget="@id/view_divide"
-                app:percentX="1"
-                app:percentY="0" />
-        </KeyFrameSet>
-        <OnClick app:touchAnchorId="@id/searchView" />
+      <!--  <OnClick app:touchAnchorId="@id/searchView" />-->
     </Transition>
 </MotionScene>
