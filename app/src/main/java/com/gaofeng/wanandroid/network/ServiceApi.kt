@@ -27,6 +27,21 @@ interface ServiceApi {
     @GET("banner/json")
     suspend fun getBanner(): BaseBean<List<Banner>>
 
+    /**
+     * 获取首页数据
+     */
     @GET("article/list/{page}/json")
     suspend fun getHomeMainArticle(@Path("page") page: Int): BaseBean<DataPaging<Article>>
+
+    /**
+     * 获取广场数据
+     */
+    @GET("user_article/list/{page}/json")
+    suspend fun getSquareArticle(@Path("page")page: Int):BaseBean<DataPaging<Article>>
+
+    /**
+     * 获取问答数据
+     */
+    @GET("wenda/list/{page}/json")
+    suspend fun getAnswerArticle(@Path("page")page: Int):BaseBean<DataPaging<Article>>
 }

@@ -1,4 +1,4 @@
-package com.gaofeng.wanandroid.screen.home.adapter
+package com.gaofeng.wanandroid.screen.home
 
 import android.text.Html
 import androidx.lifecycle.LifecycleOwner

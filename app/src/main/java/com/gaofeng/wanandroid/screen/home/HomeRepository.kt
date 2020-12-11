@@ -1,4 +1,4 @@
-package com.gaofeng.wanandroid.screen.home.repository
+package com.gaofeng.wanandroid.screen.home
 
 import com.gaofeng.wanandroid.network.ServiceApi
 import javax.inject.Inject
@@ -16,12 +16,17 @@ class HomeRepository @Inject constructor(private val api: ServiceApi) {
     suspend fun getHomeTopArticle() = api.getHomeTopArticle().resultData
 
     /**
-     * 获取Banner数据
-     */
-    suspend fun getBanner() = api.getBanner().resultData
-
-    /**
      * 获取首页分页数据
      */
     suspend fun getHomeMainArticle(page: Int) = api.getHomeMainArticle(page).resultData
+
+    /**
+     * 获取广场数据
+     */
+    suspend fun getSquareArticle(page: Int) = api.getSquareArticle(page).resultData
+
+    /**
+     * 获取问答数据
+     */
+    suspend fun getAnswerArticle(page: Int) = api.getAnswerArticle(page).resultData
 }

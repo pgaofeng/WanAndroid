@@ -31,6 +31,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         if (isFirst) {
             showFragment(R.id.home, first = true)
         }
+        setStatusBarColor(R.color.header_color,dark = false)
     }
 
     /**
