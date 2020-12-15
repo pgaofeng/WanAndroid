@@ -1,7 +1,6 @@
 package com.gaofeng.wanandroid.screen.home
 
 import android.view.View
-import androidx.viewpager2.widget.ViewPager2
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseBindingFragment
 import com.gaofeng.wanandroid.databinding.FragmentHomeBinding
@@ -27,79 +26,6 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = titles[position]
         }.attach()
-
-        binding.tv.text = """
-            12
-            34
-            34
-            34
-            
-            4r
-            ewr
-            er
-            r
-            r
-            er
-            e
-            e
-            
-            f
-            
-            ds
-            f
-            adf
-            ad
-            sf
-            a
-            ert
-            f
-            ea
-            g
-            asg
-            d
-            gf
-            ds
-            f
-            adf
-            ad
-            sfadsgasdg
-            
-            d
-            gf
-            a
-            sdg
-            ad
-            s
-            f
-            asd
-            f
-            asd
-            g
-            ad
-            g
-            
-            ds
-            f
-            a
-            sd
-            f
-            
-            a
-            sd
-            g
-            
-            d
-            a
-            sf
-            dsa
-            f
-            
-            
-            
-            
-            
-            
-        """.trimIndent()
     }
 
 }

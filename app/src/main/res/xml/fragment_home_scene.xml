@@ -25,6 +25,6 @@
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start">
-      <!--  <OnClick app:touchAnchorId="@id/searchView" />-->
+        <OnClick app:touchAnchorId="@id/searchView" />
     </Transition>
 </MotionScene>

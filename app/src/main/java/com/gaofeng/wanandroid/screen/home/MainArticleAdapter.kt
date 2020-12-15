@@ -26,6 +26,11 @@ class MainArticleAdapter(lifecycleOwner: LifecycleOwner) :
         binding.tvTop.setText(if (item != null && item.isTop) R.string.top else R.string.fresh)
         binding.tvTitle.text = Html.fromHtml(item?.title, Html.FROM_HTML_MODE_LEGACY)
         binding.tvContent.text = Html.fromHtml(item?.desc, Html.FROM_HTML_MODE_LEGACY)
+        if (item != null && item.collect) {
+            binding.imgLike.setImageResource(R.mipmap.ic_like)
+        } else {
+            binding.imgLike.setImageResource(R.mipmap.ic_unlike)
+        }
     }
 
     companion object {
