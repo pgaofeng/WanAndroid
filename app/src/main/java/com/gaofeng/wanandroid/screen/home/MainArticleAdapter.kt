@@ -36,11 +36,18 @@ class MainArticleAdapter(lifecycleOwner: LifecycleOwner) :
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<Article>() {
             override fun areItemsTheSame(oldItem: Article, newItem: Article) =
-                oldItem == newItem
+                oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.desc == newItem.desc
                         && oldItem.title == newItem.title
+                        && oldItem.collect == newItem.collect
+                        && oldItem.isTop == newItem.isTop
+                        && oldItem.fresh == newItem.fresh
+                        && oldItem.niceDate == newItem.niceDate
+                        && oldItem.niceShareDate == newItem.niceShareDate
+                        && oldItem.author == newItem.author
+                        && oldItem.shareUser == newItem.shareUser
             }
         }
     }
