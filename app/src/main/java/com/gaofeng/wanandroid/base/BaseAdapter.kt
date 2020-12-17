@@ -9,7 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
+import com.gaofeng.wanandroid.bean.AdapterType
 import com.gaofeng.wanandroid.common.BindingViewHolder
 
 /**
@@ -18,7 +18,7 @@ import com.gaofeng.wanandroid.common.BindingViewHolder
  * @date 2020/12/3 15:58
  * @desc 通用的RecyclerViewAdapter，使用Binding
  */
-abstract class BaseAdapter<T : Any, B : ViewDataBinding>(
+abstract class BaseAdapter<T : AdapterType, B : ViewDataBinding>(
     @LayoutRes private val layoutRes: Int,
     private val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<BindingViewHolder<B>>() {
@@ -62,7 +62,7 @@ abstract class BaseAdapter<T : Any, B : ViewDataBinding>(
  * @author 高峰
  * @desc 通用的RecyclerViewAdapter，使用Binding+Paging3
  */
-abstract class BaseAdapterWithPaging<T : Any, B : ViewDataBinding>(
+abstract class BaseAdapterWithPaging<T : AdapterType, B : ViewDataBinding>(
     @LayoutRes private val layoutRes: Int,
     private val lifecycleOwner: LifecycleOwner,
     callback: DiffUtil.ItemCallback<T>

@@ -1,6 +1,7 @@
 package com.gaofeng.wanandroid.screen.home
 
 import android.text.Html
+import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import com.gaofeng.wanandroid.R
@@ -39,15 +40,7 @@ class MainArticleAdapter(lifecycleOwner: LifecycleOwner) :
                 oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-                return oldItem.desc == newItem.desc
-                        && oldItem.title == newItem.title
-                        && oldItem.collect == newItem.collect
-                        && oldItem.isTop == newItem.isTop
-                        && oldItem.fresh == newItem.fresh
-                        && oldItem.niceDate == newItem.niceDate
-                        && oldItem.niceShareDate == newItem.niceShareDate
-                        && oldItem.author == newItem.author
-                        && oldItem.shareUser == newItem.shareUser
+                return oldItem == newItem
             }
         }
     }
