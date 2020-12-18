@@ -1,6 +1,5 @@
 package com.gaofeng.wanandroid.common
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -22,20 +21,16 @@ import com.gaofeng.wanandroid.bean.AdapterType
  * 注意：若是单ItemType则[layoutResMap]只需要设置一个即可，key可为任意。若是多个ItemType，注意
  * 对应的ItemType和LayoutId，并且Model必须实现[AdapterType]接口。
  * <br>
- * 参数[extra]是额外参数，用于给xml设置其他的数据，比如点击事件等，之一key是[BR]对应的值。
+ * 参数[extra]是额外参数，用于给xml设置其他的数据，比如点击事件等，其中key是[BR]对应的值。
  *
  */
 class CommonPagingAdapter<T : Any>(
     private val bindingKey: Int,
     private val lifecycleOwner: LifecycleOwner,
     private val layoutResMap: Map<Int, Int>,
+    callback: DiffUtil.ItemCallback<T>,
     private vararg val extra: Pair<Int, Any> = emptyArray()
-) : PagingDataAdapter<T, CommonBindingViewHolder>(object : DiffUtil.ItemCallback<T>() {
-    override fun areItemsTheSame(oldItem: T, newItem: T) = oldItem.hashCode() == newItem.hashCode()
-
-    @SuppressLint("DiffUtilEquals")
-    override fun areContentsTheSame(oldItem: T, newItem: T) = oldItem == newItem
-}) {
+) : PagingDataAdapter<T, CommonBindingViewHolder>(callback) {
 
     override fun onBindViewHolder(holder: CommonBindingViewHolder, position: Int) {
         holder.binding.lifecycleOwner = lifecycleOwner

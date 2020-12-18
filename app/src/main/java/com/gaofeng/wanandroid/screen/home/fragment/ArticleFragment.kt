@@ -5,12 +5,13 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.DiffUtil
 import com.gaofeng.wanandroid.BR
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseBindingFragment
-import com.gaofeng.wanandroid.common.CommonPagingAdapter
 import com.gaofeng.wanandroid.bean.Article
 import com.gaofeng.wanandroid.common.CommonFooterAdapter
+import com.gaofeng.wanandroid.common.CommonPagingAdapter
 import com.gaofeng.wanandroid.databinding.FragmentArticleBinding
 import com.gaofeng.wanandroid.ext.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,8 +41,17 @@ class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticl
         super.initView(view, isFirst)
         //    mainAdapter = MainArticleAdapter(this)
 
-        mainAdapter = CommonPagingAdapter(BR.article, this, mapOf(0 to R.layout.item_article))
+        mainAdapter = CommonPagingAdapter(
+            BR.article,
+            this,
+            mapOf(0 to R.layout.item_article),
+            object : DiffUtil.ItemCallback<Article>() {
+                override fun areItemsTheSame(oldItem: Article, newItem: Article) =
+                    oldItem.id == newItem.id
 
+                override fun areContentsTheSame(oldItem: Article, newItem: Article) =
+                    oldItem == newItem
+            })
 
         binding.apply {
             mainAdapter.addLoadStateListener {

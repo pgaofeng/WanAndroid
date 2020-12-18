@@ -1,7 +1,6 @@
 package com.gaofeng.wanandroid
 
 import com.gaofeng.wanandroid.bean.Article
-import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
@@ -28,6 +27,20 @@ class ExampleUnitTest {
         println(article1 == article2)
         println(article1 === article2)
 
+
+    }
+
+    data class User(
+        var name: String,
+        var age: Int
+    )
+
+    @org.junit.Test
+    fun testHash() {
+        val test = User("zhang", 12)
+        println(test.hashCode())
+        test.name = "lisi"
+        println(test.hashCode())
 
     }
 }
