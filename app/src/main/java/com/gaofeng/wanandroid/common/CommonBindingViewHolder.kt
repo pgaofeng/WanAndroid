@@ -1,7 +1,7 @@
 package com.gaofeng.wanandroid.common
 
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 
 /**
  *
@@ -9,4 +9,4 @@ import androidx.viewbinding.ViewBinding
  * @date 2020/12/7 15:54
  * @desc 通用ViewHolder
  */
-class BindingViewHolder<VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root)
+class CommonBindingViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)

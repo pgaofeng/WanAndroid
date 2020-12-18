@@ -5,12 +5,14 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import com.gaofeng.wanandroid.BR
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseBindingFragment
+import com.gaofeng.wanandroid.common.CommonPagingAdapter
+import com.gaofeng.wanandroid.bean.Article
 import com.gaofeng.wanandroid.common.CommonFooterAdapter
 import com.gaofeng.wanandroid.databinding.FragmentArticleBinding
 import com.gaofeng.wanandroid.ext.visible
-import com.gaofeng.wanandroid.screen.home.MainArticleAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,7 +28,7 @@ class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticl
     override fun layoutRes() = R.layout.fragment_article
 
     private val viewModel by viewModels<ArticleViewModel>()
-    private lateinit var mainAdapter: MainArticleAdapter
+    private lateinit var mainAdapter: CommonPagingAdapter<Article>
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         val type = savedInstanceState?.getInt(ARTICLE_TYPE)
@@ -36,7 +38,11 @@ class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticl
 
     override fun initView(view: View, isFirst: Boolean) {
         super.initView(view, isFirst)
-        mainAdapter = MainArticleAdapter(this)
+        //    mainAdapter = MainArticleAdapter(this)
+
+        mainAdapter = CommonPagingAdapter(BR.article, this, mapOf(0 to R.layout.item_article))
+
+
         binding.apply {
             mainAdapter.addLoadStateListener {
                 when (it.refresh) {

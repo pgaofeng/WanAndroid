@@ -6,9 +6,9 @@
     <data>
 
         <import type="android.view.View" />
-
+        <import type="com.gaofeng.wanandroid.R" />
+        <import type="android.text.Html" />
         <import type="android.text.TextUtils" />
-
         <import type="androidx.core.text.SpannableStringKt" />
 
         <variable
@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
+                android:text="@{article.top?R.string.top:R.string.fresh}"
                 android:textColor="@color/red"
                 android:textSize="11sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +88,7 @@
 
             <TextView
                 android:id="@+id/tvTitle"
+                html="@{article.title}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
@@ -101,6 +103,7 @@
 
             <TextView
                 android:id="@+id/tvContent"
+                html="@{article.desc}"
                 visible="@{!TextUtils.isEmpty(article.desc)}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -132,6 +135,7 @@
 
             <ImageView
                 android:id="@+id/img_like"
+                src="@{article.collect?R.mipmap.ic_like:R.mipmap.ic_unlike}"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
