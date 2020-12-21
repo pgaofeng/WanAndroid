@@ -30,7 +30,7 @@ data class Article(
     val publishTime: Long = 0,
     val realSuperChapterId: Int = 0,
     val selfVisible: Int = 0,
-    val shareDate: Long = 0,
+    val shareDate: Long? = 0,
     val shareUser: String = "",
     val superChapterId: Int = 0,
     val superChapterName: String = "",

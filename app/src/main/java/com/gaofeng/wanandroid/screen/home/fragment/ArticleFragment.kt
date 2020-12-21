@@ -2,6 +2,7 @@ package com.gaofeng.wanandroid.screen.home.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -59,6 +60,11 @@ class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticl
                     is LoadState.Loading -> refreshLayout.isRefreshing = true
                     else -> refreshLayout.isRefreshing = false
                 }
+                when {
+                    it.refresh is LoadState.Error -> dealError(it.refresh as LoadState.Error)
+                    it.append is LoadState.Error -> dealError(it.append as LoadState.Error)
+                    it.prepend is LoadState.Error -> dealError(it.prepend as LoadState.Error)
+                }
             }
             recyclerView.adapter =
                 mainAdapter.withLoadStateFooter(CommonFooterAdapter { mainAdapter.retry() })
@@ -67,6 +73,12 @@ class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticl
                 setOnRefreshListener { mainAdapter.refresh() }
             }
         }
+    }
+
+    private fun dealError(error: LoadState.Error) {
+        // 可以在这里处理Paging异常
+        error.error.printStackTrace()
+        Toast.makeText(requireContext(),error.error.message?:"unknown",Toast.LENGTH_SHORT).show()
     }
 
     override fun observe() {
