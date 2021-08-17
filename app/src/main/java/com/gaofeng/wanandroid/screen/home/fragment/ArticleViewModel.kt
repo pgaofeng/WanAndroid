@@ -1,9 +1,6 @@
 package com.gaofeng.wanandroid.screen.home.fragment
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -12,8 +9,8 @@ import com.gaofeng.wanandroid.base.BaseViewModel
 import com.gaofeng.wanandroid.bean.DataPaging
 import com.gaofeng.wanandroid.common.CommonDataSource
 import com.gaofeng.wanandroid.screen.home.HomeRepository
-import com.gaofeng.wanandroid.screen.home.fragment.ArticleFragment.Companion.ARTICLE_TYPE
-import kotlinx.coroutines.flow.catch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  *
@@ -21,17 +18,16 @@ import kotlinx.coroutines.flow.catch
  * @date 2020/12/4 10:09
  * @desc HomeViewModel
  */
-class ArticleViewModel @ViewModelInject constructor(
-    private val repository: HomeRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
+@HiltViewModel
+class ArticleViewModel @Inject constructor(
+    private val repository: HomeRepository
 ) : BaseViewModel() {
 
-    private var type: Int = savedStateHandle[ARTICLE_TYPE] ?: 0
+    private var type: Int = 0
 
     fun setType(type: Int?) {
         type ?: return
         this.type = type
-        savedStateHandle[ARTICLE_TYPE] = type
     }
 
     /**

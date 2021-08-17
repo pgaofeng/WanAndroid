@@ -1,7 +1,7 @@
 buildscript {
 
-    extra["kotlin_version"] = "1.4.21"
-    extra["hilt_version"] = "2.30.1-alpha"
+    extra["kotlin_version"] = "1.5.21"
+    extra["hilt_version"] = "2.38.1"
 
     repositories {
         google()

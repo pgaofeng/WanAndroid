@@ -1,6 +1,7 @@
 package com.gaofeng.wanandroid.common
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.gaofeng.wanandroid.bean.DataPaging
 
 /**
@@ -22,6 +23,13 @@ class CommonDataSource<V : Any, DP : DataPaging<V>>(private val block: suspend (
             )
         } catch (exception: Exception) {
             LoadResult.Error(exception)
+        }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, V>): Int? {
+        return state.anchorPosition?.let {
+            val anchorPage = state.closestPageToPosition(it)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 }
