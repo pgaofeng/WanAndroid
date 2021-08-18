@@ -1,10 +1,9 @@
-package com.gaofeng.wanandroid.screen.home.fragment
+package com.gaofeng.wanandroid.ui.home.fragment
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
 import com.gaofeng.wanandroid.BR
@@ -14,10 +13,7 @@ import com.gaofeng.wanandroid.bean.Article
 import com.gaofeng.wanandroid.common.CommonFooterAdapter
 import com.gaofeng.wanandroid.common.CommonPagingAdapter
 import com.gaofeng.wanandroid.databinding.FragmentArticleBinding
-import com.gaofeng.wanandroid.ext.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 /**
  *
@@ -27,7 +23,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticleBinding>() {
-    override fun layoutRes() = R.layout.fragment_article
+    override fun getLayoutRes() = R.layout.fragment_article
 
     private val viewModel by viewModels<ArticleViewModel>()
     private lateinit var mainAdapter: CommonPagingAdapter<Article>
@@ -38,8 +34,8 @@ class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticl
         super.onActivityCreated(savedInstanceState)
     }
 
-    override fun initView(view: View, isFirst: Boolean) {
-        super.initView(view, isFirst)
+    override fun initView(view: View) {
+        super.initView(view)
         //    mainAdapter = MainArticleAdapter(this)
 
         mainAdapter = CommonPagingAdapter(
@@ -78,20 +74,8 @@ class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticl
     private fun dealError(error: LoadState.Error) {
         // 可以在这里处理Paging异常
         error.error.printStackTrace()
-        Toast.makeText(requireContext(),error.error.message?:"unknown",Toast.LENGTH_SHORT).show()
-    }
-
-    override fun observe() {
-        super.observe()
-        viewModel.also { model ->
-            lifecycleScope.launch {
-                model.pager.collectLatest { mainAdapter.submitData(it) }
-            }
-            model.empty.observe(this) {
-                binding.emptyView.visible = it
-                binding.recyclerView.visible = !it
-            }
-        }
+        Toast.makeText(requireContext(), error.error.message ?: "unknown", Toast.LENGTH_SHORT)
+            .show()
     }
 
 

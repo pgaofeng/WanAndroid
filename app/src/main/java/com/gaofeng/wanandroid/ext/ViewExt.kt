@@ -9,9 +9,12 @@ import android.view.View
  * @desc View的拓展方法和属性
  */
 
-// 设置View是否是Visibility
-var View.visible: Boolean
-    get() = visibility == View.VISIBLE
-    set(value) {
-        visibility = if (value) View.VISIBLE else View.GONE
-    }
+// 设置View显示Visibility
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+// 设置View显示GONE
+fun View.gone() {
+    visibility = View.GONE
+}

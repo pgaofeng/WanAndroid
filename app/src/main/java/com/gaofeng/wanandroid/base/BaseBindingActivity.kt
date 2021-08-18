@@ -12,8 +12,9 @@ import androidx.databinding.ViewDataBinding
 abstract class BaseBindingActivity<B : ViewDataBinding> : BaseActivity() {
 
     protected lateinit var binding: B
-    override fun setView() {
-        binding = DataBindingUtil.setContentView(this, layoutRes())
+
+    override fun setContentView() {
+        binding = DataBindingUtil.setContentView(this, getLayoutRes())
     }
 
 }

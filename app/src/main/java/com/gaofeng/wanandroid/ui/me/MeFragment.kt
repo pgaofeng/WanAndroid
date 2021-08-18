@@ -1,4 +1,4 @@
-package com.gaofeng.wanandroid.screen.me
+package com.gaofeng.wanandroid.ui.me
 
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseFragment
@@ -10,5 +10,5 @@ import com.gaofeng.wanandroid.base.BaseFragment
  * @desc 我的界面Fragment
  */
 class MeFragment : BaseFragment() {
-    override fun layoutRes() = R.layout.fragment_me
+    override fun getLayoutRes() = R.layout.fragment_me
 }

@@ -1,9 +1,9 @@
-package com.gaofeng.wanandroid.screen.home
+package com.gaofeng.wanandroid.ui.home
 
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.gaofeng.wanandroid.screen.home.fragment.ArticleFragment
+import com.gaofeng.wanandroid.ui.home.fragment.ArticleFragment
 
 
 /**
@@ -12,8 +12,12 @@ import com.gaofeng.wanandroid.screen.home.fragment.ArticleFragment
  * @date 2020/12/11 13:58
  * @desc Home页ViewPager2的adapter
  */
-class HomeViewPagerAdapter(manager:FragmentManager,lifecycle: Lifecycle, private val title: List<String>) :
-    FragmentStateAdapter(manager,lifecycle) {
+class HomeViewPagerAdapter(
+    manager: FragmentManager,
+    lifecycle: Lifecycle,
+    private val title: List<String>
+) :
+    FragmentStateAdapter(manager, lifecycle) {
 
     override fun getItemCount() = title.size
 

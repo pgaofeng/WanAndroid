@@ -1,4 +1,4 @@
-package com.gaofeng.wanandroid.screen.square
+package com.gaofeng.wanandroid.ui.square
 
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseFragment
@@ -10,5 +10,5 @@ import com.gaofeng.wanandroid.base.BaseFragment
  * @desc 广场Fragment
  */
 class SquareFragment : BaseFragment() {
-    override fun layoutRes() = R.layout.fragment_square
+    override fun getLayoutRes() = R.layout.fragment_square
 }

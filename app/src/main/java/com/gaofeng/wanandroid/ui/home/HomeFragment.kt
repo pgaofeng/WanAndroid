@@ -1,4 +1,4 @@
-package com.gaofeng.wanandroid.screen.home
+package com.gaofeng.wanandroid.ui.home
 
 import android.view.View
 import com.gaofeng.wanandroid.R
@@ -15,12 +15,12 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
-    override fun layoutRes() = R.layout.fragment_home
+    override fun getLayoutRes() = R.layout.fragment_home
 
     private val titles by lazy { listOf("推荐", "广场", "问答") }
 
-    override fun initView(view: View, isFirst: Boolean) {
-        super.initView(view, isFirst)
+    override fun initView(view: View) {
+        super.initView(view)
         binding.viewPager.adapter = HomeViewPagerAdapter(childFragmentManager, lifecycle, titles)
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

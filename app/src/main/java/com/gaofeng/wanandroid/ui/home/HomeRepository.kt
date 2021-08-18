@@ -1,4 +1,4 @@
-package com.gaofeng.wanandroid.screen.home
+package com.gaofeng.wanandroid.ui.home
 
 import com.gaofeng.wanandroid.network.ServiceApi
 import javax.inject.Inject

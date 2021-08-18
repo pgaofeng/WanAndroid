@@ -1,4 +1,4 @@
-package com.gaofeng.wanandroid.screen.home.fragment
+package com.gaofeng.wanandroid.ui.home.fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,7 @@ import androidx.paging.cachedIn
 import com.gaofeng.wanandroid.base.BaseViewModel
 import com.gaofeng.wanandroid.bean.DataPaging
 import com.gaofeng.wanandroid.common.CommonDataSource
-import com.gaofeng.wanandroid.screen.home.HomeRepository
+import com.gaofeng.wanandroid.ui.home.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

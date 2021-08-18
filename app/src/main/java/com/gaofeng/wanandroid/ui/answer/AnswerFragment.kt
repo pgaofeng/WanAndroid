@@ -1,4 +1,4 @@
-package com.gaofeng.wanandroid.screen.answer
+package com.gaofeng.wanandroid.ui.answer
 
 import com.gaofeng.wanandroid.R
 import com.gaofeng.wanandroid.base.BaseFragment
@@ -10,5 +10,5 @@ import com.gaofeng.wanandroid.base.BaseFragment
  * @desc 问答模块
  */
 class AnswerFragment : BaseFragment() {
-    override fun layoutRes() = R.layout.fragment_answer
+    override fun getLayoutRes() = R.layout.fragment_answer
 }
