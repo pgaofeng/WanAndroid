@@ -21,7 +21,7 @@ abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mView = LayoutInflater.from(container?.context).inflate(getLayoutRes(), container, false)
+        mView = setContentView(inflater, container)
         return mView
     }
 
@@ -29,6 +29,13 @@ abstract class BaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView(mView)
         initData()
+    }
+
+    /**
+     * 设置布局View，抽出这一方法是为了后面适配DataBinding
+     */
+    open fun setContentView(inflater: LayoutInflater, container: ViewGroup?): View {
+        return inflater.inflate(getLayoutRes(), container, false)
     }
 
     /**

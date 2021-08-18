@@ -18,6 +18,9 @@ abstract class BaseActivity : AppCompatActivity() {
         initData()
     }
 
+    /**
+     * 设置布局View，抽出这一方法是为了后面适配DataBinding
+     */
     open fun setContentView() {
         setContentView(getLayoutRes())
     }

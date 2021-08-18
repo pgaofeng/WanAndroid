@@ -1,6 +1,5 @@
 package com.gaofeng.wanandroid.base
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +16,8 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : BaseFragment() {
 
     protected lateinit var binding: B
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(layoutInflater, getLayoutRes(), container, false)
-        return super.onCreateView(inflater, container, savedInstanceState)
+    override fun setContentView(inflater: LayoutInflater, container: ViewGroup?): View {
+        binding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false)
+        return binding.root
     }
 }
