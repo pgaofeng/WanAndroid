@@ -10,5 +10,5 @@ import com.gaofeng.wanandroid.base.BaseFragment
  * @desc 问答模块
  */
 class AnswerFragment : BaseFragment() {
-    override fun getLayoutRes() = R.layout.fragment_answer
+    override val layoutId = R.layout.fragment_answer
 }

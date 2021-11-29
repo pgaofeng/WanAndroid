@@ -21,24 +21,21 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment() {
     private val mTitles by lazy { listOf("推荐", "广场", "问答") }
     private lateinit var mTabLayout: TabLayout
-    private lateinit var mTvSearch: TextView
     private lateinit var mViewPager2: ViewPager2
 
+    override val layoutId = R.layout.fragment_home
 
-    override fun getLayoutRes() = R.layout.fragment_home
+    override fun init() {
+        super.init()
+        mTabLayout = mRootView.findViewById(R.id.tabLayout)
+        mViewPager2 = mRootView.findViewById(R.id.viewPager)
 
-    override fun initView(parentView: View) {
-        super.initView(parentView)
-        mTvSearch = parentView.findViewById(R.id.searchView)
-        mTabLayout = parentView.findViewById(R.id.tabLayout)
-        mViewPager2 = parentView.findViewById(R.id.viewPager)
-
-        mViewPager2.adapter = object : FragmentStateAdapter(childFragmentManager, lifecycle) {
+        val adapter = object : FragmentStateAdapter(childFragmentManager, lifecycle) {
             override fun getItemCount() = mTitles.size
 
             override fun createFragment(position: Int) = ArticleFragment.create(position)
-
         }
+        mViewPager2.adapter = adapter
 
         TabLayoutMediator(mTabLayout, mViewPager2) { tab, position ->
             tab.text = mTitles[position]

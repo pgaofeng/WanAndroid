@@ -10,5 +10,5 @@ import com.gaofeng.wanandroid.base.BaseFragment
  * @desc 我的界面Fragment
  */
 class MeFragment : BaseFragment() {
-    override fun getLayoutRes() = R.layout.fragment_me
+    override val layoutId= R.layout.fragment_me
 }

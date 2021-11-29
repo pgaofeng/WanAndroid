@@ -10,5 +10,5 @@ import com.gaofeng.wanandroid.base.BaseFragment
  * @desc 广场Fragment
  */
 class SquareFragment : BaseFragment() {
-    override fun getLayoutRes() = R.layout.fragment_square
+    override val layoutId = R.layout.fragment_square
 }

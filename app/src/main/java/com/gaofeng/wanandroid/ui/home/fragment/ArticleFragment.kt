@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticleBinding>() {
-    override fun getLayoutRes() = R.layout.fragment_article
+    override val layoutId = R.layout.fragment_article
 
     private val viewModel by viewModels<ArticleViewModel>()
     private lateinit var mainAdapter: CommonPagingAdapter<Article>
@@ -34,10 +34,8 @@ class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticl
         super.onActivityCreated(savedInstanceState)
     }
 
-    override fun initView(view: View) {
-        super.initView(view)
-        //    mainAdapter = MainArticleAdapter(this)
-
+    override fun init() {
+        super.init()
         mainAdapter = CommonPagingAdapter(
             BR.article,
             this,
@@ -82,10 +80,8 @@ class ArticleFragment private constructor() : BaseBindingFragment<FragmentArticl
     companion object {
         const val ARTICLE_TYPE = "article type"
 
-        /**
-         * Create a fragment with the article type
-         */
         fun create(type: Int) = ArticleFragment().apply {
+            println("create ")
             val bundle = Bundle()
             bundle.putInt(ARTICLE_TYPE, type)
             arguments = bundle

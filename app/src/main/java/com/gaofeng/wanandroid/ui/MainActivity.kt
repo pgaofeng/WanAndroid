@@ -2,15 +2,14 @@ package com.gaofeng.wanandroid.ui
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import com.gaofeng.wanandroid.R
-import com.gaofeng.wanandroid.base.BaseActivity
+import com.gaofeng.wanandroid.base.BaseBindingActivity
+import com.gaofeng.wanandroid.databinding.ActivityMainBinding
 import com.gaofeng.wanandroid.ui.answer.AnswerFragment
 import com.gaofeng.wanandroid.ui.home.HomeFragment
 import com.gaofeng.wanandroid.ui.me.MeFragment
 import com.gaofeng.wanandroid.ui.square.SquareFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -20,26 +19,20 @@ import dagger.hilt.android.AndroidEntryPoint
  * MainActivity，内部含有四个Fragment，分别用来对应四个tab
  */
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
+class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
-    private lateinit var mBottomView: BottomNavigationView
-    private lateinit var mContainer: FragmentContainerView
+    override val layoutId = R.layout.activity_main
 
-    override fun getLayoutRes(): Int {
-        return R.layout.activity_main
-    }
-
-    override fun initView() {
-        super.initView()
-        mBottomView = findViewById(R.id.bottomView)
-        mContainer = findViewById(R.id.frame_container)
-        mBottomView.setOnItemSelectedListener {
-            showFragment(it.itemId)
-            true
+    override fun init() {
+        super.init()
+        binding.bottomView.apply {
+            setOnItemSelectedListener {
+                showFragment(it.itemId)
+                true
+            }
+            // 不重写该方法的话，多次点击选中的item仍会触发onItemSelectedListener
+            setOnItemReselectedListener { }
         }
-
-        // 不重写该方法的话，多次点击选中的item仍会触发onItemSelectedListener
-        mBottomView.setOnItemReselectedListener {}
         showFragment(R.id.home)
     }
 
@@ -48,7 +41,8 @@ class MainActivity : BaseActivity() {
      */
     private fun showFragment(@IdRes itemId: Int) {
         supportFragmentManager.commit {
-            supportFragmentManager.findFragmentByTag(mBottomView.selectedItemId.toString())?.also {
+            val selectedId = binding.bottomView.selectedItemId
+            supportFragmentManager.findFragmentByTag(selectedId.toString())?.also {
                 hide(it)
             }
             val target = supportFragmentManager.findFragmentByTag(itemId.toString())

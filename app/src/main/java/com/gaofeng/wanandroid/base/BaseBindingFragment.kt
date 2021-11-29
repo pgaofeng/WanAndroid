@@ -1,10 +1,12 @@
 package com.gaofeng.wanandroid.base
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 
 /**
  *
@@ -12,12 +14,29 @@ import androidx.databinding.ViewDataBinding
  * @date 2020/12/2 14:37
  * @desc Fragment基类
  */
-abstract class BaseBindingFragment<B : ViewDataBinding> : BaseFragment() {
+abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
 
     protected lateinit var binding: B
+    protected lateinit var mRootView: View
+    abstract val layoutId: Int
 
-    override fun setContentView(inflater: LayoutInflater, container: ViewGroup?): View {
-        binding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false)
-        return binding.root
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        mRootView = binding.root
+        return mRootView
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    /**
+     * 初始化操作
+     */
+    open fun init() = Unit
 }
