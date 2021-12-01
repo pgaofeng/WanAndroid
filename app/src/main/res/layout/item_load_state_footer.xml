@@ -3,16 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="androidx.paging.LoadState" />
+
         <variable
             name="state"
             type="androidx.paging.LoadState" />
+
         <variable
             name="click"
             type="android.view.View.OnClickListener" />
     </data>
 
     <FrameLayout
+        visible="@{!(state instanceof LoadState.NotLoading)}"
         android:layout_width="match_parent"
         android:layout_height="45dp">
 
