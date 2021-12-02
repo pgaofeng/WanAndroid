@@ -1,5 +1,9 @@
 package com.gaofeng.wanandroid.bean
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+
 
 /**
  * @author 高峰
@@ -7,40 +11,44 @@ package com.gaofeng.wanandroid.bean
  *
  * 文章
  */
+@Entity
 data class Article(
-    val apkLink: String = "",
-    val audit: Int = 0,
-    val author: String = "",
-    val canEdit: Boolean = false,
-    val chapterId: Int = 0,
-    val chapterName: String = "",
-    val collect: Boolean = false,
-    val courseId: Int = 0,
-    val desc: String = "",
-    val descMd: String = "",
-    val envelopePic: String = "",
-    val fresh: Boolean = false,
-    val id: Int = 0,
-    val link: String = "",
-    val niceDate: String = "",
-    val niceShareDate: String = "",
-    val origin: String = "",
-    val prefix: String = "",
-    val projectLink: String = "",
-    val publishTime: Long = 0,
-    val realSuperChapterId: Int = 0,
-    val selfVisible: Int = 0,
-    val shareDate: Long? = 0,
-    val shareUser: String = "",
-    val superChapterId: Int = 0,
-    val superChapterName: String = "",
-    val tags: List<Tag> = emptyList(),
-    val title: String = "",
-    val type: Int = 0,
-    val userId: Int = 0,
-    val visible: Int = 0,
-    val zan: Int = 0
+    var apkLink: String = "",
+    var audit: Int = 0,
+    var author: String = "",
+    var canEdit: Boolean = false,
+    var chapterId: Int = 0,
+    var chapterName: String = "",
+    var collect: Boolean = false,
+    var courseId: Int = 0,
+    var desc: String = "",
+    var descMd: String = "",
+    var envelopePic: String = "",
+    var fresh: Boolean = false,
+    @PrimaryKey
+    var id: Int = 0,
+    var link: String = "",
+    var niceDate: String = "",
+    var niceShareDate: String = "",
+    var origin: String = "",
+    var prefix: String = "",
+    var projectLink: String = "",
+    var publishTime: Long = 0,
+    var realSuperChapterId: Int = 0,
+    var selfVisible: Int = 0,
+    var shareDate: Long? = 0,
+    var shareUser: String = "",
+    var superChapterId: Int = 0,
+    var superChapterName: String = "",
+    @Ignore
+    var tags: List<Tag> = emptyList(),
+    var title: String = "",
+    var type: Int = 0,
+    var userId: Int = 0,
+    var visible: Int = 0,
+    var zan: Int = 0
 ){
+    @Ignore
     var isTop = false
 }
 

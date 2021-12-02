@@ -1,5 +1,6 @@
 package com.gaofeng.wanandroid.ui.home
 
+import com.gaofeng.wanandroid.db.ArticleDao
 import com.gaofeng.wanandroid.network.ServiceApi
 import javax.inject.Inject
 
@@ -9,7 +10,10 @@ import javax.inject.Inject
  * @date 2020/12/4 10:14
  * @desc 首页Repository，用于获取首页相关数据
  */
-class HomeRepository @Inject constructor(private val api: ServiceApi) {
+class HomeRepository @Inject constructor(
+    private val api: ServiceApi,
+    private val dao: ArticleDao
+) {
     /**
      * 获取首页置顶文章
      */
@@ -29,4 +33,6 @@ class HomeRepository @Inject constructor(private val api: ServiceApi) {
      * 获取问答数据
      */
     suspend fun getAnswerArticle(page: Int) = api.getAnswerArticle(page).resultData
+
+    fun getLocalArticle() = dao.queryAll()
 }

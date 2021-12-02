@@ -76,4 +76,11 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.11.0")
     // paging
     implementation("androidx.paging:paging-runtime-ktx:3.0.1")
+    // Room
+    val roomVersion = "2.3.0"
+    kapt("androidx.room:room-compiler:$roomVersion")
+
+    // 若是想要使用kotlin相关的一些功能，如suspend，flow等需要使用room-ktx依赖
+    // 若是加上了这个依赖，则前面的room-runtime依赖可以省略不加
+    implementation("androidx.room:room-ktx:$roomVersion")
 }

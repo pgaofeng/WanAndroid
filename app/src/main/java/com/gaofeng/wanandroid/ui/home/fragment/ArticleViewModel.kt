@@ -1,6 +1,5 @@
 package com.gaofeng.wanandroid.ui.home.fragment
 
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -34,7 +33,6 @@ class ArticleViewModel @Inject constructor(
                 2 -> repository.getAnswerArticle(page)
                 else -> repository.getAnswerArticle(page)
             }
-            println(data.size)
             data
         }
     }.flow.cachedIn(viewModelScope)
