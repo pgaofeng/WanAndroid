@@ -19,7 +19,9 @@ class ArticleViewModel @Inject constructor(
 
     var type: Int = 0
 
-    val pagerFlow = repository.getArticlePaging(type)
-        .flow
-        .cachedIn(viewModelScope)
+    val pagerFlow by lazy {
+        repository.getArticlePaging(type)
+            .flow
+            .cachedIn(viewModelScope)
+    }
 }
