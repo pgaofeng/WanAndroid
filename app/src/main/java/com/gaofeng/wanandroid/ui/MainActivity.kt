@@ -1,5 +1,9 @@
 package com.gaofeng.wanandroid.ui
 
+import android.graphics.Color
+import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -59,5 +63,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         R.id.answer -> AnswerFragment()
         R.id.square -> SquareFragment()
         else -> MeFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.WHITE
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 }
